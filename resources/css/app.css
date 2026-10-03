@@ -436,6 +436,37 @@
     transition: opacity 200ms ease 250ms;
 }
 
+/*
+ | An item that appeared on its own (an order that just came in) wears a ring
+ | for a moment, so it is noticed without anything jumping.
+ */
+@keyframes arrive {
+    0% {
+        opacity: 0;
+    }
+    12% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+[data-arrived] {
+    position: relative;
+}
+
+[data-arrived]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px var(--color-carrot);
+    opacity: 0;
+    pointer-events: none;
+    animation: arrive 2400ms ease-out both;
+}
+
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */
 @media (hover: hover) and (pointer: fine) {
     .photo-zoom img {

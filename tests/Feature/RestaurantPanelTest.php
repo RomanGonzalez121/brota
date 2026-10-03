@@ -34,7 +34,9 @@ class RestaurantPanelTest extends TestCase
         $waiting = $this->owner->restaurant->orders()->where('status', OrderStatus::Received)->get();
 
         $this->get(route('restaurant.orders.index'))->assertOk()->assertSee($waiting->first()->code);
-        $this->getJson(route('restaurant.orders.pending'))->assertExactJson(['count' => $waiting->count()]);
+        $this->getJson(route('restaurant.orders.pending'))
+            ->assertJson(['count' => $waiting->count()])
+            ->assertJsonStructure(['count', 'stamp']);
     }
 
     public function test_an_order_can_be_accepted_and_taken_to_delivered(): void

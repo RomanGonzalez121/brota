@@ -190,6 +190,100 @@ const enter = (element) => {
 let sending = Promise.resolve();
 let navigating = false;
 
+const parse = (html) => new DOMParser().parseFromString(html, 'text/html');
+
+/*
+ | Brings <main> (and the live regions) in line with a freshly rendered copy of
+ | the page. `arrived` marks new list items so they are noticed: it is set when
+ | the page updates on its own, not as the answer to something the person did.
+ */
+const update = async (page, { arrived = false } = {}) => {
+    const next = page.querySelector('main');
+    const current = document.querySelector('main');
+
+    await Promise.all(itemsIn(current).filter((item) => ! page.getElementById(item.id)).map(leave));
+
+    const before = new Map(itemsIn(current).map((item) => [item.id, item.getBoundingClientRect()]));
+    const rolled = [];
+    const added = [];
+
+    const updating = (from, to) => {
+        if (from.nodeType !== Node.ELEMENT_NODE) {
+            return;
+        }
+
+        // What was already revealed or uncloaked stays that way; it must not hide and animate again.
+        if (from.hasAttribute('data-revealed')) {
+            to.setAttribute('data-revealed', '');
+        }
+
+        if (! from.hasAttribute('x-cloak')) {
+            to.removeAttribute('x-cloak');
+        }
+
+        if (from.hasAttribute('data-pop') && from.textContent.trim() !== to.textContent.trim()) {
+            rolled.push([from, amount(to.textContent) >= amount(from.textContent)]);
+        }
+    };
+
+    Alpine.morph(current, next, {
+        key: (element) => (element.hasAttribute('data-item') ? element.id : ''),
+        updating,
+        added(element) {
+            if (element.nodeType !== Node.ELEMENT_NODE) {
+                return;
+            }
+
+            // An item that only changed place is already known: it glides there instead of appearing.
+            if (before.has(element.id)) {
+                [element, ...element.querySelectorAll('[data-reveal]')].forEach((part) => part.setAttribute('data-revealed', ''));
+            } else {
+                added.push(element);
+            }
+        },
+    });
+
+    document.querySelectorAll('[data-live][id]').forEach((region) => {
+        const fresh = page.getElementById(region.id);
+
+        if (fresh && ! current.contains(region)) {
+            Alpine.morph(region, fresh, { updating });
+        }
+    });
+
+    document.title = page.title;
+    current.querySelectorAll('[data-reveal]:not([data-revealed])').forEach((element) => revealer.observe(element));
+    rolled.forEach(([element, up]) => window.replay(element, up ? 'animate-roll-up' : 'animate-roll-down'));
+    added.forEach(enter);
+
+    if (arrived) {
+        added.filter((element) => element.matches('[data-item]')).forEach((element) => element.setAttribute('data-arrived', ''));
+    }
+
+    if (! reducedMotion()) {
+        for (const item of itemsIn(current)) {
+            const was = before.get(item.id);
+            const now = item.getBoundingClientRect();
+
+            // Nothing to glide to when it ended up somewhere that is not on screen (another tab on a phone).
+            if (was && now.width > 0 && (Math.abs(was.left - now.left) > 1 || Math.abs(was.top - now.top) > 1)) {
+                item.animate(
+                    { transform: [`translate(${was.left - now.left}px, ${was.top - now.top}px)`, 'none'] },
+                    { duration: 340, easing: EASE_IN_OUT },
+                );
+            }
+        }
+    }
+
+    const count = page.querySelector('[data-cart-count]')?.dataset.cartCount;
+    const cartLink = document.querySelector('[data-cart-count]');
+
+    if (cartLink && count !== undefined && count !== cartLink.dataset.cartCount) {
+        cartLink.dataset.cartCount = count;
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: Number(count) } }));
+    }
+};
+
 const send = async (form, submitter) => {
     if (navigating || ! form.isConnected) {
         return;
@@ -199,13 +293,12 @@ const send = async (form, submitter) => {
 
     try {
         const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'text/html' } });
-        const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+        const page = parse(await response.text());
         const next = page.querySelector('main');
-        const current = document.querySelector('main');
         const toast = flashOf(page);
 
         // The action led somewhere else (a rejected order goes back to the board): go there.
-        if (! next || ! current || new URL(response.url).pathname !== window.location.pathname) {
+        if (! next || ! document.querySelector('main') || new URL(response.url).pathname !== window.location.pathname) {
             if (toast) {
                 sessionStorage.setItem('pending-toast', JSON.stringify(toast));
             }
@@ -216,82 +309,7 @@ const send = async (form, submitter) => {
             return;
         }
 
-        await Promise.all(itemsIn(current).filter((item) => ! page.getElementById(item.id)).map(leave));
-
-        const before = new Map(itemsIn(current).map((item) => [item.id, item.getBoundingClientRect()]));
-        const rolled = [];
-        const added = [];
-
-        const updating = (from, to) => {
-            if (from.nodeType !== Node.ELEMENT_NODE) {
-                return;
-            }
-
-            // What was already revealed or uncloaked stays that way; it must not hide and animate again.
-            if (from.hasAttribute('data-revealed')) {
-                to.setAttribute('data-revealed', '');
-            }
-
-            if (! from.hasAttribute('x-cloak')) {
-                to.removeAttribute('x-cloak');
-            }
-
-            if (from.hasAttribute('data-pop') && from.textContent.trim() !== to.textContent.trim()) {
-                rolled.push([from, amount(to.textContent) >= amount(from.textContent)]);
-            }
-        };
-
-        Alpine.morph(current, next, {
-            key: (element) => (element.hasAttribute('data-item') ? element.id : ''),
-            updating,
-            added(element) {
-                if (element.nodeType !== Node.ELEMENT_NODE) {
-                    return;
-                }
-
-                // An item that only changed place is already known: it glides there instead of appearing.
-                if (before.has(element.id)) {
-                    [element, ...element.querySelectorAll('[data-reveal]')].forEach((part) => part.setAttribute('data-revealed', ''));
-                } else {
-                    added.push(element);
-                }
-            },
-        });
-
-        document.querySelectorAll('[data-live][id]').forEach((region) => {
-            const fresh = page.getElementById(region.id);
-
-            if (fresh && ! current.contains(region)) {
-                Alpine.morph(region, fresh, { updating });
-            }
-        });
-
-        document.title = page.title;
-        current.querySelectorAll('[data-reveal]:not([data-revealed])').forEach((element) => revealer.observe(element));
-        rolled.forEach(([element, up]) => window.replay(element, up ? 'animate-roll-up' : 'animate-roll-down'));
-        added.forEach(enter);
-
-        if (! reducedMotion()) {
-            for (const item of itemsIn(current)) {
-                const was = before.get(item.id);
-                const now = item.getBoundingClientRect();
-
-                if (was && (Math.abs(was.left - now.left) > 1 || Math.abs(was.top - now.top) > 1)) {
-                    item.animate(
-                        { transform: [`translate(${was.left - now.left}px, ${was.top - now.top}px)`, 'none'] },
-                        { duration: 340, easing: EASE_IN_OUT },
-                    );
-                }
-            }
-        }
-
-        const count = page.querySelector('[data-cart-count]')?.dataset.cartCount;
-        const cartLink = document.querySelector('[data-cart-count]');
-
-        if (cartLink && count !== undefined && count !== cartLink.dataset.cartCount) {
-            cartLink.dataset.cartCount = count;
-            window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: Number(count) } }));
-        }
+        await update(page);
 
         // It went through: put the form back to its saved values and let sheets and
         // inline editors close. With validation errors, what was typed stays as it is.
@@ -315,6 +333,95 @@ const send = async (form, submitter) => {
         submitter?.removeAttribute('aria-busy');
     }
 };
+
+/*
+ | Brings the current screen up to date without anyone pressing anything, and
+ | waits its turn behind any form that is being sent. If it cannot, the screen
+ | simply stays as it was.
+ */
+window.refreshPage = () => {
+    sending = sending.then(async () => {
+        if (navigating) {
+            return;
+        }
+
+        try {
+            const response = await fetch(window.location.href, { headers: { Accept: 'text/html' } });
+            const page = parse(await response.text());
+
+            if (response.ok && page.querySelector('main') && new URL(response.url).pathname === window.location.pathname) {
+                await update(page, { arrived: true });
+            }
+        } catch {
+            // Offline or interrupted: the next check tries again.
+        }
+    });
+
+    return sending;
+};
+
+/*
+ | "4 min", "2 h": how long ago something happened, kept current while the
+ | screen stays open. It turns into a warning once it passes its limit. The
+ | text just changes; a clock that animated every tick would be noise.
+ */
+const elapsedLabel = (minutes) => {
+    if (minutes < 1) {
+        return 'recién';
+    }
+
+    if (minutes < 60) {
+        return `${minutes} min`;
+    }
+
+    return minutes < 1440 ? `${Math.floor(minutes / 60)} h` : `${Math.floor(minutes / 1440)} d`;
+};
+
+setInterval(() => {
+    document.querySelectorAll('[data-since]').forEach((clock) => {
+        const minutes = Math.floor((Date.now() / 1000 - Number(clock.dataset.since)) / 60);
+
+        clock.querySelector('[data-since-label]').textContent = elapsedLabel(minutes);
+        clock.toggleAttribute('data-late', minutes >= Number(clock.dataset.lateAfter));
+    });
+}, 30000);
+
+/*
+ | The restaurant's board. Every few seconds it asks whether anything changed
+ | (a new order, a delivery marked by the courier) and, if so, brings the
+ | screen up to date in place. On phones it also remembers which lane is open.
+ */
+Alpine.data('orderBoard', (pendingUrl) => ({
+    lane: 0,
+
+    init() {
+        setInterval(async () => {
+            try {
+                const response = await fetch(pendingUrl, { headers: { Accept: 'application/json' } });
+
+                if (! response.ok) {
+                    return;
+                }
+
+                const now = await response.json();
+
+                if (now.stamp === this.$root.dataset.stamp) {
+                    return;
+                }
+
+                const more = now.count > Number(this.$root.dataset.waiting);
+
+                await window.refreshPage();
+
+                if (more) {
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Entró un pedido nuevo.' } }));
+                }
+            } catch {
+                // Offline: the next check tries again.
+            }
+        }, 8000);
+    },
+}));
 
 document.addEventListener('submit', (event) => {
     const form = event.target;

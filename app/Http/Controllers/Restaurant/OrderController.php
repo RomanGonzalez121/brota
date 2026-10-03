@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Restaurant;
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Services\OrderWorkflow;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -30,6 +31,7 @@ class OrderController extends Controller
 
         return view('restaurant.orders.index', [
             'restaurant' => $restaurant,
+            'stamp' => $this->stamp($restaurant),
             'received' => $open->get(OrderStatus::Received->value, collect()),
             'preparing' => $open->get(OrderStatus::Preparing->value, collect()),
             'onTheWay' => $open->get(OrderStatus::OnTheWay->value, collect()),
@@ -43,13 +45,17 @@ class OrderController extends Controller
     }
 
     /**
-     * How many orders are waiting for an answer. The orders screen asks for
-     * this every few seconds to notice new ones without a reload.
+     * How many orders are waiting for an answer, and a stamp of the board as it
+     * is now. The orders screen asks for this every few seconds and brings
+     * itself up to date when the stamp is no longer the one it was drawn with.
      */
     public function pending(Request $request): JsonResponse
     {
+        $restaurant = $request->user()->restaurant;
+
         return response()->json([
-            'count' => $request->user()->restaurant->orders()->where('status', OrderStatus::Received)->count(),
+            'count' => $restaurant->orders()->where('status', OrderStatus::Received)->count(),
+            'stamp' => $this->stamp($restaurant),
         ]);
     }
 
@@ -102,6 +108,14 @@ class OrderController extends Controller
         $workflow->moveTo($order, $next);
 
         return back()->with('status', "El pedido {$order->code} pasó a «{$next->label()}».");
+    }
+
+    /**
+     * Changes whenever an order comes in or any of them moves on.
+     */
+    private function stamp(Restaurant $restaurant): string
+    {
+        return $restaurant->orders()->count().'-'.$restaurant->orders()->max('updated_at');
     }
 
     private function ensureOwn(Request $request, Order $order): void
