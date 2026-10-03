@@ -56,6 +56,14 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/hojitas', LeafController::class)->name('leaves.index');
 
+        Route::get('/creditos', function () {
+            $file = public_path('images/credits.json');
+
+            return view('customer.credits', [
+                'credits' => file_exists($file) ? json_decode(file_get_contents($file), true) : [],
+            ]);
+        })->name('credits');
+
         Route::get('/foro', [ForumController::class, 'index'])->name('forum.index');
         Route::get('/foro/crear', [ForumController::class, 'create'])->name('forum.create');
         Route::post('/foro', [ForumController::class, 'store'])->name('forum.store');

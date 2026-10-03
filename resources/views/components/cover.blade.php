@@ -1,7 +1,7 @@
 @props(['restaurant'])
 
 @php
-    // Stand-in for a photo: a tinted block with a leaf arrangement picked by id.
+    // Restaurants without a photo get a tinted block with a leaf arrangement picked by id.
     $variant = $restaurant->id % 4;
     $background = ['bg-sprout/35', 'bg-leaf/15', 'bg-carrot/25', 'bg-sage/20'][$variant];
     $leaves = [
@@ -13,7 +13,11 @@
 @endphp
 
 <div {{ $attributes->class(['relative overflow-hidden', $background]) }} aria-hidden="true">
-    @foreach ($leaves as $leaf)
-        <x-leaf class="absolute {{ $leaf }}" />
-    @endforeach
+    @if ($restaurant->image)
+        <img src="{{ asset($restaurant->image) }}" alt="" loading="lazy" class="size-full object-cover">
+    @else
+        @foreach ($leaves as $leaf)
+            <x-leaf class="absolute {{ $leaf }}" />
+        @endforeach
+    @endif
 </div>

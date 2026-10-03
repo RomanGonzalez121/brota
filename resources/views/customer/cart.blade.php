@@ -20,6 +20,7 @@
                 <ul>
                     @foreach ($cart->lines() as $line)
                         <li class="flex items-center gap-3 border-b border-sage/15 p-4 last:border-b-0">
+                            <x-dish-photo :dish="$line->dish" class="hidden size-14 rounded-xl sm:block" />
                             <div class="min-w-0 flex-1">
                                 <h2 class="font-sans text-base font-semibold tracking-normal">{{ $line->dish->name }}</h2>
                                 <p class="text-sm text-sage tabular-nums">{{ money($line->dish->price) }} cada uno</p>

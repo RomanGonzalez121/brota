@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['restaurant_id', 'section', 'name', 'description', 'price', 'tags', 'is_available'])]
+#[Fillable(['restaurant_id', 'section', 'name', 'description', 'price', 'tags', 'image', 'is_available'])]
 class Dish extends Model
 {
     /**

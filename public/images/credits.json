@@ -1,0 +1,623 @@
+[
+  {
+    "file": "images/restaurants/la-huerta-de-palermo.jpg",
+    "subject": "La Huerta de Palermo",
+    "title": "Vegetable Stall, Brigg Market - geograph.org.uk - 1725905.jpg",
+    "author": "David Wright",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetable_Stall,_Brigg_Market_-_geograph.org.uk_-_1725905.jpg"
+  },
+  {
+    "file": "images/restaurants/raiz-cocina-viva.jpg",
+    "subject": "Raíz Cocina Viva",
+    "title": "Vegan meal (2).jpg",
+    "author": "Ula Zarosa",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegan_meal_(2).jpg"
+  },
+  {
+    "file": "images/restaurants/verde-que-te-quiero.jpg",
+    "subject": "Verde que te Quiero",
+    "title": "Fresh Salad (Unsplash).jpg",
+    "author": "fireskystudios.com asthetik",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Fresh_Salad_(Unsplash).jpg"
+  },
+  {
+    "file": "images/restaurants/masa-madre-chacarita.jpg",
+    "subject": "Masa Madre Chacarita",
+    "title": "Seeded Sourdough Breads in Gail´s Bakery 2024-07-15.jpg",
+    "author": "Chandravathanaa",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Seeded_Sourdough_Breads_in_Gail%C2%B4s_Bakery_2024-07-15.jpg"
+  },
+  {
+    "file": "images/restaurants/el-brote-feliz.jpg",
+    "subject": "El Brote Feliz",
+    "title": "Argentine Tirabuzón pasta stew with meat sauce, bread, and table setting.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Argentine_Tirabuz%C3%B3n_pasta_stew_with_meat_sauce,_bread,_and_table_setting.jpg"
+  },
+  {
+    "file": "images/restaurants/pura-pulpa.jpg",
+    "subject": "Pura Pulpa",
+    "title": "-14.c. -GEOlaviva -Webbild - -Smoothies -greensmothies -cleaneating -rawfood -Superfood.jpg",
+    "author": "GEOlaviva",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:-14.c._-GEOlaviva_-Webbild_-_-Smoothies_-greensmothies_-cleaneating_-rawfood_-Superfood.jpg"
+  },
+  {
+    "file": "images/restaurants/tierra-adentro.jpg",
+    "subject": "Tierra Adentro",
+    "title": "TAMAL SALTA - 120715-7055-jikatu.jpg",
+    "author": "Jimmy Baikovicius",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:TAMAL_SALTA_-_120715-7055-jikatu.jpg"
+  },
+  {
+    "file": "images/restaurants/semilla-bodegon-vegano.jpg",
+    "subject": "Semilla Bodegón Vegano",
+    "title": "Milanesa napolitana con papas fritas rodajas de tomate y orégano.jpg",
+    "author": "www.flickr.com/photos/viajescangrejo/",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Milanesa_napolitana_con_papas_fritas_rodajas_de_tomate_y_or%C3%A9gano.jpg"
+  },
+  {
+    "file": "images/dishes/hummus-de-remolacha.jpg",
+    "subject": "Hummus de remolacha",
+    "title": "Hummus with beetroot and paprika (Poznan).jpg",
+    "author": "MOs810",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hummus_with_beetroot_and_paprika_(Poznan).jpg"
+  },
+  {
+    "file": "images/dishes/empanadas-de-acelga-y-queso-de-cabra.jpg",
+    "subject": "Empanadas de acelga y queso de cabra",
+    "title": "Empanadas al horno de carne.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Empanadas_al_horno_de_carne.jpg"
+  },
+  {
+    "file": "images/dishes/sopa-de-calabaza-asada.jpg",
+    "subject": "Sopa de calabaza asada",
+    "title": "DSC 7126 Creamy pumpkin soup garnished with a swirl of cream and chopped herbs served in a white soup cup.jpg",
+    "author": "PattayaPatrol",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:DSC_7126_Creamy_pumpkin_soup_garnished_with_a_swirl_of_cream_and_chopped_herbs_served_in_a_white_soup_cup.jpg"
+  },
+  {
+    "file": "images/dishes/bowl-de-la-huerta.jpg",
+    "subject": "Bowl de la huerta",
+    "title": "BuddhaBowlLot.jpg",
+    "author": "PizzaMan",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:BuddhaBowlLot.jpg"
+  },
+  {
+    "file": "images/dishes/berenjenas-a-la-parmesana.jpg",
+    "subject": "Berenjenas a la parmesana",
+    "title": "Melanzane alla Parmigiana.jpg",
+    "author": "Flickr.com user \"Blue Lotus\"",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Melanzane_alla_Parmigiana.jpg"
+  },
+  {
+    "file": "images/dishes/risotto-de-hongos-de-pino.jpg",
+    "subject": "Risotto de hongos de pino",
+    "title": "Mushroom and Leek Risotto (49535206656).jpg",
+    "author": "spurekar",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mushroom_and_Leek_Risotto_(49535206656).jpg"
+  },
+  {
+    "file": "images/dishes/tarta-de-puerros-y-zapallitos.jpg",
+    "subject": "Tarta de puerros y zapallitos",
+    "title": "Quiche with Potatoes, Leek, Bacon & Wine (4876357842).jpg",
+    "author": "Katrin Gilger",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Quiche_with_Potatoes,_Leek,_Bacon_%26_Wine_(4876357842).jpg"
+  },
+  {
+    "file": "images/dishes/noquis-de-calabaza.jpg",
+    "subject": "Ñoquis de calabaza",
+    "title": "Gnocchi di zucca.jpg",
+    "author": "Ricettario di Mamidoli",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gnocchi_di_zucca.jpg"
+  },
+  {
+    "file": "images/dishes/flan-de-huevos-de-campo.jpg",
+    "subject": "Flan de huevos de campo",
+    "title": "Flan casero con dulce de leche.JPG",
+    "author": "Ganímedes",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Flan_casero_con_dulce_de_leche.JPG"
+  },
+  {
+    "file": "images/dishes/crumble-de-manzana.jpg",
+    "subject": "Crumble de manzana",
+    "title": "Vegan apple crumble (8293111737).jpg",
+    "author": "Suzette - www.suzette.nu from Arnhem, Netherlands",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegan_apple_crumble_(8293111737).jpg"
+  },
+  {
+    "file": "images/dishes/limonada-de-menta-y-jengibre.jpg",
+    "subject": "Limonada de menta y jengibre",
+    "title": "Лимонад.jpg",
+    "author": "Perohanych",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%9B%D0%B8%D0%BC%D0%BE%D0%BD%D0%B0%D0%B4.jpg"
+  },
+  {
+    "file": "images/dishes/kombucha-de-la-casa.jpg",
+    "subject": "Kombucha de la casa",
+    "title": "Kombucha-Black-Fruit-Tea.jpg",
+    "author": "Simon A. Eugster",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kombucha-Black-Fruit-Tea.jpg"
+  },
+  {
+    "file": "images/dishes/bastones-de-polenta.jpg",
+    "subject": "Bastones de polenta",
+    "title": "Polenta fries with wasabi pea mayo (vegan) at The Acorn Restaurant in Vancouver (7749713224).jpg",
+    "author": "Jennifer from Vancouver, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Polenta_fries_with_wasabi_pea_mayo_(vegan)_at_The_Acorn_Restaurant_in_Vancouver_(7749713224).jpg"
+  },
+  {
+    "file": "images/dishes/hongos-en-escabeche.jpg",
+    "subject": "Hongos en escabeche",
+    "title": "Pickled mushrooms 4.JPG",
+    "author": "Off-shell",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pickled_mushrooms_4.JPG"
+  },
+  {
+    "file": "images/dishes/burger-de-lentejas-y-remolacha.jpg",
+    "subject": "Burger de lentejas y remolacha",
+    "title": "Veggie Burger (24835249468).jpg",
+    "author": "Zimt Zauberstab",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Veggie_Burger_(24835249468).jpg"
+  },
+  {
+    "file": "images/dishes/curry-de-garbanzos.jpg",
+    "subject": "Curry de garbanzos",
+    "title": "Indian Food - Chana Masala and Naan (53372325644).jpg",
+    "author": "Tony Webster",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Indian_Food_-_Chana_Masala_and_Naan_(53372325644).jpg"
+  },
+  {
+    "file": "images/dishes/tacos-de-coliflor.jpg",
+    "subject": "Tacos de coliflor",
+    "title": "Vegan Tacos (5654701543).jpg",
+    "author": "Mercy For Animals MFA from Los Angeles, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegan_Tacos_(5654701543).jpg"
+  },
+  {
+    "file": "images/dishes/lasana-de-vegetales.jpg",
+    "subject": "Lasaña de vegetales",
+    "title": "Eggplant Lasagna (Vegitarian) (2 of 6).jpg",
+    "author": "Wheeler Cowperthwaite",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eggplant_Lasagna_(Vegitarian)_(2_of_6).jpg"
+  },
+  {
+    "file": "images/dishes/cheesecake-de-caju.jpg",
+    "subject": "Cheesecake de cajú",
+    "title": "Raised slice of cheesecake.jpg",
+    "author": "Sirabellas",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Raised_slice_of_cheesecake.jpg"
+  },
+  {
+    "file": "images/dishes/licuado-verde.jpg",
+    "subject": "Licuado verde",
+    "title": "Green smoothie (8222465502).jpg",
+    "author": "Lablascovegmenu from London",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Green_smoothie_(8222465502).jpg"
+  },
+  {
+    "file": "images/dishes/falafel-al-horno.jpg",
+    "subject": "Falafel al horno",
+    "title": "Falafel (49728839526).jpg",
+    "author": "やましこ",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Falafel_(49728839526).jpg"
+  },
+  {
+    "file": "images/dishes/ensalada-cesar-de-garbanzos.jpg",
+    "subject": "Ensalada César de garbanzos",
+    "title": "Caesar Salad from Tony Roma Restaurant- March 2024 02.jpg",
+    "author": "Banej",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Caesar_Salad_from_Tony_Roma_Restaurant-_March_2024_02.jpg"
+  },
+  {
+    "file": "images/dishes/bowl-mediterraneo.jpg",
+    "subject": "Bowl mediterráneo",
+    "title": "Couscous and lentil salad (3658113458).jpg",
+    "author": "Karen and Brad Emerson",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Couscous_and_lentil_salad_(3658113458).jpg"
+  },
+  {
+    "file": "images/dishes/bowl-proteico.jpg",
+    "subject": "Bowl proteico",
+    "title": "Quinoa Salad (140491457).jpeg",
+    "author": "J Doll",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Quinoa_Salad_(140491457).jpeg"
+  },
+  {
+    "file": "images/dishes/wrap-de-vegetales-grillados.jpg",
+    "subject": "Wrap de vegetales grillados",
+    "title": "Vegetables-filled wrap - Vegan (4724722231).jpg",
+    "author": "Suzette - www.suzette.nu from Arnhem, Netherlands",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetables-filled_wrap_-_Vegan_(4724722231).jpg"
+  },
+  {
+    "file": "images/dishes/ensalada-de-frutas-de-estacion.jpg",
+    "subject": "Ensalada de frutas de estación",
+    "title": "Fruit salad flanked by Sabre flatware.jpg",
+    "author": "Dinner Series",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Fruit_salad_flanked_by_Sabre_flatware.jpg"
+  },
+  {
+    "file": "images/dishes/agua-saborizada-de-naranja.jpg",
+    "subject": "Agua saborizada de naranja",
+    "title": "Jez Timms 2016-01-26 (Unsplash).jpg",
+    "author": "Jez Timms jeztimms",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Jez_Timms_2016-01-26_(Unsplash).jpg"
+  },
+  {
+    "file": "images/dishes/pan-de-masa-madre-de-campo.jpg",
+    "subject": "Pan de masa madre de campo",
+    "title": "Sourdough Bread Loaf.jpg",
+    "author": "Agelaia",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sourdough_Bread_Loaf.jpg"
+  },
+  {
+    "file": "images/dishes/medialunas-de-manteca.jpg",
+    "subject": "Medialunas de manteca",
+    "title": "Medialunas argentinas.jpg",
+    "author": "David",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Medialunas_argentinas.jpg"
+  },
+  {
+    "file": "images/dishes/chipa-de-queso.jpg",
+    "subject": "Chipá de queso",
+    "title": "Chipitas misioneras recién horneadas servidas en plato (Argentina).jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Chipitas_misioneras_reci%C3%A9n_horneadas_servidas_en_plato_(Argentina).jpg"
+  },
+  {
+    "file": "images/dishes/toston-de-palta-y-huevo.jpg",
+    "subject": "Tostón de palta y huevo",
+    "title": "Avocado toast with eggs (28508171495).jpg",
+    "author": "Luca Nebuloni from Milan, Italy",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Avocado_toast_with_eggs_(28508171495).jpg"
+  },
+  {
+    "file": "images/dishes/sandwich-de-vegetales-asados.jpg",
+    "subject": "Sándwich de vegetales asados",
+    "title": "Sausage & veggies toasted sandwich - Potatoast 2025-12-30.jpg",
+    "author": "Andy Li",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Sausage_%26_veggies_toasted_sandwich_-_Potatoast_2025-12-30.jpg"
+  },
+  {
+    "file": "images/dishes/budin-de-limon-y-amapola.jpg",
+    "subject": "Budín de limón y amapola",
+    "title": "Lemon Poppy Seed Tea Cake from Tartine - 04.jpg",
+    "author": "Jason Lam",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lemon_Poppy_Seed_Tea_Cake_from_Tartine_-_04.jpg"
+  },
+  {
+    "file": "images/dishes/alfajor-de-maicena.jpg",
+    "subject": "Alfajor de maicena",
+    "title": "Alfajores-de-maicena-biscuits-recipe.jpg",
+    "author": "Sara McCleary",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfajores-de-maicena-biscuits-recipe.jpg"
+  },
+  {
+    "file": "images/dishes/flat-white.jpg",
+    "subject": "Flat white",
+    "title": "Charlecote Park flat white coffee Warwickshire England.jpg",
+    "author": "Acabashi",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Charlecote_Park_flat_white_coffee_Warwickshire_England.jpg"
+  },
+  {
+    "file": "images/dishes/provoleta-con-tomates-confitados.jpg",
+    "subject": "Provoleta con tomates confitados",
+    "title": "Provoleta argentina.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Provoleta_argentina.jpg"
+  },
+  {
+    "file": "images/dishes/bunuelos-de-espinaca.jpg",
+    "subject": "Buñuelos de espinaca",
+    "title": "Actual spinach fritters.jpg",
+    "author": "Red-back spider",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Actual_spinach_fritters.jpg"
+  },
+  {
+    "file": "images/dishes/canelones-de-ricota-y-verdura.jpg",
+    "subject": "Canelones de ricota y verdura",
+    "title": "Cannelloni ready to eat (504724484).jpg",
+    "author": "Francis Bijl from Groningen, Netherlands",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cannelloni_ready_to_eat_(504724484).jpg"
+  },
+  {
+    "file": "images/dishes/pizza-de-masa-madre-con-rucula.jpg",
+    "subject": "Pizza de masa madre con rúcula",
+    "title": "Pizza with rucola and tomatoes.jpg",
+    "author": "Izzo1993",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pizza_with_rucola_and_tomatoes.jpg"
+  },
+  {
+    "file": "images/dishes/hamburguesa-de-garbanzos.jpg",
+    "subject": "Hamburguesa de garbanzos",
+    "title": "Ye Olde White Bear, Hampstead, London (3955800630).jpg",
+    "author": "Ewan Munro from London, UK",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ye_Olde_White_Bear,_Hampstead,_London_(3955800630).jpg"
+  },
+  {
+    "file": "images/dishes/panqueques-con-dulce-de-leche.jpg",
+    "subject": "Panqueques con dulce de leche",
+    "title": "Jean Philippe - Dulce de Leche Crepe.jpg",
+    "author": "Calgary Reviews",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jean_Philippe_-_Dulce_de_Leche_Crepe.jpg"
+  },
+  {
+    "file": "images/dishes/jugo-de-naranja-exprimido.jpg",
+    "subject": "Jugo de naranja exprimido",
+    "title": "Child reaching for a glass of orange juice at a dining table.jpg",
+    "author": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Child_reaching_for_a_glass_of_orange_juice_at_a_dining_table.jpg"
+  },
+  {
+    "file": "images/dishes/acai-bowl.jpg",
+    "subject": "Açaí bowl",
+    "title": "Açaí na tigela - Acai bowl.jpg",
+    "author": "Joe Crawford from San Diego, California, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:A%C3%A7a%C3%AD_na_tigela_-_Acai_bowl.jpg"
+  },
+  {
+    "file": "images/dishes/tostado-integral-de-queso-y-tomate.jpg",
+    "subject": "Tostado integral de queso y tomate",
+    "title": "Grilled cheese sandwich.jpg",
+    "author": "Maggie Hoffman",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Grilled_cheese_sandwich.jpg"
+  },
+  {
+    "file": "images/dishes/barrita-de-cereales-casera.jpg",
+    "subject": "Barrita de cereales casera",
+    "title": "Granola bars.jpg",
+    "author": "LironOmri12",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Granola_bars.jpg"
+  },
+  {
+    "file": "images/dishes/licuado-de-banana-y-avena.jpg",
+    "subject": "Licuado de banana y avena",
+    "title": "Batido de plátano y manzana con almendras - Banana and apple smothie (4723976402).jpg",
+    "author": "Lablascovegmenu from London",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Batido_de_pl%C3%A1tano_y_manzana_con_almendras_-_Banana_and_apple_smothie_(4723976402).jpg"
+  },
+  {
+    "file": "images/dishes/jugo-de-zanahoria-y-naranja.jpg",
+    "subject": "Jugo de zanahoria y naranja",
+    "title": "GlassOfJuice and carrots.JPG",
+    "author": "Salix",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:GlassOfJuice_and_carrots.JPG"
+  },
+  {
+    "file": "images/dishes/smoothie-de-frutos-rojos.jpg",
+    "subject": "Smoothie de frutos rojos",
+    "title": "Strawberry and lemon smoothie (14430283996).jpg",
+    "author": "Vanessa p. from near Savannah, GA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Strawberry_and_lemon_smoothie_(14430283996).jpg"
+  },
+  {
+    "file": "images/dishes/humita-en-chala.jpg",
+    "subject": "Humita en chala",
+    "title": "Humitas en chala tipicas de Argentina8.JPG",
+    "author": "Marcos Katz",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Humitas_en_chala_tipicas_de_Argentina8.JPG"
+  },
+  {
+    "file": "images/dishes/empanadas-de-verdura.jpg",
+    "subject": "Empanadas de verdura",
+    "title": "Empanadas fritas de carne.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Empanadas_fritas_de_carne.jpg"
+  },
+  {
+    "file": "images/dishes/locro-vegetariano.jpg",
+    "subject": "Locro vegetariano",
+    "title": "Locro del 25 de Mayo Argentino.jpg",
+    "author": "Diaz de vivar gustavo",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Locro_del_25_de_Mayo_Argentino.jpg"
+  },
+  {
+    "file": "images/dishes/guiso-de-lentejas.jpg",
+    "subject": "Guiso de lentejas",
+    "title": "Guiso de lentejas argentino con chorizo.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Guiso_de_lentejas_argentino_con_chorizo.jpg"
+  },
+  {
+    "file": "images/dishes/tamales-de-choclo-y-queso.jpg",
+    "subject": "Tamales de choclo y queso",
+    "title": "Tamales Mexicanos sweet corn tamales 06.jpg",
+    "author": "Usernet123u",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tamales_Mexicanos_sweet_corn_tamales_06.jpg"
+  },
+  {
+    "file": "images/dishes/dulce-de-cayote-con-nueces.jpg",
+    "subject": "Dulce de cayote con nueces",
+    "title": "Dulce de Cayote (Cucurbita ficifolia) con nuez.jpg",
+    "author": "Embajada de EEUU en la Argentina",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dulce_de_Cayote_(Cucurbita_ficifolia)_con_nuez.jpg"
+  },
+  {
+    "file": "images/dishes/mate-cocido.jpg",
+    "subject": "Mate cocido",
+    "title": "Green Mate (as tea European style).jpg",
+    "author": "FakirNL",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Green_Mate_(as_tea_European_style).jpg"
+  },
+  {
+    "file": "images/dishes/girgolas-salteadas.jpg",
+    "subject": "Gírgolas salteadas",
+    "title": "Neutaribokkeum (stir-fried oyster mushrooms).jpg",
+    "author": "Hyeon-Jeong Suk",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Neutaribokkeum_(stir-fried_oyster_mushrooms).jpg"
+  },
+  {
+    "file": "images/dishes/milanesa-napolitana-de-seitan.jpg",
+    "subject": "Milanesa napolitana de seitán",
+    "title": "Milanesa napolitana (1).jpg",
+    "author": "deramaenrama",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Milanesa_napolitana_(1).jpg"
+  },
+  {
+    "file": "images/dishes/sorrentinos-de-calabaza.jpg",
+    "subject": "Sorrentinos de calabaza",
+    "title": "Sorrentinos de ricota.jpg",
+    "author": "Horacio Cambeiro",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sorrentinos_de_ricota.jpg"
+  },
+  {
+    "file": "images/dishes/tortilla-de-papas-sin-huevo.jpg",
+    "subject": "Tortilla de papas sin huevo",
+    "title": "Tortilla de Patatas (Corte transversal).jpg",
+    "author": "Tamorlan",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tortilla_de_Patatas_(Corte_transversal).jpg"
+  },
+  {
+    "file": "images/dishes/flan-de-coco-con-caramelo.jpg",
+    "subject": "Flan de coco con caramelo",
+    "title": "Coconut Flan.jpg",
+    "author": "norwichnuts",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Coconut_Flan.jpg"
+  },
+  {
+    "file": "images/dishes/soda-de-sifon.jpg",
+    "subject": "Soda de sifón",
+    "title": "Soda syphons, 3 Hunyadi square, 2018 Terézváros.jpg",
+    "author": "Globetrotter19",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Soda_syphons,_3_Hunyadi_square,_2018_Ter%C3%A9zv%C3%A1ros.jpg"
+  }
+]

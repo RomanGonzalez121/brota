@@ -78,6 +78,7 @@
                 <a href="{{ route('leaves.index') }}" class="hover:underline">Hojitas Verdes</a>
                 <a href="{{ route('forum.index') }}" class="hover:underline">Foro de reciclaje</a>
                 <a href="{{ route('profile.edit') }}" class="hover:underline">Mi perfil</a>
+                <a href="{{ route('credits') }}" class="hover:underline">Créditos de las fotos</a>
             </nav>
         </div>
     </footer>

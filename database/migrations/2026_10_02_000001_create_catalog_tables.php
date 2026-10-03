@@ -29,6 +29,7 @@ return new class extends Migration
             $table->decimal('rating', 2, 1);
             $table->unsignedInteger('delivery_fee');
             $table->unsignedSmallInteger('eta_minutes');
+            $table->string('image')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
@@ -42,6 +43,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedInteger('price');
             $table->json('tags')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_available')->default(true);
             $table->timestamps();
         });

@@ -31,6 +31,10 @@
                     Cerrar sesión
                 </x-button>
             </form>
+
+            <p class="text-center text-sm lg:hidden">
+                <a href="{{ route('credits') }}" class="inline-flex h-11 items-center font-medium text-sage hover:text-leaf hover:underline">Créditos de las fotos</a>
+            </p>
         </div>
 
         <section id="direcciones" class="scroll-mt-24" x-data="{ editing: null, adding: @js($errors->hasAny(['label', 'street', 'neighborhood'])) }">

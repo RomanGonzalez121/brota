@@ -47,6 +47,7 @@ class CatalogSeeder extends Seeder
                 'rating' => $data['rating'],
                 'delivery_fee' => $data['delivery_fee'],
                 'eta_minutes' => $data['eta_minutes'],
+                'image' => $this->photo('restaurants', $data['name']),
                 'is_featured' => $data['featured'] ?? false,
             ]);
 
@@ -57,10 +58,22 @@ class CatalogSeeder extends Seeder
                     'description' => $dish[2],
                     'price' => $dish[3],
                     'tags' => $dish[4],
+                    'image' => $this->photo('dishes', $dish[1]),
                     'is_available' => $dish[5] ?? true,
                 ]);
             }
         }
+    }
+
+    /**
+     * Photos live in public/images, named after the slug of what they show.
+     * Their authors and licences are listed in public/images/credits.json.
+     */
+    private function photo(string $folder, string $name): ?string
+    {
+        $path = "images/{$folder}/".Str::slug($name).'.jpg';
+
+        return file_exists(public_path($path)) ? $path : null;
     }
 
     /**
@@ -81,7 +94,7 @@ class CatalogSeeder extends Seeder
                     ['Entradas', 'Empanadas de acelga y queso de cabra', 'Dos unidades al horno de barro.', 5900, ['Vegetariano']],
                     ['Entradas', 'Sopa de calabaza asada', 'Con jengibre y semillas tostadas.', 5400, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Bowl de la huerta', 'Arroz yamaní, vegetales asados, palta, huevo mollet y aderezo de tahini.', 12900, ['Vegetariano', 'Sin TACC']],
-                    ['Principales', 'Milanesa de berenjena', 'Con puré de batata y ensalada de hojas verdes.', 13500, ['Vegetariano']],
+                    ['Principales', 'Berenjenas a la parmesana', 'Gratinadas con salsa de tomate y albahaca, con ensalada de hojas verdes.', 13500, ['Vegetariano', 'Sin TACC']],
                     ['Principales', 'Risotto de hongos de pino', 'Arroz carnaroli, hongos de Córdoba y queso sardo.', 14800, ['Vegetariano', 'Sin TACC']],
                     ['Principales', 'Tarta de puerros y zapallitos', 'Masa integral, porción generosa con ensalada.', 10900, ['Vegetariano']],
                     ['Principales', 'Ñoquis de calabaza', 'Con manteca de salvia y nueces.', 13200, ['Vegetariano'], false],
@@ -98,12 +111,12 @@ class CatalogSeeder extends Seeder
                 'address' => 'Thames 1820', 'neighborhood' => 'Palermo', 'distance_km' => 2.4, 'rating' => 4.7, 'delivery_fee' => 1800, 'eta_minutes' => 35,
                 'dishes' => [
                     ['Entradas', 'Bastones de polenta', 'Crocantes, con alioli de ajo asado.', 5800, ['Vegano', 'Sin TACC']],
-                    ['Entradas', 'Ceviche de hongos', 'Gírgolas, leche de tigre, batata y maíz tostado.', 7200, ['Vegano', 'Sin TACC']],
+                    ['Entradas', 'Hongos en escabeche', 'Shiitakes marinados en vinagre de manzana, ajo y laurel.', 7200, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Burger de lentejas y remolacha', 'Pan de papa, cheddar de cajú, pickles y papas rústicas.', 12400, ['Vegano']],
                     ['Principales', 'Curry de garbanzos', 'Leche de coco, espinaca y arroz basmati.', 11900, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Tacos de coliflor', 'Tres tortillas de maíz, coliflor al pastor y guacamole.', 11500, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Lasaña de vegetales', 'Bechamel de castañas y salsa de tomates asados.', 13800, ['Vegano']],
-                    ['Postres', 'Cheesecake de cajú y maracuyá', 'Base de dátiles y almendras.', 6200, ['Vegano', 'Sin TACC']],
+                    ['Postres', 'Cheesecake de cajú', 'Sin lácteos, con base de dátiles y almendras.', 6200, ['Vegano', 'Sin TACC']],
                     ['Bebidas', 'Licuado verde', 'Espinaca, manzana, apio y jengibre. 400 ml.', 4300, ['Vegano', 'Sin TACC']],
                 ],
             ],
@@ -116,10 +129,10 @@ class CatalogSeeder extends Seeder
                     ['Entradas', 'Falafel al horno', 'Seis unidades con salsa de yogur y menta.', 6100, ['Vegetariano']],
                     ['Principales', 'Ensalada César de garbanzos', 'Lechuga, garbanzos crocantes, croutons y aderezo de la casa.', 9800, ['Vegetariano']],
                     ['Principales', 'Bowl mediterráneo', 'Cuscús, tomates secos, aceitunas, queso feta y hummus.', 11200, ['Vegetariano']],
-                    ['Principales', 'Bowl proteico', 'Quinoa, tofu marinado, edamame, zanahoria y sésamo.', 11900, ['Vegano', 'Sin TACC']],
+                    ['Principales', 'Bowl proteico', 'Quinoa, porotos negros, tomate, cebolla morada y cilantro.', 11900, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Wrap de vegetales grillados', 'Tortilla integral, queso crema de la casa y rúcula.', 9600, ['Vegetariano']],
                     ['Postres', 'Ensalada de frutas de estación', 'Con granola casera.', 4600, ['Vegano']],
-                    ['Bebidas', 'Agua saborizada de pepino y lima', '500 ml, sin azúcar.', 2900, ['Vegano', 'Sin TACC']],
+                    ['Bebidas', 'Agua saborizada de naranja', 'Con rodajas de naranja y mucho hielo. 500 ml, sin azúcar.', 2900, ['Vegano', 'Sin TACC']],
                 ],
             ],
             [
@@ -178,8 +191,8 @@ class CatalogSeeder extends Seeder
                     ['Principales', 'Locro vegetariano', 'Zapallo, maíz, porotos y salsa picante aparte.', 12800, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Guiso de lentejas', 'Con vegetales de estación y pan casero.', 11400, ['Vegano']],
                     ['Principales', 'Tamales de choclo y queso', 'Dos unidades con ensalada criolla.', 11800, ['Vegetariano', 'Sin TACC']],
-                    ['Postres', 'Queso y dulce de cayote', 'Con nueces.', 5400, ['Vegetariano', 'Sin TACC']],
-                    ['Bebidas', 'Mate cocido con leche', '300 ml.', 2800, ['Vegetariano', 'Sin TACC']],
+                    ['Postres', 'Dulce de cayote con nueces', 'Receta salteña, con queso de cabra aparte.', 5400, ['Vegetariano', 'Sin TACC']],
+                    ['Bebidas', 'Mate cocido', 'En saquito, 300 ml.', 2800, ['Vegano', 'Sin TACC']],
                 ],
             ],
             [
@@ -188,12 +201,12 @@ class CatalogSeeder extends Seeder
                 'description' => 'Porciones de bodegón porteño en versión vegana: milanesas, pastas y tortillas para compartir.',
                 'address' => 'Av. San Juan 480', 'neighborhood' => 'San Telmo', 'distance_km' => 4.1, 'rating' => 4.3, 'delivery_fee' => 2200, 'eta_minutes' => 45,
                 'dishes' => [
-                    ['Entradas', 'Rabas de gírgolas', 'Con limón y mayonesa de ajo.', 7600, ['Vegano']],
+                    ['Entradas', 'Gírgolas salteadas', 'Con ajo, perejil y limón.', 7600, ['Vegano', 'Sin TACC']],
                     ['Principales', 'Milanesa napolitana de seitán', 'Con papas fritas.', 14200, ['Vegano']],
                     ['Principales', 'Sorrentinos de calabaza', 'Con salsa rosa de cajú.', 13600, ['Vegano']],
                     ['Principales', 'Tortilla de papas sin huevo', 'Babé, hecha con harina de garbanzos.', 10800, ['Vegano', 'Sin TACC']],
                     ['Postres', 'Flan de coco con caramelo', 'Porción individual.', 5300, ['Vegano', 'Sin TACC']],
-                    ['Bebidas', 'Soda con limón', 'Sifón de 500 ml.', 2400, ['Vegano', 'Sin TACC']],
+                    ['Bebidas', 'Soda de sifón', 'Sifón de 500 ml, con rodaja de limón.', 2400, ['Vegano', 'Sin TACC']],
                 ],
             ],
         ];

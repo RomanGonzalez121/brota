@@ -56,6 +56,7 @@
                                 <div class="min-w-0 flex-1">
                                     <h3 class="text-base">{{ $dish->name }}</h3>
                                     <p class="mt-0.5 text-sm text-sage">{{ $dish->description }}</p>
+                                    <p class="mt-2 font-display font-bold tabular-nums">{{ money($dish->price) }}</p>
                                     <div class="mt-2 flex flex-wrap items-center gap-1.5">
                                         @foreach ($dish->tags ?? [] as $tag)
                                             <x-badge tone="neutral">{{ $tag }}</x-badge>
@@ -66,19 +67,19 @@
                                     </div>
                                 </div>
 
-                                <div class="flex shrink-0 flex-col items-end gap-2">
-                                    <span class="font-display font-bold tabular-nums">{{ money($dish->price) }}</span>
+                                <div class="flex w-28 shrink-0 flex-col items-stretch gap-2">
+                                    <x-dish-photo :dish="$dish" class="h-24 rounded-2xl" />
                                     @if ($dish->is_available)
                                         <form method="POST" action="{{ route('cart.store', $dish) }}">
                                             @csrf
-                                            <x-button size="sm" variant="secondary" class="h-11 px-3.5">
+                                            <x-button size="sm" variant="secondary" block class="h-11">
                                                 <x-icon name="plus" class="size-4" />
                                                 Agregar
                                                 <span class="sr-only">{{ $dish->name }} al carrito</span>
                                             </x-button>
                                         </form>
                                     @else
-                                        <x-badge tone="danger">Sin stock hoy</x-badge>
+                                        <x-badge tone="danger" class="justify-center">Sin stock hoy</x-badge>
                                     @endif
                                 </div>
                             </li>
