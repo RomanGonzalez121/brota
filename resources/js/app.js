@@ -2,6 +2,7 @@ import Alpine from 'alpinejs';
 
 const root = document.documentElement;
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 /*
  | Scroll reveal: anything marked data-reveal fades up the first time it
@@ -17,6 +18,59 @@ const revealer = new IntersectionObserver((entries) => {
 }, { rootMargin: '0px 0px -6% 0px' });
 
 document.querySelectorAll('[data-reveal]').forEach((element) => revealer.observe(element));
+
+/*
+ | Parallax for decorative leaves: data-parallax="18" lets an element drift up
+ | to 18px with the pointer, and lag a little behind the scroll. The position
+ | eases towards its goal every frame (a damped follow), so it never snaps to
+ | the cursor. It writes `translate` on the element itself, and the loop stops
+ | as soon as everything has settled.
+ */
+const drifting = [...document.querySelectorAll('[data-parallax]')].map((element) => ({
+    element,
+    depth: Number(element.dataset.parallax),
+    x: 0,
+    y: 0,
+}));
+
+if (drifting.length && ! reducedMotion()) {
+    let pointerX = 0;
+    let pointerY = 0;
+    let frame = null;
+
+    const step = () => {
+        let moving = false;
+
+        for (const item of drifting) {
+            const goalX = pointerX * item.depth;
+            const goalY = pointerY * item.depth + window.scrollY * item.depth * 0.008;
+
+            item.x += (goalX - item.x) * 0.07;
+            item.y += (goalY - item.y) * 0.07;
+            item.element.style.translate = `${item.x.toFixed(2)}px ${item.y.toFixed(2)}px`;
+
+            if (Math.abs(goalX - item.x) > 0.05 || Math.abs(goalY - item.y) > 0.05) {
+                moving = true;
+            }
+        }
+
+        frame = moving ? requestAnimationFrame(step) : null;
+    };
+
+    const wake = () => {
+        frame ??= requestAnimationFrame(step);
+    };
+
+    if (finePointer()) {
+        window.addEventListener('pointermove', (event) => {
+            pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
+            pointerY = (event.clientY / window.innerHeight - 0.5) * 2;
+            wake();
+        }, { passive: true });
+    }
+
+    window.addEventListener('scroll', wake, { passive: true });
+}
 
 /*
  | Theme switch. The new theme is revealed in a circle that grows from the
@@ -96,6 +150,53 @@ Alpine.data('countUp', (target) => ({
 
         this.value = 0;
         requestAnimationFrame(tick);
+    },
+}));
+
+/*
+ | Leaves fall across the screen once, the first time a reward is seen. The
+ | storage key makes it a one-off: a celebration that repeats on every visit
+ | stops being one.
+ */
+Alpine.data('leafFall', (key) => ({
+    playing: false,
+
+    init() {
+        if (reducedMotion()) {
+            return;
+        }
+
+        try {
+            if (localStorage.getItem(key)) {
+                return;
+            }
+
+            localStorage.setItem(key, '1');
+        } catch {
+            return;
+        }
+
+        this.playing = true;
+        setTimeout(() => (this.playing = false), 7000);
+    },
+}));
+
+/*
+ | The notification bell swings only when there is something new since the
+ | last screen, not on every page load.
+ */
+Alpine.data('bell', (unread) => ({
+    open: false,
+    ring: false,
+
+    init() {
+        try {
+            const seen = Number(sessionStorage.getItem('bell-seen') ?? 0);
+            this.ring = unread > seen;
+            sessionStorage.setItem('bell-seen', String(unread));
+        } catch {
+            this.ring = false;
+        }
     },
 }));
 

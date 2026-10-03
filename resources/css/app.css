@@ -55,6 +55,12 @@
     --animate-slide-up: slide-up 420ms var(--ease-drawer) both;
     --animate-draw: draw 480ms var(--ease-out-strong) 180ms both;
     --animate-grow: grow 500ms var(--ease-out-strong) both;
+    --animate-sway-slow: sway 15s ease-in-out infinite;
+    --animate-rustle: rustle 900ms ease-in-out both;
+    --animate-ring: ring 1000ms ease-in-out 500ms both;
+    --animate-regrow: regrow 560ms var(--ease-out-strong) 200ms both;
+    --animate-leaf-fall: leaf-fall 4s linear both;
+    --animate-leaf-drift: leaf-drift 1.7s ease-in-out infinite alternate;
 
     @keyframes sprout {
         from {
@@ -132,6 +138,83 @@
         }
         to {
             stroke-dashoffset: 0;
+        }
+    }
+
+    /* A leaf brushed by a hand: one swing that dies down. Used on the logo. */
+    @keyframes rustle {
+        0%,
+        100% {
+            rotate: 0deg;
+        }
+        25% {
+            rotate: -14deg;
+        }
+        55% {
+            rotate: 9deg;
+        }
+        80% {
+            rotate: -4deg;
+        }
+    }
+
+    /* The bell-flower swings from its stem when something new arrived. */
+    @keyframes ring {
+        0%,
+        100% {
+            rotate: 0deg;
+        }
+        15% {
+            rotate: 14deg;
+        }
+        35% {
+            rotate: -11deg;
+        }
+        55% {
+            rotate: 7deg;
+        }
+        75% {
+            rotate: -4deg;
+        }
+    }
+
+    /* The sprout in the cart grows back a little bigger after adding a dish. */
+    @keyframes regrow {
+        0% {
+            opacity: 0.5;
+            transform: scale(0.55);
+        }
+        60% {
+            opacity: 1;
+            transform: scale(1.16);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Falling leaves: a steady fall on the outer element, the flutter on the inner one. */
+    @keyframes leaf-fall {
+        0% {
+            opacity: 0;
+            transform: translateY(-12vh);
+        }
+        8%,
+        85% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(108vh);
+        }
+    }
+
+    @keyframes leaf-drift {
+        from {
+            transform: translateX(-26px) rotate(-36deg);
+        }
+        to {
+            transform: translateX(26px) rotate(40deg);
         }
     }
 
@@ -277,6 +360,11 @@
 .js [data-reveal][data-revealed] {
     opacity: 1;
     transform: none;
+}
+
+/* The logo's leaf rustles once on the first screen of a visit (class set in the head script). */
+.first-visit .logo-leaf {
+    animation: rustle 900ms ease-in-out 600ms both;
 }
 
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */

@@ -1,12 +1,24 @@
 @props(['title'])
 
 <div {{ $attributes->class('flex flex-col items-center px-6 py-12 text-center') }}>
-    <div class="relative mb-5 flex h-20 w-24 items-end justify-center" aria-hidden="true">
-        <span class="absolute bottom-3 left-1 origin-bottom-right animate-sprout [animation-delay:120ms]"><x-leaf class="size-9 -rotate-[70deg] text-sprout/60" /></span>
-        <span class="absolute bottom-5 origin-bottom animate-sprout"><x-leaf class="size-12 -rotate-12 text-leaf" /></span>
-        <span class="absolute right-1 bottom-3 origin-bottom-left animate-sprout [animation-delay:220ms]"><x-leaf class="size-9 rotate-[20deg] text-sprout" /></span>
-        <span class="h-1 w-16 rounded-full bg-forest/10"></span>
+    {{-- A seedling grows where there is nothing yet: stem first, then each leaf, then a light breeze. --}}
+    <div class="relative mb-5 h-24 w-24" aria-hidden="true">
+        <div class="absolute inset-0 origin-bottom animate-sway">
+            <span class="absolute bottom-2 left-1/2 h-14 w-0.5 origin-bottom -translate-x-1/2 animate-grow rounded-full bg-leaf"></span>
+
+            <span class="absolute right-1/2 bottom-6 origin-bottom-right animate-sprout [animation-delay:330ms]">
+                <x-leaf class="size-7 -scale-x-100 rotate-[14deg] text-sprout" />
+            </span>
+            <span class="absolute bottom-9 left-1/2 origin-bottom-left animate-sprout [animation-delay:460ms]">
+                <x-leaf class="size-8 rotate-[12deg] text-leaf" />
+            </span>
+            <span class="absolute bottom-[3.6rem] left-1/2 origin-bottom-left animate-sprout [animation-delay:600ms]">
+                <x-leaf class="size-6 -translate-x-px -rotate-[36deg] text-sprout" />
+            </span>
+        </div>
+        <span class="absolute bottom-1 left-1/2 h-1 w-14 -translate-x-1/2 rounded-full bg-ink/12"></span>
     </div>
+
     <h2 class="text-lg">{{ $title }}</h2>
     @if ($slot->isNotEmpty())
         <p class="mt-1.5 max-w-sm text-muted">{{ $slot }}</p>

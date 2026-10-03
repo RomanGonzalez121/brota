@@ -53,12 +53,12 @@
                         <a
                             href="{{ route($item['route']) }}"
                             @if ($active) aria-current="page" @endif
-                            class="relative flex h-11 items-center gap-3 rounded-xl px-3 text-[15px] transition-colors duration-150 {{ $active ? 'bg-accent/15 font-semibold' : 'font-medium text-muted hover:bg-page hover:text-ink' }}"
+                            class="group/link relative flex h-11 items-center gap-3 rounded-xl px-3 text-[15px] transition-colors duration-150 {{ $active ? 'bg-accent/15 font-semibold' : 'font-medium text-muted hover:bg-page hover:text-ink' }}"
                         >
                             @if ($active)
                                 <span class="absolute inset-y-2.5 left-0 hidden w-1 rounded-full bg-accent lg:block" aria-hidden="true"></span>
                             @endif
-                            <x-icon :name="$item['icon']" />
+                            <x-icon :name="$item['icon']" class="transition-transform duration-200 ease-out-strong group-hover/link:-rotate-6 group-hover/link:scale-110" />
                             {{ $item['label'] }}
                         </a>
                     </li>

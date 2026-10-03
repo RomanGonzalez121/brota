@@ -5,15 +5,15 @@
 @endphp
 
 {{-- Loaded from the database on each request; nothing here is real-time. --}}
-<div x-data="{ open: false }" @keydown.escape.window="open = false" @click.outside="open = false">
+<div x-data="bell({{ $unread }})" @keydown.escape.window="open = false" @click.outside="open = false">
     <button
         type="button"
         @click="open = ! open"
         :aria-expanded="open"
         aria-haspopup="true"
-        class="relative flex size-11 items-center justify-center rounded-full text-white transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]"
+        class="group/bell relative flex size-11 items-center justify-center rounded-full text-white transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]"
     >
-        <x-icon name="bell" class="size-6" />
+        <span class="origin-top group-hover/bell:animate-rustle" :class="ring && 'animate-ring'"><x-icon name="bell" class="size-6" /></span>
         @if ($unread > 0)
             <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-forest tabular-nums">{{ $unread }}</span>
         @endif

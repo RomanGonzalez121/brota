@@ -17,6 +17,12 @@
         <script>
             document.documentElement.classList.add('js');
             try {
+                if (! sessionStorage.getItem('visited')) {
+                    document.documentElement.classList.add('first-visit');
+                    sessionStorage.setItem('visited', '1');
+                }
+            } catch (e) {}
+            try {
                 if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
             } catch (e) {}
         </script>

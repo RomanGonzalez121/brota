@@ -25,8 +25,16 @@
                     <a
                         href="{{ route($item['route']) }}"
                         @if ($active) aria-current="page" @endif
-                        class="rounded-lg px-3 py-2 text-[15px] font-medium transition-colors duration-150 {{ $active ? 'bg-white/15' : 'text-white/85 hover:bg-white/10 hover:text-white' }}"
-                    >{{ $item['label'] }}</a>
+                        @class([
+                            'group/link relative rounded-md px-3 py-2 text-[15px] transition-colors duration-150',
+                            'font-semibold text-white' => $active,
+                            'font-medium text-white/80 hover:text-white' => ! $active,
+                        ])
+                    >
+                        {{ $item['label'] }}
+                        <x-nav-vine :active="$active" />
+
+                    </a>
                 @endforeach
             </nav>
 
@@ -42,7 +50,7 @@
                 <x-notification-bell />
 
                 <a href="{{ route('cart.show') }}" class="relative flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]">
-                    <x-icon name="cart" class="size-6" />
+                    <x-cart-icon class="size-6" :grow="$cartCount > 0 && session()->has('status')" />
                     @if ($cartCount > 0)
                         {{-- Pops only right after something changed (a flash message is showing). --}}
                         <span @class(['absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums', 'animate-pop [animation-delay:150ms]' => session()->has('status')])>{{ $cartCount }}</span>
@@ -79,10 +87,10 @@
                 <p class="mt-1 text-sm text-cream/75">Delivery de comida orgánica.</p>
             </div>
             <nav class="flex gap-6 text-sm" aria-label="Pie de página">
-                <a href="{{ route('leaves.index') }}" class="hover:underline">Hojitas Verdes</a>
-                <a href="{{ route('forum.index') }}" class="hover:underline">Foro de reciclaje</a>
-                <a href="{{ route('profile.edit') }}" class="hover:underline">Mi perfil</a>
-                <a href="{{ route('credits') }}" class="hover:underline">Créditos de las fotos</a>
+                <a href="{{ route('leaves.index') }}" class="underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-200 hover:decoration-sprout">Hojitas Verdes</a>
+                <a href="{{ route('forum.index') }}" class="underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-200 hover:decoration-sprout">Foro de reciclaje</a>
+                <a href="{{ route('profile.edit') }}" class="underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-200 hover:decoration-sprout">Mi perfil</a>
+                <a href="{{ route('credits') }}" class="underline decoration-transparent decoration-2 underline-offset-4 transition-[text-decoration-color] duration-200 hover:decoration-sprout">Créditos de las fotos</a>
             </nav>
         </div>
     </footer>

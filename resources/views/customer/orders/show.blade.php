@@ -41,6 +41,7 @@
                 </x-card>
 
                 @if ($order->leaves_earned > 0)
+                    <x-leaf-fall :once="'leaf-fall-order-'.$order->id" />
                     <div class="flex items-center gap-3 rounded-leaf bg-sprout/30 p-4">
                         <x-leaf class="size-8 text-leaf" />
                         <p>

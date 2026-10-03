@@ -2,11 +2,11 @@
     <x-slot:hero>
         <div class="relative pt-3 pb-9 lg:pt-12 lg:pb-20">
             {{-- One orchestrated entrance: address, question, search. Leaves sway behind. --}}
-            <div class="pointer-events-none absolute right-0 -bottom-6 hidden origin-bottom animate-sway lg:block" aria-hidden="true">
-                <x-leaf class="size-96 rotate-[18deg] text-sprout/20" />
+            <div class="pointer-events-none absolute right-0 -bottom-6 hidden lg:block" data-parallax="12" aria-hidden="true">
+                <div class="origin-bottom animate-sway"><x-leaf class="size-96 rotate-[18deg] text-sprout/20" /></div>
             </div>
-            <div class="pointer-events-none absolute right-72 bottom-10 hidden origin-bottom animate-sway [animation-delay:-3s] lg:block" aria-hidden="true">
-                <x-leaf class="size-44 -rotate-[58deg] text-sprout/35" />
+            <div class="pointer-events-none absolute right-72 bottom-10 hidden lg:block" data-parallax="24" aria-hidden="true">
+                <div class="origin-bottom animate-sway [animation-delay:-3s]"><x-leaf class="size-44 -rotate-[58deg] text-sprout/35" /></div>
             </div>
 
             @if ($address)
