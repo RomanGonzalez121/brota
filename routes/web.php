@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\CheckoutController;
 use App\Http\Controllers\Customer\ForumController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProfileController;
 use App\Http\Controllers\Customer\RestaurantController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Restaurant\MenuController;
+use App\Http\Controllers\Restaurant\OrderController as RestaurantOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +24,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/ingresar', [LoginController::class, 'create'])->name('login');
     Route::post('/ingresar', [LoginController::class, 'store'])->name('login.store');
     Route::post('/ingresar/demo/{role}', [LoginController::class, 'demo'])->name('login.demo');
+
+    Route::get('/registrarse', [RegisterController::class, 'create'])->name('register');
+    Route::post('/registrarse', [RegisterController::class, 'store'])->name('register.store');
 });
 
 Route::middleware('auth')->group(function () {
@@ -73,9 +79,20 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:restaurant')->prefix('restaurante')->name('restaurant.')->group(function () {
-        Route::view('/pedidos', 'placeholder')->name('orders.index');
-        Route::view('/pedidos/{order}', 'placeholder')->name('orders.show');
-        Route::view('/menu', 'placeholder')->name('menu.index');
+        Route::get('/pedidos', [RestaurantOrderController::class, 'index'])->name('orders.index');
+        Route::get('/pedidos/pendientes', [RestaurantOrderController::class, 'pending'])->name('orders.pending');
+        Route::get('/pedidos/{order}', [RestaurantOrderController::class, 'show'])->name('orders.show');
+        Route::post('/pedidos/{order}/aceptar', [RestaurantOrderController::class, 'accept'])->name('orders.accept');
+        Route::post('/pedidos/{order}/rechazar', [RestaurantOrderController::class, 'reject'])->name('orders.reject');
+        Route::post('/pedidos/{order}/avanzar', [RestaurantOrderController::class, 'advance'])->name('orders.advance');
+
+        Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+        Route::get('/menu/crear', [MenuController::class, 'create'])->name('menu.create');
+        Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+        Route::get('/menu/{dish}/editar', [MenuController::class, 'edit'])->name('menu.edit');
+        Route::put('/menu/{dish}', [MenuController::class, 'update'])->name('menu.update');
+        Route::patch('/menu/{dish}/disponibilidad', [MenuController::class, 'toggle'])->name('menu.toggle');
+        Route::delete('/menu/{dish}', [MenuController::class, 'destroy'])->name('menu.destroy');
         Route::view('/reportes', 'placeholder')->name('reports.index');
     });
 

@@ -16,7 +16,7 @@
         <h3 class="text-lg leading-snug transition-colors duration-150 group-hover:text-leaf">{{ $restaurant->name }}</h3>
         <span class="flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
             <x-icon name="star" class="size-3.5 text-leaf" />
-            {{ number_format($restaurant->rating, 1, ',') }}
+            {{ $restaurant->rating > 0 ? number_format($restaurant->rating, 1, ',') : 'Nuevo' }}
         </span>
     </div>
     <p class="text-sm text-muted">{{ $restaurant->category->name }} en {{ $restaurant->neighborhood }}</p>

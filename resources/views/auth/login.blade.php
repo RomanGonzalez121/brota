@@ -16,6 +16,10 @@
         <x-input label="Email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com" required />
         <x-input label="Contraseña" name="password" type="password" autocomplete="current-password" required />
         <x-button block size="lg">Ingresar</x-button>
+        <p class="text-center text-sm text-muted">
+            ¿Todavía no tenés cuenta?
+            <a href="{{ route('register') }}" class="font-semibold text-leaf hover:underline">Registrate como cliente, repartidor o tienda</a>
+        </p>
     </form>
 
     <div class="my-6 flex items-center gap-4 text-sm text-muted">

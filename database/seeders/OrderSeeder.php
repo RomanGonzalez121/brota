@@ -10,12 +10,14 @@ use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Setting;
 use App\Models\User;
-use App\Notifications\ActivityNotification;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
+/**
+ * Orders in every state, with their items, status history, payment and the
+ * Hojitas Verdes they earned.
+ */
 class OrderSeeder extends Seeder
 {
     private User $customer;
@@ -57,19 +59,22 @@ class OrderSeeder extends Seeder
         $this->order($restaurants['tierra-adentro'], $this->customer, OrderStatus::Rejected, now()->subDays(12)->setTime(22, 50));
         $this->order($huerta, $this->customer, OrderStatus::Delivered, now()->subDays(9)->setTime(21, 5), containers: true);
         $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Delivered, now()->subDays(3)->setTime(13, 10), containers: true);
-        $preparing = $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Preparing, now()->subMinutes(14), containers: true);
-        $onTheWay = $this->order($huerta, $this->customer, OrderStatus::OnTheWay, now()->subMinutes(31), containers: true);
+        $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Preparing, now()->subMinutes(14), containers: true);
+        $this->order($huerta, $this->customer, OrderStatus::OnTheWay, now()->subMinutes(31), containers: true);
 
         // What the demo restaurant finds waiting when it opens the panel.
-        $incoming = [
-            $this->order($huerta, $this->otherCustomers[0], OrderStatus::Received, now()->subMinutes(2)),
-            $this->order($huerta, $this->otherCustomers[1], OrderStatus::Received, now()->subMinutes(6)),
-            $this->order($huerta, $this->otherCustomers[2], OrderStatus::Received, now()->subMinutes(11)),
-        ];
-        $kitchen = $this->order($huerta, $this->otherCustomers[3], OrderStatus::Preparing, now()->subMinutes(18));
+        $this->order($huerta, $this->otherCustomers[0], OrderStatus::Received, now()->subMinutes(2));
+        $this->order($huerta, $this->otherCustomers[1], OrderStatus::Received, now()->subMinutes(6));
+        $this->order($huerta, $this->otherCustomers[2], OrderStatus::Received, now()->subMinutes(11));
+        $this->order($huerta, $this->otherCustomers[3], OrderStatus::Preparing, now()->subMinutes(18));
+        $this->order($huerta, $this->otherCustomers[6], OrderStatus::OnTheWay, now()->subMinutes(42));
         $this->order($huerta, $this->otherCustomers[4], OrderStatus::Rejected, now()->subDays(1)->setTime(23, 20));
 
-        $this->seedNotifications($preparing, $onTheWay, $incoming, $kitchen);
+        // Every other restaurant also has something in progress.
+        foreach ($restaurants->except('la-huerta-de-palermo')->values() as $index => $restaurant) {
+            $this->order($restaurant, $this->otherCustomers[($index + 5) % $this->otherCustomers->count()], OrderStatus::Received, now()->subMinutes(4 + $index * 3));
+            $this->order($restaurant, $this->otherCustomers[($index + 7) % $this->otherCustomers->count()], OrderStatus::Preparing, now()->subMinutes(16 + $index * 2));
+        }
     }
 
     private function order(Restaurant $restaurant, User $customer, OrderStatus $status, CarbonInterface $placedAt, ?bool $containers = null): Order
@@ -82,7 +87,9 @@ class OrderSeeder extends Seeder
         $isDemoCustomer = $customer->is($this->customer);
         $courier = match (true) {
             ! $hasCourier => null,
-            $status !== OrderStatus::Delivered, $isDemoCustomer => $this->courier,
+            // The demo courier carries the demo customer's orders and the demo restaurant's open ones.
+            $isDemoCustomer, $status !== OrderStatus::Delivered && $restaurant->slug === 'la-huerta-de-palermo' => $this->courier,
+            $status !== OrderStatus::Delivered => $this->otherCouriers->random(),
             default => fake()->boolean(45) ? $this->courier : $this->otherCouriers->random(),
         };
 
@@ -177,54 +184,5 @@ class OrderSeeder extends Seeder
         $earned = array_sum(array_column($credits, 1));
         $order->update(['leaves_earned' => $earned]);
         $customer->increment('leaf_balance', $earned);
-    }
-
-    private function seedNotifications(Order $preparing, Order $onTheWay, array $incoming, Order $kitchen): void
-    {
-        $lastDelivered = $this->customer->orders()->where('status', OrderStatus::Delivered)->latest()->first();
-
-        $this->notify($this->customer, now()->subDays(3), read: true,
-            title: 'Pedido entregado',
-            body: "Sumaste {$lastDelivered->leaves_earned} Hojitas Verdes con el pedido {$lastDelivered->code}.",
-            url: route('orders.show', $lastDelivered, absolute: false), icon: 'check');
-
-        $this->notify($this->customer, now()->subMinutes(11),
-            title: 'Tu pedido está en preparación',
-            body: "{$preparing->restaurant->name} aceptó el pedido {$preparing->code}.",
-            url: route('orders.show', $preparing, absolute: false), icon: 'menu');
-
-        $this->notify($this->customer, now()->subMinutes(9),
-            title: 'Tu pedido está en camino',
-            body: "{$this->courier->firstName()} ya salió con el pedido {$onTheWay->code}.",
-            url: route('orders.show', $onTheWay, absolute: false), icon: 'bike');
-
-        $owner = $onTheWay->restaurant->owner;
-
-        foreach (array_reverse($incoming) as $order) {
-            $this->notify($owner, $order->created_at,
-                title: 'Tenés un pedido nuevo',
-                body: "{$order->customer->firstName()} pidió {$order->itemsSummary()}.",
-                url: route('restaurant.orders.show', $order, absolute: false), icon: 'receipt');
-        }
-
-        foreach ([$kitchen, $preparing] as $order) {
-            $this->notify($this->courier, $order->created_at->copy()->addMinutes(3),
-                title: 'Tenés una entrega nueva',
-                body: "Retirá el pedido {$order->code} en {$order->restaurant->name}.",
-                url: route('courier.deliveries.show', $order, absolute: false), icon: 'bike');
-        }
-    }
-
-    private function notify(User $user, CarbonInterface $at, string $title, string $body, string $url, string $icon, bool $read = false): void
-    {
-        // Written straight to the table (not through notify()) so it can be dated in the past.
-        $user->notifications()->create([
-            'id' => Str::uuid()->toString(),
-            'type' => ActivityNotification::class,
-            'data' => (new ActivityNotification($title, $body, $url, $icon))->toArray($user),
-            'read_at' => $read ? $at : null,
-            'created_at' => $at,
-            'updated_at' => $at,
-        ]);
     }
 }

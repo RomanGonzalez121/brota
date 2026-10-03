@@ -49,8 +49,11 @@ class Restaurant extends Model
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * Restaurants customers can order from: enabled and with at least one dish loaded.
+     */
     public function scopeActive(Builder $query): void
     {
-        $query->where('is_active', true);
+        $query->where('is_active', true)->has('dishes');
     }
 }

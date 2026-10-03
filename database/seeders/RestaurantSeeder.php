@@ -10,23 +10,17 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class CatalogSeeder extends Seeder
+/**
+ * Restaurants with their owners and menus. Categories come from CategorySeeder.
+ */
+class RestaurantSeeder extends Seeder
 {
     public function run(): void
     {
         $demoOwner = User::query()->where('email', LoginController::demoEmail(UserRole::Restaurant))->first();
-        $demoCustomer = User::query()->where('email', LoginController::demoEmail(UserRole::Customer))->first();
-
-        $demoCustomer->addresses()->createMany([
-            ['label' => 'Casa', 'street' => 'Av. Córdoba 5432, 3° B', 'neighborhood' => 'Palermo', 'notes' => 'Timbre 3B. Si no contesto, llamame.', 'is_default' => true],
-            ['label' => 'Trabajo', 'street' => 'Humboldt 1550, piso 2', 'neighborhood' => 'Palermo', 'notes' => 'Dejar en recepción.'],
-        ]);
+        $categories = Category::query()->pluck('id', 'slug');
 
         foreach ($this->restaurants() as $index => $data) {
-            $category = Category::query()->firstOrCreate(
-                ['slug' => Str::slug($data['category'])],
-                ['name' => $data['category']],
-            );
 
             // The first restaurant belongs to the demo "restaurante" user.
             $owner = $index === 0 ? $demoOwner : User::factory()->restaurantOwner()->create([
@@ -36,7 +30,7 @@ class CatalogSeeder extends Seeder
 
             $restaurant = Restaurant::create([
                 'user_id' => $owner->id,
-                'category_id' => $category->id,
+                'category_id' => $categories[Str::slug($data['category'])],
                 'name' => $data['name'],
                 'slug' => Str::slug($data['name']),
                 'tagline' => $data['tagline'],

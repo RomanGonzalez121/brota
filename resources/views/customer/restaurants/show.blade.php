@@ -18,7 +18,7 @@
         <dl class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[15px] tabular-nums lg:mt-0 lg:shrink-0">
             <div class="flex items-center gap-1.5">
                 <dt><x-icon name="star" class="size-4 text-leaf" /><span class="sr-only">Puntaje</span></dt>
-                <dd class="font-semibold">{{ number_format($restaurant->rating, 1, ',') }}</dd>
+                <dd class="font-semibold">{{ $restaurant->rating > 0 ? number_format($restaurant->rating, 1, ',') : 'Nuevo' }}</dd>
             </div>
             <div class="flex items-center gap-1.5">
                 <dt><x-icon name="clock" class="size-4 text-muted" /><span class="sr-only">Demora</span></dt>
@@ -43,6 +43,14 @@
             <x-leaf class="size-4 text-leaf" />
             Está cerca: este pedido suma Hojitas Verdes.
         </p>
+    @endif
+
+    @if ($sections->isEmpty())
+        <x-card class="mt-10">
+            <x-empty-state title="Este local todavía está armando su menú">
+                Volvé en un rato: están cargando los platos.
+            </x-empty-state>
+        </x-card>
     @endif
 
     <div class="mt-12 space-y-12 lg:mt-20 lg:space-y-20">
