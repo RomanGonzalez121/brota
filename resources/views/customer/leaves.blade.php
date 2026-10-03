@@ -1,7 +1,7 @@
 <x-layouts.customer title="Hojitas Verdes">
     <x-slot:hero>
         <div class="relative overflow-hidden pt-3 pb-8 lg:pt-8 lg:pb-12">
-            <div class="pointer-events-none absolute -right-10 -bottom-16" data-parallax="14" aria-hidden="true"><div class="origin-bottom-left animate-sway"><x-leaf class="size-64 rotate-[10deg] text-sprout/30" /></div></div>
+            <div class="pointer-events-none absolute right-2 bottom-6 lg:right-10 lg:bottom-10" data-parallax="14" aria-hidden="true"><div class="origin-bottom-left animate-sway"><x-leaf class="size-28 rotate-[10deg] text-sprout/30 lg:size-52" /></div></div>
             <h1 class="relative text-xl font-bold lg:text-2xl">Tus Hojitas Verdes</h1>
             <p class="relative mt-2 flex items-center gap-3 font-display text-7xl leading-none font-extrabold tabular-nums lg:text-8xl">
                 <x-leaf class="size-14 origin-bottom-left animate-sprout text-sprout lg:size-20" />

@@ -102,8 +102,8 @@
             </div>
 
             <section class="relative overflow-hidden rounded-leaf bg-deep p-7 text-cream lg:p-9" aria-labelledby="leaves-title" data-reveal>
-                <div class="pointer-events-none absolute -right-8 -bottom-10 origin-bottom-left animate-sway" aria-hidden="true">
-                    <x-leaf class="size-44 rotate-[10deg] text-sprout/25" />
+                <div class="pointer-events-none absolute right-5 bottom-5 origin-bottom-left animate-sway" aria-hidden="true">
+                    <x-leaf class="size-20 rotate-[8deg] text-sprout/45 lg:size-24" />
                 </div>
                 <h2 id="leaves-title" class="relative text-2xl lg:text-3xl">Tenés {{ auth()->user()->leaf_balance }} Hojitas Verdes</h2>
                 <p class="relative mt-2 max-w-sm text-cream/80">Sumás cada vez que pedís a un restaurante cercano o elegís envases retornables.</p>

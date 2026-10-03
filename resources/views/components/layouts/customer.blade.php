@@ -50,8 +50,9 @@
             </nav>
 
             <div class="ml-auto flex items-center gap-1">
-                <a href="{{ route('leaves.index') }}" class="mr-1 inline-flex h-8 items-center gap-1 rounded-leaf-sm bg-sprout pr-3 pl-2 font-display text-sm font-extrabold text-forest tabular-nums transition-transform duration-150 ease-out-strong active:scale-[0.97]">
-                    <x-leaf class="size-4 text-forest" />
+                <a href="{{ route('leaves.index') }}" class="group/chip relative mr-1 inline-flex h-8 items-center gap-1 overflow-hidden rounded-leaf-sm bg-sprout pr-3 pl-2 font-display text-sm font-extrabold text-forest tabular-nums transition-transform duration-200 ease-out-strong hover:-translate-y-0.5 hover:scale-[1.04] active:translate-y-0 active:scale-[0.97]">
+                    <span class="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-white/45 opacity-0 transition-[translate,opacity] duration-0 group-hover/chip:translate-x-[320%] group-hover/chip:opacity-100 group-hover/chip:duration-700 group-hover/chip:ease-out" aria-hidden="true"></span>
+                    <x-leaf class="relative size-4 origin-bottom-left text-forest group-hover/chip:animate-rustle" />
                     {{ $user->leaf_balance }}
                     <span class="sr-only">Hojitas Verdes</span>
                 </a>

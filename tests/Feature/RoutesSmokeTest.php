@@ -40,6 +40,7 @@ class RoutesSmokeTest extends TestCase
 
         $routes = collect(Route::getRoutes()->getRoutes())->filter(fn (RoutingRoute $route) => in_array('GET', $route->methods(), true)
             && in_array('auth', $route->gatherMiddleware(), true)
+            && $route->getName() !== 'notifications.open'
             && (in_array("role:{$role->value}", $route->gatherMiddleware(), true) || ! $this->isRoleScoped($route)));
 
         $this->assertNotEmpty($routes);

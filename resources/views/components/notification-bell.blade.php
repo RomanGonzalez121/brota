@@ -42,7 +42,7 @@
         </div>
 
         @forelse ($latest as $notification)
-            <a href="{{ $notification->data['url'] }}" class="flex gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-page">
+            <a href="{{ route('notifications.open', $notification->id) }}" class="flex gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-page">
                 <span class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full {{ $notification->read_at ? 'bg-sage/15 text-muted' : 'bg-leaf/12 text-leaf' }}">
                     <x-icon :name="$notification->data['icon']" class="size-4" />
                 </span>

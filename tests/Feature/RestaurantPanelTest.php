@@ -111,4 +111,19 @@ class RestaurantPanelTest extends TestCase
     {
         $this->get(route('notifications.index'))->assertOk()->assertSee('Tenés un pedido nuevo');
     }
+
+    public function test_opening_a_notification_reads_it_and_goes_to_the_order(): void
+    {
+        $notification = $this->owner->unreadNotifications()->firstOrFail();
+        $unread = $this->owner->unreadNotifications()->count();
+
+        $this->get(route('notifications.open', $notification->id))->assertRedirect($notification->data['url']);
+        $this->assertSame($unread - 1, $this->owner->unreadNotifications()->count());
+
+        $this->get(route('notifications.index', ['ver' => 'sin-leer']))->assertOk();
+
+        $this->post(route('notifications.read'))->assertRedirect();
+        $this->assertSame(0, $this->owner->unreadNotifications()->count());
+        $this->get(route('notifications.index', ['ver' => 'sin-leer']))->assertSee('Estás al día');
+    }
 }

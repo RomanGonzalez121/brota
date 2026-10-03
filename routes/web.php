@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/notificaciones', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notificaciones/leer', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::get('/notificaciones/{notification}/abrir', [NotificationController::class, 'open'])->name('notifications.open');
 
     Route::middleware('role:customer')->group(function () {
         Route::get('/', HomeController::class)->name('home');
