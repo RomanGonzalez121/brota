@@ -11,7 +11,7 @@
     </a>
 
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h1 class="text-2xl tabular-nums lg:text-3xl">Pedido {{ $order->code }}</h1>
+        <h1 class="text-3xl leading-[1.1] tabular-nums lg:text-5xl">Pedido {{ $order->code }}</h1>
         <x-badge :tone="$order->status->tone()">{{ $order->status->label() }}</x-badge>
     </div>
     <p class="mt-1 text-sage">

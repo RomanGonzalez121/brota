@@ -15,7 +15,7 @@
     >
         <x-icon name="bell" class="size-6" />
         @if ($unread > 0)
-            <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums">{{ $unread }}</span>
+            <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-leaf tabular-nums">{{ $unread }}</span>
         @endif
         <span class="sr-only">Notificaciones{{ $unread > 0 ? ": {$unread} sin leer" : '' }}</span>
     </button>

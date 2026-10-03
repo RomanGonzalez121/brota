@@ -1,0 +1,66 @@
+{
+  "source": "https://www.sweetgreen.com",
+  "pages_analyzed": ["https://www.sweetgreen.com/", "https://www.sweetgreen.com/menu"],
+  "tokens": {
+    "spacing": {
+      "scale": [8, 12, 24, 48, 120],
+      "base_unit": 4
+    },
+    "typography": {
+      "families": ["Grenette", "SweetSansText"],
+      "scale": [
+        { "role": "h1", "size": "80px", "weight": "200", "family": "Grenette", "line_height": "80px", "letter_spacing": "-3.5px" },
+        { "role": "h2", "size": "48px", "weight": "200", "family": "Grenette", "line_height": "48px", "letter_spacing": "-2.25px" },
+        { "role": "lead", "size": "24px", "weight": "400", "family": "SweetSansText" },
+        { "role": "body", "size": "18px", "weight": "400", "family": "SweetSansText", "line_height": "22.5px" },
+        { "role": "ui", "size": "16px", "weight": "400", "family": "SweetSansText" },
+        { "role": "caption", "size": "12px", "weight": "400", "family": "SweetSansText" }
+      ]
+    },
+    "colors": [
+      { "role": "background", "value": "#F4F3E7" },
+      { "role": "section-background", "value": "#D8E5D6" },
+      { "role": "section-background-alt", "value": "#D6E9E9" },
+      { "role": "text-primary", "value": "#00473C" },
+      { "role": "text-strong", "value": "#0E150E" },
+      { "role": "accent", "value": "#E6FF55" }
+    ],
+    "radius": ["20px", "1000px"],
+    "shadows": [],
+    "image_ratios": [
+      { "usage": "product", "ratio": "1:1" },
+      { "usage": "hero", "ratio": "~16:9" }
+    ],
+    "grid": { "max_width": "none (full width, 40px side padding)", "columns": 3, "gutter": "48px 24px" }
+  },
+  "taste": [
+    {
+      "name": "The photo is the card",
+      "trigger": "When facing a grid of dishes to compare",
+      "decision": "Chose an unframed square photo with text set directly on the page over a white card with border, shadow and padding",
+      "reason": "Because people choose food with their eyes; a frame around each dish makes you look at the frames",
+      "evidence": ["10 of 10 product images 1:1 at 432px", "image radius 20px", "0 card containers detected", "0 shadows", "grid gap 48px/24px"]
+    },
+    {
+      "name": "Rooms, not boxes",
+      "trigger": "When one topic had to be separated from the next",
+      "decision": "Chose full-width background colour changes and 120px of air over cards, dividers and shadows",
+      "reason": "Because a change of wall colour tells you that you walked into another room without anyone drawing a line on the floor",
+      "evidence": ["3 section backgrounds cover 97% of area", "9 of 9 section gaps are 120px", "shadows: []"]
+    },
+    {
+      "name": "One loud thing per screen",
+      "trigger": "When the order action had to be findable everywhere",
+      "decision": "Chose a single high-voltage accent on under 3% of the surface over spreading brand colour across headers, icons and links",
+      "reason": "Because when only one thing shouts, nobody has to hunt for the button",
+      "evidence": ["#E6FF55 at 2.9% area", "4 interactive uses", "all other colours are green-tinted neutrals (#00473C, #0E150E)"]
+    },
+    {
+      "name": "Hierarchy by size, tight inside and wide outside",
+      "trigger": "When setting the type and spacing scale",
+      "decision": "Chose huge thin headings and a two-speed spacing scale over bold weights and evenly graded gaps",
+      "reason": "Because a big quiet headline reads as confidence, and things that sit close together are understood as one thing",
+      "evidence": ["h1 80px / h2 48px at weight 200, line-height 1.0", "536 of 549 text nodes at weight 400", "12px x236, 8px x75, 120px x9"]
+    }
+  ]
+}

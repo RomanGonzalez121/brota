@@ -7,7 +7,7 @@
     <div class="max-w-3xl" x-data>
         <article>
             <x-badge tone="sprout">{{ $topic->category->name }}</x-badge>
-            <h1 class="mt-2 text-2xl lg:text-3xl">{{ $topic->title }}</h1>
+            <h1 class="mt-2 text-3xl leading-[1.1] lg:text-5xl">{{ $topic->title }}</h1>
 
             <x-card class="mt-4">
                 <div class="flex items-center gap-3">

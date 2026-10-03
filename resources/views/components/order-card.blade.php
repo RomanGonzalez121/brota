@@ -2,7 +2,7 @@
 
 @use('App\Enums\OrderStatus')
 
-<a href="{{ $href }}" {{ $attributes->class('block rounded-2xl border border-sage/20 bg-white p-4 transition-[transform,border-color] duration-150 ease-out-strong hover:border-leaf/60 active:scale-[0.98]') }}>
+<a href="{{ $href }}" {{ $attributes->class('block rounded-media border border-sage/20 bg-white p-4 transition-[transform,border-color] duration-150 ease-out-strong hover:border-leaf/60 active:scale-[0.98]') }}>
     <div class="flex items-start justify-between gap-3">
         <div class="min-w-0">
             <h3 class="truncate text-base">{{ $order->restaurant->name }}</h3>

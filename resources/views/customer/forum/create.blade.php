@@ -3,7 +3,7 @@
         <x-icon name="arrow-left" class="size-4" />
         Foro de reciclaje
     </a>
-    <h1 class="text-2xl lg:text-3xl">Crear tema</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Crear tema</h1>
 
     <x-card class="mt-5 max-w-2xl">
         <form method="POST" action="{{ route('forum.store') }}" class="space-y-4">

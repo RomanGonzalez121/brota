@@ -1,5 +1,5 @@
 <x-layouts.customer title="Pedidos">
-    <h1 class="text-2xl lg:text-3xl">Tus pedidos</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Tus pedidos</h1>
 
     @if ($open->isEmpty() && $past->isEmpty())
         <x-card class="mt-5">

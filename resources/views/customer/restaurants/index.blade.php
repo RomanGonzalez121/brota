@@ -13,9 +13,9 @@
 @endphp
 
 <x-layouts.customer title="Restaurantes">
-    <h1 class="text-2xl lg:text-3xl">Restaurantes</h1>
+    <h1 class="text-4xl leading-[1.05] lg:text-6xl lg:leading-none">Restaurantes</h1>
 
-    <form action="{{ route('restaurants.index') }}" role="search" class="relative mt-4 max-w-xl">
+    <form action="{{ route('restaurants.index') }}" role="search" class="relative mt-5 max-w-xl lg:mt-8">
         @if ($category)
             <input type="hidden" name="categoria" value="{{ $category }}">
         @endif
@@ -30,9 +30,9 @@
             type="search"
             value="{{ $search }}"
             placeholder="Buscá un restaurante o un plato"
-            class="h-12 w-full rounded-2xl border border-sage/30 bg-white pr-28 pl-12 text-base placeholder:text-sage/70 transition-[border-color,box-shadow] duration-150 focus:border-leaf focus:ring-3 focus:ring-leaf/15 focus:outline-none"
+            class="h-13 w-full rounded-full border border-sage/30 bg-white pr-28 pl-12 text-base placeholder:text-sage/70 transition-[border-color,box-shadow] duration-150 focus:border-leaf focus:ring-3 focus:ring-leaf/15 focus:outline-none"
         >
-        <x-button size="sm" class="absolute top-1/2 right-1.5 -translate-y-1/2">Buscar</x-button>
+        <x-button size="sm" class="absolute top-1/2 right-1.5 h-10 -translate-y-1/2 px-4">Buscar</x-button>
     </form>
 
     <nav class="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Filtros">
@@ -66,9 +66,9 @@
             </x-empty-state>
         </x-card>
     @else
-        <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="mt-5 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-12">
             @foreach ($restaurants as $restaurant)
-                <li><x-restaurant-card :restaurant="$restaurant" :nearby-km="$nearbyKm" class="h-full" /></li>
+                <li><x-restaurant-card :restaurant="$restaurant" :nearby-km="$nearbyKm" /></li>
             @endforeach
         </ul>
     @endif

@@ -7,7 +7,7 @@
 <x-layouts.customer title="Foro de reciclaje">
     <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-            <h1 class="text-2xl lg:text-3xl">Foro de reciclaje</h1>
+            <h1 class="text-3xl leading-[1.1] lg:text-5xl">Foro de reciclaje</h1>
             <p class="mt-1 max-w-xl text-sage">Preguntá, compartí lo que te funciona y ayudá a otros vecinos a generar menos basura.</p>
         </div>
         <x-button :href="route('forum.create')">

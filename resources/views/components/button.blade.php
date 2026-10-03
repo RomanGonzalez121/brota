@@ -2,7 +2,7 @@
 
 @php
     $classes = [
-        'inline-flex select-none items-center justify-center gap-2 rounded-xl font-display font-bold whitespace-nowrap',
+        'inline-flex select-none items-center justify-center gap-2 rounded-full font-display font-bold whitespace-nowrap',
         'transition-[transform,background-color,border-color,color] duration-150 ease-out-strong active:scale-[0.97]',
         'disabled:pointer-events-none disabled:opacity-50',
         'w-full' => $block,

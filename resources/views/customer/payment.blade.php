@@ -3,7 +3,7 @@
         <x-icon name="arrow-left" class="size-4" />
         Confirmar pedido
     </a>
-    <h1 class="text-2xl lg:text-3xl">Pagá tu pedido</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Pagá tu pedido</h1>
     <p class="mt-1 text-sage">{{ $restaurant->name }}</p>
 
     <form method="POST" action="{{ route('payment.store') }}" class="mt-5 max-w-xl">

@@ -1,5 +1,5 @@
 <x-layouts.customer title="Perfil">
-    <h1 class="text-2xl lg:text-3xl">Tu perfil</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Tu perfil</h1>
 
     <div class="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start">
         <div class="space-y-5">

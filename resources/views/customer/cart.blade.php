@@ -1,5 +1,5 @@
 <x-layouts.customer title="Carrito">
-    <h1 class="text-2xl lg:text-3xl">Tu carrito</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Tu carrito</h1>
 
     @if ($cart->isEmpty())
         <x-card class="mt-5">

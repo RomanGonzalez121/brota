@@ -35,6 +35,9 @@
 
     --shadow-lift: 0 16px 40px -16px color-mix(in oklab, var(--color-forest) 35%, transparent);
 
+    /* Shape tells the role: photos and panels use this radius, actions are pills. */
+    --radius-media: 1.25rem;
+
     --animate-sprout: sprout 420ms var(--ease-out-strong) both;
     --animate-breathe: breathe 2.4s ease-in-out infinite;
 
@@ -79,6 +82,17 @@
     border-radius: 0.875rem 0.25rem 0.875rem 0.25rem;
 }
 
+/*
+ | Paints a section's background across the whole viewport while its content
+ | stays in the page container. The spread shadow never adds scroll width.
+ */
+@utility bleed-sprout {
+    --bleed: color-mix(in oklab, var(--color-sprout) 20%, var(--color-cream));
+    background-color: var(--bleed);
+    box-shadow: 0 0 0 100vmax var(--bleed);
+    clip-path: inset(0 -100vmax);
+}
+
 @layer base {
     html {
         -webkit-text-size-adjust: 100%;
@@ -91,7 +105,7 @@
     h1,
     h2,
     h3 {
-        @apply font-display font-extrabold tracking-tight text-balance;
+        @apply font-display leading-tight font-extrabold tracking-tight text-balance;
     }
 
     :focus-visible {

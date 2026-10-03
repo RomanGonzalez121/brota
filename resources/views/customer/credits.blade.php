@@ -1,5 +1,5 @@
 <x-layouts.customer title="Créditos de las fotos">
-    <h1 class="text-2xl lg:text-3xl">Créditos de las fotos</h1>
+    <h1 class="text-3xl leading-[1.1] lg:text-5xl">Créditos de las fotos</h1>
     <p class="mt-1 max-w-2xl text-sage">
         Las fotos de restaurantes y platos vienen de Wikimedia Commons y se usan bajo licencias libres. Acá figura quién sacó cada una y con qué licencia la compartió.
     </p>
