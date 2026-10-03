@@ -182,6 +182,96 @@ Alpine.data('leafFall', (key) => ({
 }));
 
 /*
+ | The toast: shows the message a redirect left behind, and any message sent
+ | later with a `toast` window event.
+ */
+Alpine.data('toast', (initial, initialError) => ({
+    visible: false,
+    message: initial ?? '',
+    error: initialError,
+    timer: null,
+
+    init() {
+        if (this.message) {
+            this.$nextTick(() => this.open());
+        }
+    },
+
+    open() {
+        this.visible = true;
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => (this.visible = false), 4500);
+    },
+
+    show({ message, error = false }) {
+        this.message = message;
+        this.error = error;
+        this.open();
+    },
+}));
+
+/*
+ | Adds a dish to the cart without leaving the page. The server answers with
+ | the new totals, and a `cart-updated` event lets the header, the dish and
+ | the floating cart bar update themselves. If the request fails, the form is
+ | submitted the ordinary way.
+ */
+Alpine.data('addToCart', () => ({
+    busy: false,
+    done: false,
+
+    async add() {
+        if (this.busy) {
+            return;
+        }
+
+        const form = this.$root;
+        this.busy = true;
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            });
+
+            if (! response.ok) {
+                throw new Error(`Cart request failed: ${response.status}`);
+            }
+
+            const detail = await response.json();
+
+            window.dispatchEvent(new CustomEvent('cart-updated', { detail }));
+            window.dispatchEvent(new CustomEvent('toast', { detail: { message: detail.message } }));
+
+            this.done = true;
+            setTimeout(() => (this.done = false), 1400);
+        } catch {
+            form.submit();
+        } finally {
+            this.busy = false;
+        }
+    },
+}));
+
+/*
+ | Restarts a CSS animation on an element (removing and re-adding the class
+ | only works after the browser has seen the element without it).
+ */
+window.replay = (element, className) => {
+    if (! element) {
+        return;
+    }
+
+    element.classList.remove(className);
+    element.getBoundingClientRect();
+    element.classList.add(className);
+};
+
+/*
  | The notification bell swings only when there is something new since the
  | last screen, not on every page load.
  */

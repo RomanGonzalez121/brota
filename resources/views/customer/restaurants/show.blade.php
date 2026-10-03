@@ -68,25 +68,41 @@
                                 <h3 class="text-lg leading-snug">{{ $dish->name }}</h3>
                                 <p class="mt-0.5 text-sm text-muted">{{ $dish->description }}</p>
 
-                                @if ($dish->tags || $inCart->has($dish->id))
-                                    <div class="mt-2 flex flex-wrap items-center gap-1.5">
-                                        @foreach ($dish->tags ?? [] as $tag)
-                                            <x-badge tone="neutral"><x-icon :name="\App\Models\Dish::TAG_ICONS[$tag] ?? 'sprout'" class="size-3.5 text-leaf" />{{ $tag }}</x-badge>
-                                        @endforeach
-                                        @if ($inCart->has($dish->id))
-                                            <x-badge tone="sprout" :class="session()->has('status') ? 'animate-pop' : ''">{{ $inCart[$dish->id]->quantity }} en el carrito</x-badge>
-                                        @endif
-                                    </div>
-                                @endif
+                                <div class="mt-2 flex flex-wrap items-center gap-1.5 empty:hidden">
+                                    @foreach ($dish->tags ?? [] as $tag)
+                                        <x-badge tone="neutral"><x-icon :name="\App\Models\Dish::TAG_ICONS[$tag] ?? 'sprout'" class="size-3.5 text-leaf" />{{ $tag }}</x-badge>
+                                    @endforeach
+                                    @if ($dish->is_available)
+                                        {{-- Follows the cart: shows up and pops when this dish is added, without a reload. --}}
+                                        <span
+                                            x-data="{ quantity: {{ $inCart[$dish->id]->quantity ?? 0 }} }"
+                                            @cart-updated.window="
+                                                if ($event.detail.dish === {{ $dish->id }}) { quantity = $event.detail.quantity; $nextTick(() => replay($el, 'animate-pop')) }
+                                                else if ($event.detail.replaced) quantity = 0
+                                            "
+                                            x-show="quantity > 0"
+                                            @unless ($inCart->has($dish->id)) x-cloak @endunless
+                                        >
+                                            <x-badge tone="sprout"><span x-text="quantity">{{ $inCart[$dish->id]->quantity ?? 0 }}</span> en el carrito</x-badge>
+                                        </span>
+                                    @endif
+                                </div>
 
                                 <div class="mt-3 flex items-center justify-between gap-3">
                                     <span class="font-display text-lg font-extrabold tabular-nums">{{ money($dish->price) }}</span>
                                     @if ($dish->is_available)
-                                        <form method="POST" action="{{ route('cart.store', $dish) }}">
+                                        {{-- Sent in the background; without JavaScript it is an ordinary form. --}}
+                                        <form method="POST" action="{{ route('cart.store', $dish) }}" x-data="addToCart" @submit.prevent="add()">
                                             @csrf
-                                            <x-button size="sm" variant="secondary" class="h-11 px-4">
-                                                <x-icon name="plus" class="size-4" />
-                                                Agregar
+                                            <x-button size="sm" variant="secondary" class="h-11 min-w-28 px-4" x-bind:disabled="busy">
+                                                <span class="flex items-center gap-2" x-show="! done">
+                                                    <x-icon name="plus" class="size-4" />
+                                                    Agregar
+                                                </span>
+                                                <span class="flex items-center gap-2 text-leaf" x-show="done" x-cloak>
+                                                    <x-icon name="check" class="size-4" />
+                                                    Listo
+                                                </span>
                                                 <span class="sr-only">{{ $dish->name }} al carrito</span>
                                             </x-button>
                                         </form>
@@ -102,14 +118,30 @@
         @endforeach
     </div>
 
-    @if ($cartIsHere && ! $cart->isEmpty())
-        <a href="{{ route('cart.show') }}" class="fixed inset-x-4 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-20 flex h-14 animate-slide-up items-center justify-between gap-4 rounded-full bg-carrot px-6 font-display font-bold text-forest shadow-lift transition-[transform,background-color] duration-150 ease-out-strong hover:bg-carrot-deep active:scale-[0.97] lg:inset-x-auto lg:right-8 lg:bottom-8 lg:min-w-80">
+    {{-- The cart bar is always in the page: it slides up with the first dish and follows the totals. --}}
+    @php
+        $barCount = $cartIsHere ? $cart->count() : 0;
+        $barSubtotal = money($cartIsHere ? $cart->subtotal() : 0);
+    @endphp
+    <div
+        x-data="{ count: {{ $barCount }}, subtotal: @js($barSubtotal) }"
+        @cart-updated.window="count = $event.detail.count; subtotal = $event.detail.subtotal"
+    >
+        <a
+            href="{{ route('cart.show') }}"
+            x-show="count > 0"
+            @if ($barCount === 0) x-cloak @endif
+            x-transition:enter="transition-[opacity,transform] duration-[420ms] ease-drawer"
+            x-transition:enter-start="translate-y-full opacity-0"
+            x-transition:enter-end="translate-y-0 opacity-100"
+            class="fixed inset-x-4 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-20 flex h-14 items-center justify-between gap-4 rounded-full bg-carrot px-6 font-display font-bold text-forest shadow-lift transition-[transform,background-color] duration-150 ease-out-strong hover:bg-carrot-deep active:scale-[0.97] lg:inset-x-auto lg:right-8 lg:bottom-8 lg:min-w-80"
+        >
             <span class="flex items-center gap-2.5">
                 <x-icon name="cart" />
-                Ver carrito ({{ $cart->count() }})
+                <span>Ver carrito (<span x-text="count">{{ $barCount }}</span>)</span>
             </span>
-            <span class="tabular-nums">{{ money($cart->subtotal()) }}</span>
+            <span class="tabular-nums" x-text="subtotal">{{ $barSubtotal }}</span>
         </a>
-        <div class="h-16 lg:hidden" aria-hidden="true"></div>
-    @endif
+        <div class="h-16 lg:hidden" x-show="count > 0" @if ($barCount === 0) x-cloak @endif aria-hidden="true"></div>
+    </div>
 </x-layouts.customer>

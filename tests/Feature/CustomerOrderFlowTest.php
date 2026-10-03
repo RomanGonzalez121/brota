@@ -71,6 +71,24 @@ class CustomerOrderFlowTest extends TestCase
         $this->get(route('orders.show', $order))->assertOk()->assertSee('Sumaste 25 Hojitas Verdes');
     }
 
+    public function test_the_menu_adds_dishes_in_the_background(): void
+    {
+        $customer = User::query()->where('email', LoginController::demoEmail(UserRole::Customer))->firstOrFail();
+        $dish = Restaurant::query()->firstOrFail()->dishes()->where('is_available', true)->firstOrFail();
+
+        $this->actingAs($customer);
+        $this->postJson(route('cart.store', $dish))->assertOk();
+
+        // No redirect and no reload: the answer carries what the page has to update.
+        $this->postJson(route('cart.store', $dish))->assertOk()->assertJson([
+            'count' => 2,
+            'subtotal' => money($dish->price * 2),
+            'dish' => $dish->id,
+            'quantity' => 2,
+            'replaced' => false,
+        ]);
+    }
+
     public function test_adding_a_dish_from_another_restaurant_starts_a_new_cart(): void
     {
         $customer = User::query()->where('email', LoginController::demoEmail(UserRole::Customer))->firstOrFail();

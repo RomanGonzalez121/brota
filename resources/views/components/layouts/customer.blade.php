@@ -61,13 +61,16 @@
 
                 <x-notification-bell />
 
-                <a href="{{ route('cart.show') }}" class="relative flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]">
-                    <x-cart-icon class="size-6" :grow="$cartCount > 0 && session()->has('status')" />
-                    @if ($cartCount > 0)
-                        {{-- Pops only right after something changed (a flash message is showing). --}}
-                        <span @class(['absolute top-0 -right-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums', 'animate-pop [animation-delay:150ms]' => session()->has('status')])>{{ $cartCount }}</span>
-                    @endif
-                    <span class="sr-only">Carrito{{ $cartCount > 0 ? ": {$cartCount} productos" : '' }}</span>
+                {{-- Updates itself when a dish is added in the background: the sprout grows back and the count pops. --}}
+                <a
+                    href="{{ route('cart.show') }}"
+                    x-data="{ count: {{ $cartCount }} }"
+                    @cart-updated.window="count = $event.detail.count; replay($el.querySelector('[data-cart-sprout]'), 'animate-regrow'); $nextTick(() => replay($refs.count, 'animate-pop'))"
+                    class="relative flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]"
+                >
+                    <x-cart-icon class="size-6" />
+                    <span x-ref="count" x-show="count > 0" @if ($cartCount === 0) x-cloak @endif x-text="count" class="absolute top-0 -right-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums">{{ $cartCount }}</span>
+                    <span class="sr-only" x-text="count > 0 ? `Carrito: ${count} productos` : 'Carrito'">Carrito</span>
                 </a>
 
                 <form method="POST" action="{{ route('logout') }}" class="hidden lg:block">
