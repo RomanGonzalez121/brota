@@ -32,7 +32,7 @@
             placeholder="Buscá un restaurante o un plato"
             class="h-13 w-full rounded-full border border-sage/30 bg-surface pr-28 pl-12 text-base placeholder:text-muted/70 transition-[border-color,box-shadow] duration-150 focus:border-leaf focus:ring-3 focus:ring-leaf/15 focus:outline-none"
         >
-        <x-button size="sm" class="absolute top-1/2 right-1.5 h-10 -translate-y-1/2 px-4">Buscar</x-button>
+        <span class="absolute top-1/2 right-1.5 -translate-y-1/2"><x-button size="sm" class="h-10 px-4">Buscar</x-button></span>
     </form>
 
     <nav class="-mx-4 mt-4 flex gap-2 overflow-x-auto overflow-y-hidden px-4 pb-1 contain-paint lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Filtros">

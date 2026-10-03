@@ -29,7 +29,7 @@
                     placeholder="Buscá un restaurante o un plato"
                     class="h-14 w-full rounded-full bg-white pr-28 pl-12 text-base text-forest placeholder:text-sage focus-visible:outline-white"
                 >
-                <x-button variant="accent" size="sm" class="absolute top-1/2 right-2 h-10 -translate-y-1/2 px-4">Buscar</x-button>
+                <span class="absolute top-1/2 right-2 -translate-y-1/2"><x-button variant="accent" size="sm" class="h-10 px-4">Buscar</x-button></span>
             </form>
         </div>
     </x-slot:hero>
