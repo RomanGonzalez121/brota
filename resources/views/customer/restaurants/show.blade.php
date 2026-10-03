@@ -39,7 +39,7 @@
     <p class="mt-1 text-sm text-muted">{{ $restaurant->category->name }}. {{ $restaurant->address }}, {{ $restaurant->neighborhood }}.</p>
 
     @if ($restaurant->distance_km <= $nearbyKm)
-        <p class="mt-4 inline-flex items-center gap-2 rounded-leaf-sm bg-sprout/30 px-3 py-2 text-sm font-medium">
+        <p class="mt-4 inline-flex items-center gap-2 rounded-leaf-sm bg-sprout-soft px-3 py-2 text-sm font-medium">
             <x-leaf class="size-4 text-leaf" />
             Está cerca: este pedido suma Hojitas Verdes.
         </p>

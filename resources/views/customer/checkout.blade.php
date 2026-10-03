@@ -56,7 +56,7 @@
                 </div>
             </fieldset>
 
-            <div class="rounded-leaf bg-sprout/30 p-5">
+            <div class="rounded-leaf bg-sprout-soft p-5">
                 <x-toggle name="returnable_containers" :checked="(bool) $containers" class="w-full flex-row-reverse justify-between">
                     <span>
                         <span class="flex items-center gap-2 font-display text-lg font-extrabold">

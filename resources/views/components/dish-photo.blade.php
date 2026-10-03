@@ -1,7 +1,7 @@
 @props(['dish'])
 
 {{-- Dishes added without a photo fall back to a leaf tile. --}}
-<div {{ $attributes->class('relative shrink-0 overflow-hidden bg-sprout/30') }}>
+<div {{ $attributes->class('relative shrink-0 overflow-hidden bg-sprout-soft') }}>
     @if ($dish->image)
         <img src="{{ asset($dish->image) }}" alt="" loading="lazy" class="size-full object-cover">
     @else

@@ -34,6 +34,9 @@
     --color-deep: #1b3a2a; /* large brand surfaces: hero, footer */
     --color-danger: #c62828; /* Rojo tierra */
     --color-success: var(--color-leaf);
+    --color-band: #e5ecd0; /* pale green band behind a section */
+    --color-sand: #f8ead9; /* warm band, cream with a touch of carrot */
+    --color-sprout-soft: #dbe7c3; /* soft green fill: notices, tints */
 
     /* Each role layout sets data-accent; panels differ only by this. */
     --color-accent: var(--color-carrot);
@@ -246,6 +249,11 @@
     --color-bar: #14291c;
     --color-deep: #1a3324;
     --color-danger: #f0736e;
+
+    /* At night the soft greens turn cool and deep instead of olive. */
+    --color-band: #122a1e;
+    --color-sand: #1b231b;
+    --color-sprout-soft: #1d3b2a;
 }
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -272,14 +280,14 @@
  | stays in the page container. The spread shadow never adds scroll width.
  */
 @utility bleed-sprout {
-    --bleed: color-mix(in oklab, var(--color-sprout) 20%, var(--color-page));
+    --bleed: var(--color-band);
     background-color: var(--bleed);
     box-shadow: 0 0 0 100vmax var(--bleed);
     clip-path: inset(0 -100vmax);
 }
 
 @utility bleed-sand {
-    --bleed: color-mix(in oklab, var(--color-carrot) 11%, var(--color-page));
+    --bleed: var(--color-sand);
     background-color: var(--bleed);
     box-shadow: 0 0 0 100vmax var(--bleed);
     clip-path: inset(0 -100vmax);

@@ -41,7 +41,7 @@
                 </dl>
 
                 @if ($order->returnable_containers)
-                    <p class="mt-4 flex items-center gap-2 rounded-leaf-sm bg-sprout/30 px-3 py-2 text-sm font-medium">
+                    <p class="mt-4 flex items-center gap-2 rounded-leaf-sm bg-sprout-soft px-3 py-2 text-sm font-medium">
                         <x-icon name="box" class="size-4" />
                         Va en envases retornables.
                     </p>

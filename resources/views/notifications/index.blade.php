@@ -7,8 +7,8 @@
     $tones = [
         'receipt' => 'bg-carrot/20 text-ink',
         'flag' => 'bg-carrot/20 text-ink',
-        'bike' => 'bg-sprout/30 text-ink',
-        'menu' => 'bg-sprout/30 text-ink',
+        'bike' => 'bg-sprout-soft text-ink',
+        'menu' => 'bg-sprout-soft text-ink',
         'check' => 'bg-leaf/12 text-leaf',
         'x' => 'bg-danger/10 text-danger',
     ];

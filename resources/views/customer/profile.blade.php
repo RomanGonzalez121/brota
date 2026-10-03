@@ -15,7 +15,7 @@
                 </form>
             </x-card>
 
-            <a href="{{ route('leaves.index') }}" class="flex items-center gap-3 rounded-leaf bg-sprout/30 p-4 transition-transform duration-150 ease-out-strong active:scale-[0.98]">
+            <a href="{{ route('leaves.index') }}" class="flex items-center gap-3 rounded-leaf bg-sprout-soft p-4 transition-transform duration-150 ease-out-strong active:scale-[0.98]">
                 <x-leaf class="size-8 text-leaf" />
                 <span class="flex-1">
                     <span class="block font-display font-bold">{{ $user->leaf_balance }} Hojitas Verdes</span>
