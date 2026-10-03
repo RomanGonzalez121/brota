@@ -13,6 +13,7 @@ use App\Http\Controllers\Customer\RestaurantController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\OrderController as RestaurantOrderController;
+use App\Http\Controllers\Restaurant\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -94,7 +95,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/menu/{dish}', [MenuController::class, 'update'])->name('menu.update');
         Route::patch('/menu/{dish}/disponibilidad', [MenuController::class, 'toggle'])->name('menu.toggle');
         Route::delete('/menu/{dish}', [MenuController::class, 'destroy'])->name('menu.destroy');
-        Route::view('/reportes', 'placeholder')->name('reports.index');
+        Route::get('/reportes', [ReportController::class, 'index'])->name('reports.index');
     });
 
     Route::middleware('role:courier')->prefix('repartidor')->name('courier.')->group(function () {

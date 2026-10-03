@@ -128,4 +128,47 @@ class RestaurantPanelTest extends TestCase
         $this->assertSame(0, $this->owner->unreadNotifications()->count());
         $this->get(route('notifications.index', ['ver' => 'sin-leer']))->assertSee('Estás al día');
     }
+
+    public function test_the_report_adds_up_the_delivered_orders_of_the_month(): void
+    {
+        $month = now()->subMonthNoOverflow()->startOfMonth();
+        $sales = $this->owner->restaurant->orders()
+            ->where('status', OrderStatus::Delivered)
+            ->whereBetween('created_at', [$month, $month->copy()->endOfMonth()])
+            ->get();
+
+        $this->assertTrue($sales->isNotEmpty());
+
+        $this->get(route('restaurant.reports.index', ['mes' => $month->format('Y-m')]))
+            ->assertOk()
+            ->assertViewHas('earnings', (int) $sales->sum('subtotal'))
+            ->assertViewHas('topDishes', fn ($dishes) => $dishes->isNotEmpty() && $dishes->first()['units'] >= $dishes->last()['units'])
+            ->assertSee('Platos más pedidos');
+    }
+
+    public function test_the_report_only_counts_the_restaurants_own_delivered_orders(): void
+    {
+        $response = $this->get(route('restaurant.reports.index'))->assertOk();
+        $before = $response->viewData('earnings');
+
+        // A rejected order of its own and a delivery of another restaurant must not move the number.
+        $this->owner->restaurant->orders()->where('status', OrderStatus::Received)->firstOrFail()->update(['status' => OrderStatus::Rejected]);
+        Order::query()->where('restaurant_id', '!=', $this->owner->restaurant->id)->where('status', OrderStatus::Received)->firstOrFail()
+            ->update(['status' => OrderStatus::Delivered]);
+
+        $this->assertSame($before, $this->get(route('restaurant.reports.index'))->viewData('earnings'));
+
+        // Delivering one of its own does.
+        $own = $this->owner->restaurant->orders()->where('status', OrderStatus::Preparing)->firstOrFail();
+        $own->update(['status' => OrderStatus::Delivered]);
+
+        $this->assertSame($before + $own->subtotal, $this->get(route('restaurant.reports.index'))->viewData('earnings'));
+    }
+
+    public function test_a_month_without_sales_says_so(): void
+    {
+        $this->owner->restaurant->orders()->delete();
+
+        $this->get(route('restaurant.reports.index'))->assertOk()->assertSee('Todavía no hay ventas');
+    }
 }

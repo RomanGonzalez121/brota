@@ -16,6 +16,15 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
+    /**
+     * The dish as it is on the menu today. The line keeps its own name and
+     * price, so it still reads right if the dish was later removed.
+     */
+    public function dish(): BelongsTo
+    {
+        return $this->belongsTo(Dish::class);
+    }
+
     public function lineTotal(): int
     {
         return $this->unit_price * $this->quantity;
