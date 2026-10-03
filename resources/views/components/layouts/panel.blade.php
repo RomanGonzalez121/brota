@@ -7,12 +7,16 @@
     $isAdmin = $user->role === UserRole::Admin;
     $restaurant = $isAdmin ? null : $user->restaurant;
 
+    // What is waiting for the administrator, shown next to the menu entry that leads to it:
+    // reported contents, counted once however many people reported each.
+    $waiting = $isAdmin ? ['admin.reports.index' => \App\Models\ForumReport::query()->where('status', 'pending')->get(['reportable_type', 'reportable_id'])->unique(fn ($report) => $report->reportable_type.$report->reportable_id)->count()] : [];
+
     // Restaurant and admin share this layout; only the accent and the menu change.
     $nav = $isAdmin
         ? [
             ['label' => 'Restaurantes', 'route' => 'admin.restaurants.index', 'icon' => 'store', 'match' => 'admin.restaurants.*'],
             ['label' => 'Repartidores', 'route' => 'admin.couriers.index', 'icon' => 'bike', 'match' => 'admin.couriers.*'],
-            ['label' => 'Moderación del foro', 'route' => 'admin.reports.index', 'icon' => 'flag', 'match' => 'admin.reports.*'],
+            ['label' => 'Moderación', 'route' => 'admin.reports.index', 'icon' => 'flag', 'match' => 'admin.reports.*'],
             ['label' => 'Hojitas Verdes', 'route' => 'admin.settings.edit', 'icon' => 'sliders', 'match' => 'admin.settings.*'],
         ]
         : [
@@ -56,7 +60,8 @@
                 </div>
             @endif
 
-            <ul class="flex gap-1 overflow-x-auto overflow-y-hidden px-3 py-2 contain-paint lg:contain-none lg:flex-col lg:px-3 lg:py-4">
+            {{-- Live: the count beside an entry follows what is done on the screen without a reload. --}}
+            <ul id="panel-nav" data-live class="flex gap-1 overflow-x-auto overflow-y-hidden px-3 py-2 contain-paint lg:contain-none lg:flex-col lg:px-3 lg:py-4">
                 @foreach ($nav as $item)
                     @php $active = request()->routeIs($item['match']); @endphp
                     <li class="shrink-0">
@@ -70,6 +75,9 @@
                             @endif
                             <x-icon :name="$item['icon']" class="transition-transform duration-200 ease-out-strong group-hover/link:-rotate-6 group-hover/link:scale-110" />
                             {{ $item['label'] }}
+                            @if (($waiting[$item['route']] ?? 0) > 0)
+                                <span class="ml-auto min-w-5.5 rounded-full bg-carrot px-1.5 text-center text-xs leading-5.5 font-bold text-forest tabular-nums">{{ $waiting[$item['route']] }}</span>
+                            @endif
                         </a>
                     </li>
                 @endforeach

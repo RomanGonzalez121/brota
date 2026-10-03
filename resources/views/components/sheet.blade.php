@@ -34,7 +34,7 @@
         x-transition:enter="transition-[opacity,transform] duration-300 ease-drawer"
         x-transition:enter-start="translate-y-full opacity-0 sm:translate-y-0 sm:scale-95"
         x-transition:enter-end="translate-y-0 opacity-100 sm:scale-100"
-        class="relative w-full max-w-md rounded-t-3xl bg-surface p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] shadow-lift sm:rounded-3xl"
+        class="relative max-h-[92dvh] w-full max-w-md overflow-y-auto overscroll-contain rounded-t-3xl bg-surface p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] shadow-lift sm:rounded-3xl"
     >
         <div class="mb-4 flex items-center justify-between gap-4">
             <h2 id="sheet-{{ $name }}-title" class="text-xl">{{ $title }}</h2>

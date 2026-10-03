@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 #[Fillable([
     'user_id', 'category_id', 'name', 'slug', 'tagline', 'description', 'address', 'neighborhood',
@@ -22,6 +23,37 @@ class Restaurant extends Model
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
         ];
+    }
+
+    /**
+     * Opens a restaurant for its owner. It starts with sensible defaults for
+     * what nobody is asked: fee, time and a made-up distance, since the mockup
+     * has no map service.
+     *
+     * @param  array{restaurant_name: string, category_id: int|string, tagline: string, address: string, neighborhood: string}  $data
+     */
+    public static function open(User $owner, array $data): self
+    {
+        $slug = Str::slug($data['restaurant_name']);
+
+        if (static::query()->where('slug', $slug)->exists()) {
+            $slug .= '-'.Str::lower(Str::random(4));
+        }
+
+        return static::create([
+            'user_id' => $owner->id,
+            'category_id' => $data['category_id'],
+            'name' => $data['restaurant_name'],
+            'slug' => $slug,
+            'tagline' => $data['tagline'],
+            'description' => $data['tagline'],
+            'address' => $data['address'],
+            'neighborhood' => $data['neighborhood'],
+            'distance_km' => fake()->randomFloat(1, 0.6, 4.5),
+            'rating' => 0,
+            'delivery_fee' => 1500,
+            'eta_minutes' => 30,
+        ]);
     }
 
     public function getRouteKeyName(): string

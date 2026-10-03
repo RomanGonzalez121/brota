@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CourierController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\Admin\RestaurantController as AdminRestaurantController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -109,9 +112,18 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-        Route::view('/restaurantes', 'placeholder')->name('restaurants.index');
-        Route::view('/repartidores', 'placeholder')->name('couriers.index');
-        Route::view('/foro/denuncias', 'placeholder')->name('reports.index');
+        Route::get('/restaurantes', [AdminRestaurantController::class, 'index'])->name('restaurants.index');
+        Route::post('/restaurantes', [AdminRestaurantController::class, 'store'])->name('restaurants.store');
+        Route::patch('/restaurantes/{restaurant}/estado', [AdminRestaurantController::class, 'toggle'])->name('restaurants.toggle');
+
+        Route::get('/repartidores', [CourierController::class, 'index'])->name('couriers.index');
+        Route::post('/repartidores', [CourierController::class, 'store'])->name('couriers.store');
+        Route::patch('/repartidores/{courier}/estado', [CourierController::class, 'toggle'])->name('couriers.toggle');
+
+        Route::get('/foro/denuncias', [AdminReportController::class, 'index'])->name('reports.index');
+        Route::post('/foro/denuncias/{report}/baja', [AdminReportController::class, 'remove'])->name('reports.remove');
+        Route::post('/foro/denuncias/{report}/descartar', [AdminReportController::class, 'dismiss'])->name('reports.dismiss');
+        Route::post('/foro/denuncias/{report}/restaurar', [AdminReportController::class, 'restore'])->name('reports.restore');
         Route::get('/parametros', [SettingsController::class, 'edit'])->name('settings.edit');
         Route::put('/parametros', [SettingsController::class, 'update'])->name('settings.update');
     });

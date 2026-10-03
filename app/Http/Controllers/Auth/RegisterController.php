@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -74,7 +73,7 @@ class RegisterController extends Controller
             ]);
 
             if ($role === UserRole::Restaurant) {
-                $this->openRestaurant($user, $data);
+                Restaurant::open($user, $data);
             }
 
             return $user;
@@ -88,35 +87,5 @@ class RegisterController extends Controller
             UserRole::Courier => 'Listo, ya podés recibir entregas.',
             default => "¡Bienvenido a Brotá, {$user->firstName()}!",
         });
-    }
-
-    /**
-     * A new restaurant starts with sensible defaults for what the form does not ask.
-     *
-     * @param  array<string, mixed>  $data
-     */
-    private function openRestaurant(User $owner, array $data): void
-    {
-        $slug = Str::slug($data['restaurant_name']);
-
-        if (Restaurant::query()->where('slug', $slug)->exists()) {
-            $slug .= '-'.Str::lower(Str::random(4));
-        }
-
-        Restaurant::create([
-            'user_id' => $owner->id,
-            'category_id' => $data['category_id'],
-            'name' => $data['restaurant_name'],
-            'slug' => $slug,
-            'tagline' => $data['tagline'],
-            'description' => $data['tagline'],
-            'address' => $data['address'],
-            'neighborhood' => $data['neighborhood'],
-            // No map service in the mockup: the distance to the customer is made up.
-            'distance_km' => fake()->randomFloat(1, 0.6, 4.5),
-            'rating' => 0,
-            'delivery_fee' => 1500,
-            'eta_minutes' => 30,
-        ]);
     }
 }
