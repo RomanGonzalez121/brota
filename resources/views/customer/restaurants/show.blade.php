@@ -12,8 +12,8 @@
 
     <div class="mt-6 lg:mt-10 lg:flex lg:items-end lg:justify-between lg:gap-8">
         <div>
-            <h1 class="animate-rise text-4xl leading-[1.05] lg:text-6xl lg:leading-none">{{ $restaurant->name }}</h1>
-            <p class="mt-2 animate-rise text-lg text-muted [animation-delay:70ms] lg:text-xl">{{ $restaurant->tagline }}</p>
+            <h1 class="text-4xl leading-[1.05] lg:text-6xl lg:leading-none">{{ $restaurant->name }}</h1>
+            <p class="mt-2 text-lg text-muted lg:text-xl">{{ $restaurant->tagline }}</p>
         </div>
         <dl class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[15px] tabular-nums lg:mt-0 lg:shrink-0">
             <div class="flex items-center gap-1.5">
@@ -56,7 +56,7 @@
     <div class="mt-12 space-y-12 lg:mt-20 lg:space-y-20">
         @foreach ($sections as $section => $dishes)
             <section aria-labelledby="section-{{ $loop->index }}">
-                <h2 id="section-{{ $loop->index }}" class="text-2xl lg:text-4xl" data-reveal>{{ $section }}</h2>
+                <h2 id="section-{{ $loop->index }}" class="text-xl lg:text-2xl" data-reveal>{{ $section }}</h2>
 
                 {{-- The photo is the card: a row on phones, a tile with the photo on top on desktop. --}}
                 <ul class="mt-5 grid grid-cols-1 gap-y-8 lg:mt-8 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-12">

@@ -57,7 +57,7 @@
 
     --animate-sprout: sprout 420ms var(--ease-out-strong) both;
     --animate-breathe: breathe 2.4s ease-in-out infinite;
-    --animate-rise: rise 600ms var(--ease-out-strong) both;
+    --animate-rise: rise 450ms var(--ease-out-strong) both;
     --animate-pop: pop 260ms var(--ease-out-strong) both;
     --animate-sway: sway 7s ease-in-out infinite;
     --animate-slide-up: slide-up 420ms var(--ease-drawer) both;
@@ -383,6 +383,29 @@
 /* The logo's leaf rustles once on the first screen of a visit (class set in the head script). */
 .first-visit .logo-leaf {
     animation: rustle 900ms ease-in-out 600ms both;
+}
+
+/*
+ | Entrance of the home screen. The home is opened many times a day, so it only
+ | plays on the first screen of a visit; after that everything is simply there.
+ | What the person reads or acts on (search, order in progress, chips, cards)
+ | in the hero never moves. The order is: the featured photos settle one after
+ | another, left to right, and the logo's leaf rustles last.
+ */
+@keyframes settle {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.first-visit .enter-photo {
+    animation: settle 300ms var(--ease-out-strong) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
 }
 
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */

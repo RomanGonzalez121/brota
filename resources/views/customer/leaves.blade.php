@@ -12,7 +12,7 @@
     </x-slot:hero>
 
     <section class="bleed-sand -mt-5 py-10 lg:-mt-8 lg:py-16" aria-labelledby="rules-title">
-        <h2 id="rules-title" class="text-2xl lg:text-4xl" data-reveal>Cómo se ganan</h2>
+        <h2 id="rules-title" class="text-xl lg:text-2xl" data-reveal>Cómo se ganan</h2>
         <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:mt-6 lg:gap-6">
             <li class="flex gap-4 rounded-2xl border border-sage/20 bg-surface p-5">
                 <span class="flex size-12 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf"><x-icon name="pin" class="size-6" /></span>
@@ -32,7 +32,7 @@
     </section>
 
     <section class="mt-10 max-w-2xl lg:mt-16" aria-labelledby="history-title">
-        <h2 id="history-title" class="text-2xl lg:text-4xl" data-reveal>Movimientos</h2>
+        <h2 id="history-title" class="text-xl lg:text-2xl" data-reveal>Movimientos</h2>
         <x-card padding="p-0" class="mt-3">
             @forelse ($transactions as $transaction)
                 <div class="flex items-center gap-3.5 border-b border-sage/15 px-4 py-3.5 last:border-b-0" data-reveal style="--i: {{ min($loop->index, 6) }}">
