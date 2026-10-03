@@ -6,7 +6,7 @@
     <h1 class="text-3xl leading-[1.1] lg:text-5xl">Crear tema</h1>
 
     <x-card class="mt-5 max-w-2xl">
-        <form method="POST" action="{{ route('forum.store') }}" class="space-y-4">
+        <form method="POST" action="{{ route('forum.store') }}" data-smooth="off" class="space-y-4">
             @csrf
             <x-input label="Título" name="title" placeholder="¿Qué querés preguntar o contar?" maxlength="120" required />
             <x-select label="Categoría" name="forum_category_id" :options="$categories" placeholder="Elegí una categoría" required />

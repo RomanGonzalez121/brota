@@ -5,7 +5,7 @@
 @endphp
 
 {{-- Loaded from the database on each request; nothing here is real-time. --}}
-<div x-data="bell({{ $unread }})" @keydown.escape.window="open = false" @click.outside="open = false">
+<div id="campana" data-live x-data="bell({{ $unread }})" @keydown.escape.window="open = false" @click.outside="open = false">
     <button
         type="button"
         @click="open = ! open"

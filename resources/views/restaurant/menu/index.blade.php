@@ -30,8 +30,8 @@
                 <x-card padding="p-0" class="mt-3">
                     <ul>
                         @foreach ($dishes as $dish)
-                            <li class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-sage/15 p-4 last:border-b-0" data-reveal style="--i: {{ min($loop->index, 5) }}">
-                                <x-dish-photo :dish="$dish" class="size-16 rounded-2xl {{ $dish->is_available ? '' : 'opacity-50 grayscale' }}" />
+                            <li id="menu-plato-{{ $dish->id }}" data-item class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-sage/15 p-4 last:border-b-0" data-reveal style="--i: {{ min($loop->index, 5) }}">
+                                <x-dish-photo :dish="$dish" class="size-16 rounded-2xl transition-[opacity,filter] duration-200 {{ $dish->is_available ? '' : 'opacity-50 grayscale' }}" />
 
                                 <div class="min-w-0 flex-1 basis-56">
                                     <h3 class="text-base {{ $dish->is_available ? '' : 'text-muted' }}">{{ $dish->name }}</h3>

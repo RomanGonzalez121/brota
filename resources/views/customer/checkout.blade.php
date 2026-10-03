@@ -11,7 +11,7 @@
     </a>
     <h1 class="text-3xl leading-[1.1] lg:text-5xl">Confirmá tu pedido</h1>
 
-    <form method="POST" action="{{ route('checkout.store') }}" class="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
+    <form method="POST" action="{{ route('checkout.store') }}" data-smooth="off" class="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
         @csrf
 
         <div class="space-y-7">

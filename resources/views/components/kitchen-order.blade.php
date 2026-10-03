@@ -3,7 +3,7 @@
 @use('App\Enums\OrderStatus')
 
 {{-- An order as the restaurant sees it on its board: who, what, how much, and the one action that moves it on. --}}
-<article {{ $attributes->class('rounded-media border border-sage/20 bg-surface p-4') }}>
+<article id="pedido-{{ $order->id }}" data-item {{ $attributes->class('rounded-media border border-sage/20 bg-surface p-4') }}>
     <div class="flex items-start justify-between gap-3">
         <div class="min-w-0">
             <h3 class="text-base tabular-nums">

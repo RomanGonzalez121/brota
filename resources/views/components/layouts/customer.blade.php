@@ -65,6 +65,7 @@
                 <a
                     href="{{ route('cart.show') }}"
                     x-data="{ count: {{ $cartCount }} }"
+                    data-cart-count="{{ $cartCount }}"
                     @cart-updated.window="count = $event.detail.count; replay($el.querySelector('[data-cart-sprout]'), 'animate-regrow'); $nextTick(() => replay($refs.count, 'animate-pop'))"
                     class="relative flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]"
                 >
@@ -73,7 +74,7 @@
                     <span class="sr-only" x-text="count > 0 ? `Carrito: ${count} productos` : 'Carrito'">Carrito</span>
                 </a>
 
-                <form method="POST" action="{{ route('logout') }}" class="hidden lg:block">
+                <form method="POST" action="{{ route('logout') }}" data-smooth="off" class="hidden lg:block">
                     @csrf
                     <button type="submit" class="flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]">
                         <x-icon name="logout" class="size-6" />

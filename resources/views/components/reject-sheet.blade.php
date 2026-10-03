@@ -8,7 +8,7 @@
 
 {{-- Asks why before rejecting: the customer reads this reason on their order. --}}
 <x-sheet name="reject" title="Rechazar pedido">
-    <form method="POST" :action="payload.action" x-data="{ reason: '' }">
+    <form method="POST" :action="payload.action" x-data="{ reason: '' }" @smooth-done.window="reason = ''">
         @csrf
         <p class="text-muted">El cliente va a leer el motivo en su pedido <span class="font-semibold tabular-nums" x-text="payload.code"></span>. No se le cobra nada.</p>
 

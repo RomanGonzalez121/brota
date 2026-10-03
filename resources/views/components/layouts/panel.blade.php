@@ -33,7 +33,7 @@
                 <span class="mr-2 hidden text-sm text-white/85 sm:block">{{ $user->name }}</span>
                 <x-theme-toggle class="hover:bg-white/15" />
                 <x-notification-bell />
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" data-smooth="off">
                     @csrf
                     <button type="submit" class="flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]">
                         <x-icon name="logout" class="size-6" />

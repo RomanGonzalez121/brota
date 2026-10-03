@@ -13,7 +13,7 @@
     </x-slot:actions>
 
     <x-card class="max-w-2xl">
-        <form method="POST" action="{{ $editing ? route('restaurant.menu.update', $dish) : route('restaurant.menu.store') }}" class="space-y-5">
+        <form method="POST" action="{{ $editing ? route('restaurant.menu.update', $dish) : route('restaurant.menu.store') }}" data-smooth="off" class="space-y-5">
             @csrf
             @if ($editing)
                 @method('PUT')

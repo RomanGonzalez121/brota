@@ -66,7 +66,7 @@
                 <ul class="mt-3 space-y-2">
                     @foreach ($notifications as $notification)
                         @php $isUnread = $notification->read_at === null; @endphp
-                        <li data-reveal style="--i: {{ min($loop->index, 6) }}">
+                        <li id="aviso-{{ $notification->id }}" data-item data-reveal style="--i: {{ min($loop->index, 6) }}">
                             <a
                                 href="{{ route('notifications.open', $notification->id) }}"
                                 @class([

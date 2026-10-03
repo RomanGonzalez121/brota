@@ -7,6 +7,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@alpinejs/morph": "^3.17.4",
         "@tailwindcss/vite": "^4.0.0",
         "alpinejs": "^3.17.4",
         "concurrently": "^10.0.3",

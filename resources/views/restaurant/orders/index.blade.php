@@ -13,9 +13,10 @@
     --}}
     <div
         x-data="{ fresh: false }"
+        data-waiting="{{ $received->count() }}"
         x-init="setInterval(async () => {
             const response = await fetch('{{ route('restaurant.orders.pending') }}', { headers: { Accept: 'application/json' } });
-            if (response.ok && (await response.json()).count > {{ $received->count() }}) fresh = true;
+            if (response.ok && (await response.json()).count > Number($el.dataset.waiting)) fresh = true;
         }, 8000)"
     >
         <a
@@ -38,7 +39,7 @@
                 <h2 id="column-{{ $loop->index }}" class="flex items-center gap-2 text-lg">
                     <span class="size-2.5 rounded-full {{ $column['tone'] }}" aria-hidden="true"></span>
                     {{ $column['title'] }}
-                    <span class="font-sans text-sm font-medium text-muted tabular-nums">{{ $column['orders']->count() }}</span>
+                    <span data-pop class="font-sans text-sm font-medium text-muted tabular-nums">{{ $column['orders']->count() }}</span>
                 </h2>
 
                 <div class="mt-3 space-y-3">

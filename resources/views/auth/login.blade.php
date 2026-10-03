@@ -11,7 +11,7 @@
     <h1 class="animate-rise text-3xl lg:text-4xl">Ingresá a tu cuenta</h1>
     <p class="mt-1.5 text-muted">Usá tu email y contraseña, o entrá directo con un usuario de prueba.</p>
 
-    <form method="POST" action="{{ route('login.store') }}" class="mt-6 animate-rise space-y-4 [animation-delay:80ms]">
+    <form method="POST" action="{{ route('login.store') }}" data-smooth="off" class="mt-6 animate-rise space-y-4 [animation-delay:80ms]">
         @csrf
         <x-input label="Email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com" required />
         <x-input label="Contraseña" name="password" type="password" autocomplete="current-password" required />
@@ -30,7 +30,7 @@
 
     <div class="grid gap-2 lg:grid-cols-2">
         @foreach ($demoRoles as $demo)
-            <form method="POST" action="{{ route('login.demo', $demo['role']) }}" class="animate-rise" style="animation-delay: {{ 160 + $loop->index * 55 }}ms">
+            <form method="POST" action="{{ route('login.demo', $demo['role']) }}" data-smooth="off" class="animate-rise" style="animation-delay: {{ 160 + $loop->index * 55 }}ms">
                 @csrf
                 <button type="submit" class="group flex w-full items-center gap-3 rounded-media border border-sage/25 bg-surface p-2.5 text-left transition-[transform,border-color] duration-150 ease-out-strong hover:border-leaf active:scale-[0.97]">
                     <span class="flex size-10 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf">

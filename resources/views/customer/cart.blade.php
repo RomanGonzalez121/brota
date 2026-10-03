@@ -19,15 +19,15 @@
             <x-card padding="p-0">
                 <ul>
                     @foreach ($cart->lines() as $line)
-                        <li class="flex items-center gap-3 border-b border-sage/15 p-4 last:border-b-0">
-                            <x-dish-photo :dish="$line->dish" class="hidden size-14 rounded-xl sm:block" />
+                        <li id="linea-{{ $line->dish->id }}" data-item class="flex items-center gap-3 border-b border-sage/15 p-4 last:border-b-0">
+                            <x-dish-photo :dish="$line->dish" :lazy="false" class="hidden size-14 rounded-xl sm:block" />
                             <div class="min-w-0 flex-1">
                                 <h2 class="font-sans text-base font-semibold tracking-normal">{{ $line->dish->name }}</h2>
                                 <p class="text-sm text-muted tabular-nums">{{ money($line->dish->price) }} cada uno</p>
                             </div>
 
                             <div class="flex shrink-0 items-center rounded-xl border border-sage/25">
-                                <form method="POST" action="{{ route('cart.update', $line->dish) }}">
+                                <form method="POST" action="{{ route('cart.update', $line->dish) }}" data-smooth="queue">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="quantity" value="{{ $line->quantity - 1 }}">
@@ -36,8 +36,8 @@
                                         <span class="sr-only">{{ $line->quantity === 1 ? 'Quitar' : 'Restar uno de' }} {{ $line->dish->name }}</span>
                                     </button>
                                 </form>
-                                <span class="w-7 text-center font-display font-bold tabular-nums" aria-label="Cantidad">{{ $line->quantity }}</span>
-                                <form method="POST" action="{{ route('cart.update', $line->dish) }}">
+                                <span data-pop class="w-7 text-center font-display font-bold tabular-nums" aria-label="Cantidad">{{ $line->quantity }}</span>
+                                <form method="POST" action="{{ route('cart.update', $line->dish) }}" data-smooth="queue">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="quantity" value="{{ $line->quantity + 1 }}">
@@ -48,7 +48,7 @@
                                 </form>
                             </div>
 
-                            <span class="w-20 shrink-0 text-right font-display font-bold tabular-nums">{{ money($line->total) }}</span>
+                            <span data-pop class="w-20 shrink-0 text-right font-display font-bold tabular-nums">{{ money($line->total) }}</span>
                         </li>
                     @endforeach
                 </ul>
@@ -71,7 +71,7 @@
                 <dl class="mt-3 space-y-2 tabular-nums">
                     <div class="flex justify-between">
                         <dt class="text-muted">Subtotal</dt>
-                        <dd>{{ money($cart->subtotal()) }}</dd>
+                        <dd data-pop>{{ money($cart->subtotal()) }}</dd>
                     </div>
                     <div class="flex justify-between">
                         <dt class="text-muted">Envío</dt>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">
                         <dt>Total</dt>
-                        <dd>{{ money($cart->subtotal() + $restaurant->delivery_fee) }}</dd>
+                        <dd data-pop>{{ money($cart->subtotal() + $restaurant->delivery_fee) }}</dd>
                     </div>
                 </dl>
                 <x-button :href="route('checkout.create')" variant="accent" size="lg" block class="mt-5">Continuar con el pedido</x-button>

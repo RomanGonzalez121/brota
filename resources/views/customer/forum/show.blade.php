@@ -33,7 +33,7 @@
             @else
                 <ul class="mt-3 space-y-3">
                     @foreach ($replies as $reply)
-                        <li id="respuesta-{{ $reply->id }}" class="scroll-mt-24 rounded-2xl border border-sage/20 bg-surface p-4 sm:p-5">
+                        <li id="respuesta-{{ $reply->id }}" data-item class="scroll-mt-24 rounded-2xl border border-sage/20 bg-surface p-4 sm:p-5">
                             <div class="flex items-center gap-3">
                                 <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-sage/15 font-display text-sm font-extrabold" aria-hidden="true">{{ mb_substr($reply->author->name, 0, 1) }}</span>
                                 <div class="min-w-0 flex-1">

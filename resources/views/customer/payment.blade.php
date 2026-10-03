@@ -6,7 +6,7 @@
     <h1 class="text-3xl leading-[1.1] lg:text-5xl">Pagá tu pedido</h1>
     <p class="mt-1 text-muted">{{ $restaurant->name }}</p>
 
-    <form method="POST" action="{{ route('payment.store') }}" class="mt-5 max-w-xl">
+    <form method="POST" action="{{ route('payment.store') }}" data-smooth="off" class="mt-5 max-w-xl">
         @csrf
 
         @if ($method === 'card')

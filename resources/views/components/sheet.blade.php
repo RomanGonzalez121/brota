@@ -8,6 +8,7 @@
     x-data="{ open: false, payload: {} }"
     x-on:open-sheet.window="if ($event.detail.name === '{{ $name }}') { payload = $event.detail; open = true; $nextTick(() => $refs.panel.querySelector('input:not([type=hidden]), textarea, select')?.focus()) }"
     x-on:keydown.escape.window="open = false"
+    x-on:smooth-done.window="open = false"
     x-show="open"
     x-cloak
     x-transition:leave="transition-opacity duration-150 ease-out-strong"

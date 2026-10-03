@@ -17,6 +17,7 @@
     <form
         method="POST"
         action="{{ route('register.store') }}"
+        data-smooth="off"
         x-data="{
             role: @js(old('role', 'customer')),
             step: @js($startOnDetails ? 2 : 1),

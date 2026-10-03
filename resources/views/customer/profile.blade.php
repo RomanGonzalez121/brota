@@ -24,7 +24,7 @@
                 <x-icon name="chevron-right" class="size-4" />
             </a>
 
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('logout') }}" data-smooth="off">
                 @csrf
                 <x-button variant="secondary" block>
                     <x-icon name="logout" />
@@ -37,7 +37,7 @@
             </p>
         </div>
 
-        <section id="direcciones" class="scroll-mt-24" x-data="{ editing: null, adding: @js($errors->hasAny(['label', 'street', 'neighborhood'])) }">
+        <section id="direcciones" class="scroll-mt-24" @smooth-done.window="editing = null; adding = false" x-data="{ editing: null, adding: @js($errors->hasAny(['label', 'street', 'neighborhood'])) }">
             <x-card>
                 <div class="flex items-center justify-between gap-4">
                     <h2 class="text-lg">Direcciones guardadas</h2>
@@ -67,7 +67,7 @@
                 @else
                     <ul class="mt-2">
                         @foreach ($addresses as $address)
-                            <li class="border-b border-sage/15 py-4 last:border-b-0 last:pb-0">
+                            <li id="direccion-{{ $address->id }}" data-item class="border-b border-sage/15 py-4 last:border-b-0 last:pb-0">
                                 <div class="flex items-start gap-3" x-show="editing !== {{ $address->id }}">
                                     <x-icon name="pin" class="mt-0.5 text-muted" />
                                     <div class="min-w-0 flex-1">

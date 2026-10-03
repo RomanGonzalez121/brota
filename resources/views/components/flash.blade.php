@@ -6,6 +6,8 @@
 <div
     x-data="toast(@js(session('status')), @js(session('status_tone') === 'danger'))"
     @toast.window="show($event.detail)"
+    data-flash="{{ session('status') }}"
+    data-flash-error="{{ session('status_tone') === 'danger' ? '1' : '0' }}"
     x-show="visible"
     x-cloak
     x-transition:enter="transition-[opacity,transform] duration-300 ease-out-strong"

@@ -59,6 +59,8 @@
     --animate-breathe: breathe 2.4s ease-in-out infinite;
     --animate-rise: rise 450ms var(--ease-out-strong) both;
     --animate-pop: pop 260ms var(--ease-out-strong) both;
+    --animate-roll-up: roll-up 240ms var(--ease-out-strong) both;
+    --animate-roll-down: roll-down 240ms var(--ease-out-strong) both;
     --animate-sway: sway 7s ease-in-out infinite;
     --animate-slide-up: slide-up 420ms var(--ease-drawer) both;
     --animate-draw: draw 480ms var(--ease-out-strong) 180ms both;
@@ -114,6 +116,21 @@
         to {
             opacity: 1;
             transform: scale(1);
+        }
+    }
+
+    /* A number that changed: the new value rolls in from below when it grew, from above when it shrank. */
+    @keyframes roll-up {
+        from {
+            opacity: 0;
+            transform: translateY(55%);
+        }
+    }
+
+    @keyframes roll-down {
+        from {
+            opacity: 0;
+            transform: translateY(-55%);
         }
     }
 
@@ -406,6 +423,17 @@
 .first-visit .enter-photo {
     animation: settle 300ms var(--ease-out-strong) both;
     animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/*
+ | A form sent in the background marks its button as busy. Nothing shows when
+ | the answer is quick; if it takes a moment, the button dims so the press is
+ | not left unanswered.
+ */
+[aria-busy='true'] {
+    cursor: progress;
+    opacity: 0.6;
+    transition: opacity 200ms ease 250ms;
 }
 
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */
