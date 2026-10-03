@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
     'code', 'customer_id', 'restaurant_id', 'courier_id', 'status', 'delivery_address', 'delivery_notes',
-    'payment_method', 'subtotal', 'delivery_fee', 'total', 'returnable_containers', 'leaves_earned',
+    'payment_method', 'subtotal', 'delivery_fee', 'total', 'benefit', 'discount', 'returnable_containers', 'leaves_earned',
     'rejection_reason', 'created_at', 'updated_at',
 ])]
 class Order extends Model
@@ -82,6 +82,15 @@ class Order extends Model
         $query
             ->where('status', OrderStatus::Delivered)
             ->whereHas('statusLogs', fn (Builder $logs) => $logs->where('status', OrderStatus::Delivered)->where('created_at', '>=', $moment));
+    }
+
+    /**
+     * What the order is worth before any level benefit: `total` is what the
+     * customer paid, this is what restaurant and courier are paid on.
+     */
+    public function gross(): int
+    {
+        return $this->subtotal + $this->delivery_fee;
     }
 
     public function itemsSummary(): string

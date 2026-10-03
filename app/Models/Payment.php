@@ -18,6 +18,10 @@ class Payment extends Model
 
     public function methodLabel(): string
     {
+        if ((int) $this->amount === 0) {
+            return 'Sin cargo: beneficio de tu nivel';
+        }
+
         return $this->method === 'card'
             ? "Tarjeta terminada en {$this->card_last4}"
             : "Billetera {$this->wallet}";

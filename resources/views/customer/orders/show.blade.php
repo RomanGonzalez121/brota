@@ -88,6 +88,12 @@
                     <dt class="text-muted">Envío</dt>
                     <dd>{{ money($order->delivery_fee) }}</dd>
                 </div>
+                @if ($order->discount > 0)
+                    <div class="flex justify-between font-semibold text-leaf">
+                        <dt class="flex items-center gap-1.5"><x-leaf class="size-4" /> {{ \App\Services\Loyalty::label($order->benefit) }} por tu nivel</dt>
+                        <dd>− {{ money($order->discount) }}</dd>
+                    </div>
+                @endif
                 <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">
                     <dt>Total</dt>
                     <dd>{{ money($order->total) }}</dd>

@@ -41,6 +41,12 @@
                         <span>Envío</span>
                         <span class="tabular-nums">{{ money($order->delivery_fee) }}</span>
                     </li>
+                    @if ($order->discount > 0)
+                        <li class="flex justify-between gap-3 font-semibold text-leaf">
+                            <span class="flex items-center gap-1.5"><x-leaf class="size-4" /> {{ \App\Services\Loyalty::label($order->benefit) }} por tu nivel</span>
+                            <span class="tabular-nums">− {{ money($order->discount) }}</span>
+                        </li>
+                    @endif
                 </ul>
                 <p class="mt-3 flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold tabular-nums">
                     <span>Total pagado</span>

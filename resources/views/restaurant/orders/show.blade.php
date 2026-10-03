@@ -36,7 +36,7 @@
                     </div>
                     <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">
                         <dt>Total</dt>
-                        <dd>{{ money($order->total) }}</dd>
+                        <dd>{{ money($order->gross()) }}</dd>
                     </div>
                 </dl>
 

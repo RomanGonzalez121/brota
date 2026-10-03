@@ -100,6 +100,7 @@ Boost replaces these bootstrap instructions with guidelines tailored to the appl
 - Saldo e historial de puntos por cliente
 - Configuración de reglas por el administrador
 - (Opcional a futuro) canje de puntos
+- Niveles según las hojitas del cliente, con beneficios por nivel (como pedido gratis). Agregado por Roman el 2026-10-03.
 
 **M10. Foro de reciclaje**
 - Creación de temas y respuestas

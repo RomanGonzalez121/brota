@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Customer\CartController;
@@ -111,6 +112,7 @@ Route::middleware('auth')->group(function () {
         Route::view('/restaurantes', 'placeholder')->name('restaurants.index');
         Route::view('/repartidores', 'placeholder')->name('couriers.index');
         Route::view('/foro/denuncias', 'placeholder')->name('reports.index');
-        Route::view('/parametros', 'placeholder')->name('settings.edit');
+        Route::get('/parametros', [SettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/parametros', [SettingsController::class, 'update'])->name('settings.update');
     });
 });

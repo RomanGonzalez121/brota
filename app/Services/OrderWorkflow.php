@@ -21,7 +21,7 @@ class OrderWorkflow
     /**
      * Turn the cart into a paid order. The payment is simulated: it is always approved.
      *
-     * @param  array{address_id: int, payment_method: string, returnable_containers: bool}  $checkout
+     * @param  array{address_id: int, payment_method: string, returnable_containers: bool, benefit?: string|null}  $checkout
      * @param  array<string, string>  $payment  validated card or wallet fields
      */
     public function place(User $customer, Cart $cart, array $checkout, array $payment): Order
@@ -30,7 +30,12 @@ class OrderWorkflow
         $address = $customer->addresses()->findOrFail($checkout['address_id']);
         $subtotal = $cart->subtotal();
 
-        $order = DB::transaction(function () use ($customer, $cart, $checkout, $payment, $restaurant, $address, $subtotal) {
+        // A level benefit is only honoured if the customer still has it when the order is placed.
+        $loyalty = app(Loyalty::class);
+        $benefit = $loyalty->canUse($customer, $checkout['benefit'] ?? null) ? $checkout['benefit'] : null;
+        $discount = $loyalty->discount($benefit, $subtotal, $restaurant->delivery_fee);
+
+        $order = DB::transaction(function () use ($customer, $cart, $checkout, $payment, $restaurant, $address, $subtotal, $benefit, $discount) {
             $order = Order::create([
                 'code' => 'BR-'.(Order::query()->max('id') + 1001),
                 'customer_id' => $customer->id,
@@ -41,7 +46,9 @@ class OrderWorkflow
                 'payment_method' => $checkout['payment_method'],
                 'subtotal' => $subtotal,
                 'delivery_fee' => $restaurant->delivery_fee,
-                'total' => $subtotal + $restaurant->delivery_fee,
+                'total' => $subtotal + $restaurant->delivery_fee - $discount,
+                'benefit' => $benefit,
+                'discount' => $discount,
                 'returnable_containers' => $checkout['returnable_containers'],
             ]);
 

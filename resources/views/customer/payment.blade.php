@@ -9,7 +9,23 @@
     <form method="POST" action="{{ route('payment.store') }}" data-smooth="off" class="mt-5 max-w-xl">
         @csrf
 
-        @if ($method === 'card')
+        @if ($benefit && $total > 0)
+            <p class="mb-5 flex items-center gap-2.5 rounded-leaf-sm bg-sprout-soft px-4 py-3 text-[15px]">
+                <x-leaf class="size-5 text-leaf" />
+                <span><span class="font-semibold">{{ $benefit }}</span> por tu nivel: ya está descontado del total.</span>
+            </p>
+        @endif
+
+        @if ($total === 0)
+            {{-- The benefit covers all of it: there is nothing to charge, so nothing is asked. --}}
+            <div class="relative rounded-leaf bg-deep p-6 text-cream">
+                <div class="pointer-events-none absolute top-5 right-5 origin-bottom-left animate-sway" aria-hidden="true">
+                    <x-leaf class="size-16 rotate-[10deg] text-foliage/40" />
+                </div>
+                <p class="relative pr-20 font-display text-2xl font-extrabold text-white">Este pedido va por cuenta de Brotá</p>
+                <p class="relative mt-2 max-w-sm pr-20 text-cream/85">Usás el pedido gratis de tu nivel. No tenés que cargar ningún medio de pago.</p>
+            </div>
+        @elseif ($method === 'card')
             <div
                 x-data="{ number: @js(old('card_number', '')), name: @js(old('card_name', '')), expiry: @js(old('card_expiry', '')) }"
                 class="space-y-4"
@@ -56,11 +72,11 @@
             </fieldset>
         @endif
 
-        <p class="mt-5 flex items-start gap-2 text-sm text-muted">
+        <p class="mt-5 flex items-start gap-2 text-sm text-muted {{ $total === 0 ? 'hidden' : '' }}">
             <x-icon name="shield" class="mt-0.5 size-4" />
             Esto es una maqueta: el pago es simulado, no se cobra nada y siempre se aprueba.
         </p>
 
-        <x-button variant="accent" size="lg" block class="mt-5">Pagar {{ money($total) }}</x-button>
+        <x-button variant="accent" size="lg" block class="mt-5">{{ $total === 0 ? 'Confirmar pedido gratis' : 'Pagar '.money($total) }}</x-button>
     </form>
 </x-layouts.customer>

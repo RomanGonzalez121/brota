@@ -60,7 +60,7 @@
                     <x-badge tone="neutral"><x-icon name="bike" class="size-3.5" />{{ $order->courier->firstName() }}</x-badge>
                 @endif
             </div>
-            <span class="shrink-0 text-sm font-medium text-muted tabular-nums">{{ money($order->total) }}</span>
+            <span class="shrink-0 text-sm font-medium text-muted tabular-nums">{{ money($order->gross()) }}</span>
         </div>
     @endif
 

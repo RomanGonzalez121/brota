@@ -84,7 +84,7 @@
                         <span class="block text-sm text-muted">{{ $order->customer->name }}, {{ $order->updated_at->translatedFormat('j \d\e F, H:i') }} h</span>
                     </span>
                     <x-badge :tone="$order->status->tone()">{{ $order->status->label() }}</x-badge>
-                    <span class="hidden w-24 shrink-0 text-right font-display font-bold tabular-nums sm:block">{{ money($order->total) }}</span>
+                    <span class="hidden w-24 shrink-0 text-right font-display font-bold tabular-nums sm:block">{{ money($order->gross()) }}</span>
                 </a>
             @empty
                 <x-empty-state title="Todavía no cerraste ningún pedido">
