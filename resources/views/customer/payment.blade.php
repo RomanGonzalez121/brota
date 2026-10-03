@@ -4,7 +4,7 @@
         Confirmar pedido
     </a>
     <h1 class="text-3xl leading-[1.1] lg:text-5xl">Pagá tu pedido</h1>
-    <p class="mt-1 text-sage">{{ $restaurant->name }}</p>
+    <p class="mt-1 text-muted">{{ $restaurant->name }}</p>
 
     <form method="POST" action="{{ route('payment.store') }}" class="mt-5 max-w-xl">
         @csrf
@@ -15,7 +15,7 @@
                 class="space-y-4"
             >
                 {{-- A live preview of the card, so the form reads as one object and not four loose fields. --}}
-                <div class="relative overflow-hidden rounded-leaf bg-forest p-5 text-cream" aria-hidden="true">
+                <div class="relative overflow-hidden rounded-leaf bg-deep p-5 text-cream" aria-hidden="true">
                     <x-leaf class="absolute -right-6 -bottom-8 size-36 rotate-[10deg] text-sprout/25" />
                     <x-icon name="card" class="size-7 text-sprout" />
                     <p class="relative mt-6 font-display text-xl font-bold tracking-widest tabular-nums" x-text="number || '•••• •••• •••• ••••'"></p>
@@ -56,7 +56,7 @@
             </fieldset>
         @endif
 
-        <p class="mt-5 flex items-start gap-2 text-sm text-sage">
+        <p class="mt-5 flex items-start gap-2 text-sm text-muted">
             <x-icon name="shield" class="mt-0.5 size-4" />
             Esto es una maqueta: el pago es simulado, no se cobra nada y siempre se aprueba.
         </p>

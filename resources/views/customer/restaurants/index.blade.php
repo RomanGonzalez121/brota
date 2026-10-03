@@ -8,8 +8,8 @@
     ]));
 
     $chip = 'flex h-11 shrink-0 items-center gap-1.5 rounded-full border px-4 text-[15px] font-medium transition-[transform,border-color,background-color,color] duration-150 ease-out-strong active:scale-[0.97]';
-    $chipOn = 'border-leaf bg-leaf text-white';
-    $chipOff = 'border-sage/25 bg-white hover:border-leaf hover:text-leaf';
+    $chipOn = 'border-leaf bg-leaf text-on-leaf';
+    $chipOff = 'border-sage/25 bg-surface hover:border-leaf hover:text-leaf';
 @endphp
 
 <x-layouts.customer title="Restaurantes">
@@ -23,14 +23,14 @@
             <input type="hidden" name="cerca" value="1">
         @endif
         <label for="search" class="sr-only">Buscar un restaurante o un plato</label>
-        <x-icon name="search" class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sage" />
+        <x-icon name="search" class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" />
         <input
             id="search"
             name="q"
             type="search"
             value="{{ $search }}"
             placeholder="Buscá un restaurante o un plato"
-            class="h-13 w-full rounded-full border border-sage/30 bg-white pr-28 pl-12 text-base placeholder:text-sage/70 transition-[border-color,box-shadow] duration-150 focus:border-leaf focus:ring-3 focus:ring-leaf/15 focus:outline-none"
+            class="h-13 w-full rounded-full border border-sage/30 bg-surface pr-28 pl-12 text-base placeholder:text-muted/70 transition-[border-color,box-shadow] duration-150 focus:border-leaf focus:ring-3 focus:ring-leaf/15 focus:outline-none"
         >
         <x-button size="sm" class="absolute top-1/2 right-1.5 h-10 -translate-y-1/2 px-4">Buscar</x-button>
     </form>
@@ -43,12 +43,13 @@
         <a href="{{ $filterUrl(['categoria' => null]) }}" @if (! $category) aria-current="true" @endif class="{{ $chip }} {{ $category ? $chipOff : $chipOn }}">Todas</a>
         @foreach ($categories as $item)
             <a href="{{ $filterUrl(['categoria' => $item->slug]) }}" @if ($category === $item->slug) aria-current="true" @endif class="{{ $chip }} {{ $category === $item->slug ? $chipOn : $chipOff }}">
+                <x-icon :name="$item->icon()" class="size-4.5" />
                 {{ $item->name }}
             </a>
         @endforeach
     </nav>
 
-    <p class="mt-5 text-sm text-sage" role="status">
+    <p class="mt-5 text-sm text-muted" role="status">
         {{ $restaurants->count() === 1 ? '1 restaurante' : $restaurants->count().' restaurantes' }}
         @if ($search !== '')
             para «{{ $search }}»
@@ -68,7 +69,7 @@
     @else
         <ul class="mt-5 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-12">
             @foreach ($restaurants as $restaurant)
-                <li><x-restaurant-card :restaurant="$restaurant" :nearby-km="$nearbyKm" /></li>
+                <li data-reveal style="--i: {{ $loop->index % 3 }}"><x-restaurant-card :restaurant="$restaurant" :nearby-km="$nearbyKm" /></li>
             @endforeach
         </ul>
     @endif

@@ -14,7 +14,7 @@
         <h1 class="text-3xl leading-[1.1] tabular-nums lg:text-5xl">Pedido {{ $order->code }}</h1>
         <x-badge :tone="$order->status->tone()">{{ $order->status->label() }}</x-badge>
     </div>
-    <p class="mt-1 text-sage">
+    <p class="mt-1 text-muted">
         <a href="{{ route('restaurants.show', $order->restaurant) }}" class="font-semibold text-leaf hover:underline">{{ $order->restaurant->name }}</a>,
         {{ $order->created_at->translatedFormat('j \d\e F \a \l\a\s H:i') }} h
     </p>
@@ -31,7 +31,7 @@
             @else
                 <x-card>
                     @if ($order->status->isOpen())
-                        <p class="text-sage">Llega aproximadamente a las</p>
+                        <p class="text-muted">Llega aproximadamente a las</p>
                         <p class="font-display text-4xl font-extrabold tabular-nums">{{ $eta->format('H:i') }} h</p>
                     @else
                         <p class="font-display text-2xl font-extrabold">Pedido entregado</p>
@@ -54,9 +54,9 @@
                     <x-card class="flex items-center gap-4">
                         <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-leaf/12 font-display text-lg font-extrabold text-leaf" aria-hidden="true">{{ mb_substr($order->courier->name, 0, 1) }}</span>
                         <div class="min-w-0 flex-1">
-                            <p class="text-sm text-sage">{{ $order->status === OrderStatus::OnTheWay ? 'Lo lleva' : 'Lo va a llevar' }}</p>
+                            <p class="text-sm text-muted">{{ $order->status === OrderStatus::OnTheWay ? 'Lo lleva' : 'Lo va a llevar' }}</p>
                             <p class="font-display font-bold">{{ $order->courier->name }}</p>
-                            <p class="text-sm text-sage">{{ $order->courier->vehicle }}</p>
+                            <p class="text-sm text-muted">{{ $order->courier->vehicle }}</p>
                         </div>
                         <a href="tel:{{ preg_replace('/\D/', '', $order->courier->phone) }}" class="flex size-11 shrink-0 items-center justify-center rounded-full border border-sage/30 text-leaf transition-[transform,border-color] duration-150 ease-out-strong hover:border-leaf active:scale-[0.97]">
                             <x-icon name="phone" />
@@ -80,11 +80,11 @@
 
             <dl class="mt-4 space-y-2 border-t border-sage/15 pt-4 tabular-nums">
                 <div class="flex justify-between">
-                    <dt class="text-sage">Subtotal</dt>
+                    <dt class="text-muted">Subtotal</dt>
                     <dd>{{ money($order->subtotal) }}</dd>
                 </div>
                 <div class="flex justify-between">
-                    <dt class="text-sage">Envío</dt>
+                    <dt class="text-muted">Envío</dt>
                     <dd>{{ money($order->delivery_fee) }}</dd>
                 </div>
                 <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">
@@ -95,21 +95,21 @@
 
             <dl class="mt-5 space-y-3 border-t border-sage/15 pt-4 text-[15px]">
                 <div class="flex gap-3">
-                    <dt><x-icon name="pin" class="mt-0.5 text-sage" /><span class="sr-only">Dirección</span></dt>
+                    <dt><x-icon name="pin" class="mt-0.5 text-muted" /><span class="sr-only">Dirección</span></dt>
                     <dd>
                         {{ $order->delivery_address }}
                         @if ($order->delivery_notes)
-                            <span class="block text-sm text-sage">{{ $order->delivery_notes }}</span>
+                            <span class="block text-sm text-muted">{{ $order->delivery_notes }}</span>
                         @endif
                     </dd>
                 </div>
                 <div class="flex gap-3">
-                    <dt><x-icon name="box" class="mt-0.5 text-sage" /><span class="sr-only">Envases</span></dt>
+                    <dt><x-icon name="box" class="mt-0.5 text-muted" /><span class="sr-only">Envases</span></dt>
                     <dd>{{ $order->returnable_containers ? 'Envases retornables' : 'Envases descartables compostables' }}</dd>
                 </div>
                 @if ($order->payment)
                     <div class="flex gap-3">
-                        <dt><x-icon :name="$order->payment->method === 'card' ? 'card' : 'wallet'" class="mt-0.5 text-sage" /><span class="sr-only">Pago</span></dt>
+                        <dt><x-icon :name="$order->payment->method === 'card' ? 'card' : 'wallet'" class="mt-0.5 text-muted" /><span class="sr-only">Pago</span></dt>
                         <dd>
                             {{ $order->payment->methodLabel() }}
                             <a href="{{ route('orders.receipt', $order) }}" class="block text-sm font-semibold text-leaf hover:underline">Ver comprobante</a>

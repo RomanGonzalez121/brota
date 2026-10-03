@@ -13,6 +13,14 @@
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
+        {{-- Before first paint: mark that JS runs (for scroll reveals) and restore the saved theme. --}}
+        <script>
+            document.documentElement.classList.add('js');
+            try {
+                if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+            } catch (e) {}
+        </script>
+
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

@@ -13,4 +13,15 @@ class ForumCategory extends Model
     {
         return $this->hasMany(ForumTopic::class);
     }
+
+    public function icon(): string
+    {
+        return match ($this->slug) {
+            'envases-y-retornables' => 'box',
+            'separacion-de-residuos' => 'refresh',
+            'huerta-urbana' => 'pot',
+            'trueque-y-reutilizacion' => 'swap',
+            default => 'sprout',
+        };
+    }
 }

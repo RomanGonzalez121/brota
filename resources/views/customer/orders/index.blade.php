@@ -17,7 +17,7 @@
             <h2 id="open-title" class="text-lg">En curso</h2>
             <ul class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($open as $order)
-                    <li><x-order-card :order="$order" :href="route('orders.show', $order)" class="h-full" /></li>
+                    <li data-reveal style="--i: {{ $loop->index % 3 }}"><x-order-card :order="$order" :href="route('orders.show', $order)" class="h-full" /></li>
                 @endforeach
             </ul>
         </section>
@@ -28,7 +28,7 @@
             <h2 id="past-title" class="text-lg">Anteriores</h2>
             <ul class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($past as $order)
-                    <li><x-order-card :order="$order" :href="route('orders.show', $order)" class="h-full" /></li>
+                    <li data-reveal style="--i: {{ $loop->index % 3 }}"><x-order-card :order="$order" :href="route('orders.show', $order)" class="h-full" /></li>
                 @endforeach
             </ul>
         </section>

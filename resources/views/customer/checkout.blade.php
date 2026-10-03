@@ -22,7 +22,7 @@
                 @enderror
 
                 @if ($addresses->isEmpty())
-                    <p class="mt-2 text-sage">Todavía no guardaste ninguna dirección.</p>
+                    <p class="mt-2 text-muted">Todavía no guardaste ninguna dirección.</p>
                 @else
                     <div class="mt-3 grid gap-2.5 sm:grid-cols-2">
                         @foreach ($addresses as $address)
@@ -30,7 +30,7 @@
                                 <span class="block font-display font-bold">{{ $address->label }}</span>
                                 <span class="block text-sm">{{ $address->fullLine() }}</span>
                                 @if ($address->notes)
-                                    <span class="block text-sm text-sage">{{ $address->notes }}</span>
+                                    <span class="block text-sm text-muted">{{ $address->notes }}</span>
                                 @endif
                             </x-radio-card>
                         @endforeach
@@ -47,11 +47,11 @@
                 <div class="mt-3 grid gap-2.5 sm:grid-cols-2">
                     <x-radio-card name="payment_method" value="card" :checked="$selectedMethod === 'card'">
                         <span class="flex items-center gap-2 font-display font-bold"><x-icon name="card" /> Tarjeta</span>
-                        <span class="block text-sm text-sage">Crédito o débito</span>
+                        <span class="block text-sm text-muted">Crédito o débito</span>
                     </x-radio-card>
                     <x-radio-card name="payment_method" value="wallet" :checked="$selectedMethod === 'wallet'">
                         <span class="flex items-center gap-2 font-display font-bold"><x-icon name="wallet" /> Billetera virtual</span>
-                        <span class="block text-sm text-sage">Mercado Pago, Ualá, MODO y otras</span>
+                        <span class="block text-sm text-muted">Mercado Pago, Ualá, MODO y otras</span>
                     </x-radio-card>
                 </div>
             </fieldset>
@@ -81,11 +81,11 @@
             </ul>
             <dl class="mt-4 space-y-2 border-t border-sage/15 pt-4 tabular-nums">
                 <div class="flex justify-between">
-                    <dt class="text-sage">Subtotal</dt>
+                    <dt class="text-muted">Subtotal</dt>
                     <dd>{{ money($cart->subtotal()) }}</dd>
                 </div>
                 <div class="flex justify-between">
-                    <dt class="text-sage">Envío</dt>
+                    <dt class="text-muted">Envío</dt>
                     <dd>{{ money($restaurant->delivery_fee) }}</dd>
                 </div>
                 <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">

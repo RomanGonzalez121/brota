@@ -14,7 +14,8 @@
 @endphp
 
 <x-layouts.base :title="$title">
-    <header class="sticky top-0 z-30 bg-leaf text-white">
+    {{-- Named so it stays put while the rest of the page cross-fades between screens. --}}
+    <header class="sticky top-0 z-30 bg-bar text-white [view-transition-name:site-header]">
         <div class="relative mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 lg:h-16 lg:px-6">
             <x-logo tone="white" />
 
@@ -31,17 +32,20 @@
 
             <div class="ml-auto flex items-center gap-1">
                 <a href="{{ route('leaves.index') }}" class="mr-1 inline-flex h-8 items-center gap-1 rounded-leaf-sm bg-sprout pr-3 pl-2 font-display text-sm font-extrabold text-forest tabular-nums transition-transform duration-150 ease-out-strong active:scale-[0.97]">
-                    <x-leaf class="size-4 text-leaf" />
+                    <x-leaf class="size-4 text-forest" />
                     {{ $user->leaf_balance }}
                     <span class="sr-only">Hojitas Verdes</span>
                 </a>
+
+                <x-theme-toggle class="hover:bg-white/15" />
 
                 <x-notification-bell />
 
                 <a href="{{ route('cart.show') }}" class="relative flex size-11 items-center justify-center rounded-full transition-[transform,background-color] duration-150 ease-out-strong hover:bg-white/15 active:scale-[0.97]">
                     <x-icon name="cart" class="size-6" />
                     @if ($cartCount > 0)
-                        <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums">{{ $cartCount }}</span>
+                        {{-- Pops only right after something changed (a flash message is showing). --}}
+                        <span @class(['absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums', 'animate-pop [animation-delay:150ms]' => session()->has('status')])>{{ $cartCount }}</span>
                     @endif
                     <span class="sr-only">Carrito{{ $cartCount > 0 ? ": {$cartCount} productos" : '' }}</span>
                 </a>
@@ -59,7 +63,7 @@
 
     {{-- Optional band that continues the header's green behind a screen's opening. --}}
     @isset($hero)
-        <div class="bg-leaf text-white">
+        <div class="overflow-hidden bg-deep text-white">
             <div class="mx-auto max-w-6xl px-4 lg:px-6">{{ $hero }}</div>
         </div>
     @endisset
@@ -68,7 +72,7 @@
         {{ $slot }}
     </main>
 
-    <footer class="hidden bg-forest text-cream lg:block">
+    <footer class="hidden bg-deep text-cream lg:block">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-8">
             <div>
                 <x-logo tone="white" />
@@ -83,7 +87,7 @@
         </div>
     </footer>
 
-    <nav class="fixed inset-x-0 bottom-0 z-30 border-t border-sage/20 bg-white pb-[env(safe-area-inset-bottom)] lg:hidden" aria-label="Principal">
+    <nav class="fixed inset-x-0 bottom-0 z-30 border-t border-sage/20 bg-surface pb-[env(safe-area-inset-bottom)] [view-transition-name:bottom-nav] lg:hidden" aria-label="Principal">
         <ul class="mx-auto grid max-w-md grid-cols-5">
             @foreach ($nav as $item)
                 @php $active = request()->routeIs($item['match']); @endphp
@@ -91,8 +95,11 @@
                     <a
                         href="{{ route($item['route']) }}"
                         @if ($active) aria-current="page" @endif
-                        class="flex h-16 flex-col items-center justify-center gap-1 text-[11px] transition-colors duration-150 {{ $active ? 'font-semibold text-leaf' : 'font-medium text-sage' }}"
+                        class="relative flex h-16 flex-col items-center justify-center gap-1 text-[11px] transition-[color,transform] duration-150 ease-out-strong active:scale-[0.95] {{ $active ? 'font-semibold text-leaf' : 'font-medium text-muted' }}"
                     >
+                        @if ($active)
+                            <x-leaf class="absolute top-1 right-1/2 size-3 translate-x-5 origin-bottom-left animate-sprout text-sprout" />
+                        @endif
                         <x-icon :name="$item['icon']" class="size-6" />
                         {{ $item['label'] }}
                     </a>

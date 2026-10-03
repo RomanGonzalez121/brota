@@ -8,7 +8,7 @@
         @if ($index <= $status->position())
             <x-leaf class="size-4 text-leaf" />
         @else
-            <x-leaf outline class="size-4 text-sage/50" />
+            <x-leaf outline class="size-4 text-muted/50" />
         @endif
     @endforeach
 </span>

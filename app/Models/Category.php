@@ -13,4 +13,19 @@ class Category extends Model
     {
         return $this->hasMany(Restaurant::class);
     }
+
+    /**
+     * Name of the botanical icon shown next to the category.
+     */
+    public function icon(): string
+    {
+        return match ($this->slug) {
+            'bowls-y-ensaladas' => 'bowl',
+            'cocina-de-huerta' => 'pot',
+            'jugos-y-licuados' => 'citrus',
+            'panaderia-y-cafe' => 'wheat',
+            'vegetariano' => 'carrot',
+            default => 'sprout',
+        };
+    }
 }

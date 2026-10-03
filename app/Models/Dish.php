@@ -16,6 +16,11 @@ class Dish extends Model
 
     public const TAGS = ['Vegano', 'Vegetariano', 'Sin TACC'];
 
+    /**
+     * Botanical icon for each dietary tag.
+     */
+    public const TAG_ICONS = ['Vegano' => 'sprout', 'Vegetariano' => 'carrot', 'Sin TACC' => 'wheat-off'];
+
     protected function casts(): array
     {
         return [

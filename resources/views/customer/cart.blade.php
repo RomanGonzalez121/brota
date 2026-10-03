@@ -11,7 +11,7 @@
             </x-empty-state>
         </x-card>
     @else
-        <p class="mt-1 text-sage">
+        <p class="mt-1 text-muted">
             Pedido a <a href="{{ route('restaurants.show', $restaurant) }}" class="font-semibold text-leaf hover:underline">{{ $restaurant->name }}</a>
         </p>
 
@@ -23,7 +23,7 @@
                             <x-dish-photo :dish="$line->dish" class="hidden size-14 rounded-xl sm:block" />
                             <div class="min-w-0 flex-1">
                                 <h2 class="font-sans text-base font-semibold tracking-normal">{{ $line->dish->name }}</h2>
-                                <p class="text-sm text-sage tabular-nums">{{ money($line->dish->price) }} cada uno</p>
+                                <p class="text-sm text-muted tabular-nums">{{ money($line->dish->price) }} cada uno</p>
                             </div>
 
                             <div class="flex shrink-0 items-center rounded-xl border border-sage/25">
@@ -31,7 +31,7 @@
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="quantity" value="{{ $line->quantity - 1 }}">
-                                    <button type="submit" class="flex size-11 items-center justify-center rounded-l-xl transition-[transform,background-color] duration-150 ease-out-strong hover:bg-cream active:scale-[0.97] {{ $line->quantity === 1 ? 'text-danger' : '' }}">
+                                    <button type="submit" class="flex size-11 items-center justify-center rounded-l-xl transition-[transform,background-color] duration-150 ease-out-strong hover:bg-page active:scale-[0.97] {{ $line->quantity === 1 ? 'text-danger' : '' }}">
                                         <x-icon :name="$line->quantity === 1 ? 'trash' : 'minus'" class="size-4" />
                                         <span class="sr-only">{{ $line->quantity === 1 ? 'Quitar' : 'Restar uno de' }} {{ $line->dish->name }}</span>
                                     </button>
@@ -41,7 +41,7 @@
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="quantity" value="{{ $line->quantity + 1 }}">
-                                    <button type="submit" class="flex size-11 items-center justify-center rounded-r-xl transition-[transform,background-color] duration-150 ease-out-strong hover:bg-cream active:scale-[0.97]">
+                                    <button type="submit" class="flex size-11 items-center justify-center rounded-r-xl transition-[transform,background-color] duration-150 ease-out-strong hover:bg-page active:scale-[0.97]">
                                         <x-icon name="plus" class="size-4" />
                                         <span class="sr-only">Sumar uno de {{ $line->dish->name }}</span>
                                     </button>
@@ -61,7 +61,7 @@
                     <form method="POST" action="{{ route('cart.destroy') }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="h-11 rounded-md text-sm font-medium text-sage hover:text-danger">Vaciar carrito</button>
+                        <button type="submit" class="h-11 rounded-md text-sm font-medium text-muted hover:text-danger">Vaciar carrito</button>
                     </form>
                 </div>
             </x-card>
@@ -70,11 +70,11 @@
                 <h2 class="text-lg">Resumen</h2>
                 <dl class="mt-3 space-y-2 tabular-nums">
                     <div class="flex justify-between">
-                        <dt class="text-sage">Subtotal</dt>
+                        <dt class="text-muted">Subtotal</dt>
                         <dd>{{ money($cart->subtotal()) }}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-sage">Envío</dt>
+                        <dt class="text-muted">Envío</dt>
                         <dd>{{ money($restaurant->delivery_fee) }}</dd>
                     </div>
                     <div class="flex justify-between border-t border-sage/15 pt-3 font-display text-lg font-extrabold">

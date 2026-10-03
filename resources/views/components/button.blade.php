@@ -11,11 +11,11 @@
         'h-11 px-5 text-[15px]' => $size === 'md',
         'h-13 px-6 text-base' => $size === 'lg',
 
-        'bg-leaf text-white hover:bg-leaf-deep' => $variant === 'primary',
+        'bg-leaf text-on-leaf hover:bg-leaf-deep' => $variant === 'primary',
         'bg-carrot text-forest hover:bg-carrot-deep' => $variant === 'accent',
-        'border border-sage/30 bg-white text-forest hover:border-leaf hover:text-leaf' => $variant === 'secondary',
+        'border border-sage/30 bg-surface text-ink hover:border-leaf hover:text-leaf' => $variant === 'secondary',
         'text-leaf hover:bg-leaf/10' => $variant === 'ghost',
-        'border border-danger/30 bg-white text-danger hover:bg-danger/10' => $variant === 'danger',
+        'border border-danger/30 bg-surface text-danger hover:bg-danger/10' => $variant === 'danger',
     ];
 @endphp
 

@@ -3,7 +3,7 @@
 @source '../../storage/framework/views/*.php';
 
 /*
- | Brotá design tokens. Views only use these names (bg-leaf, text-forest…),
+ | Brotá design tokens. Views only use these names (bg-leaf, text-ink…),
  | never raw hex values. The default Tailwind palette is switched off so a
  | stray gray-500 cannot sneak in.
  */
@@ -12,19 +12,28 @@
     --font-display: 'Nunito', ui-rounded, system-ui, sans-serif;
 
     --color-*: initial;
-    --color-white: #fff;
-    --color-leaf: #2e7d32; /* Verde hoja: primary */
-    --color-sprout: #8bc34a; /* Verde brote: secondary */
-    --color-forest: #1b3a2a; /* Verde bosque: text, footer */
-    --color-cream: #faf6ec; /* Crema: page background */
-    --color-carrot: #e8833a; /* Naranja zanahoria: accent */
-    --color-sage: #6b7a6f; /* Gris verdoso: neutral */
-    --color-success: #2e7d32;
-    --color-danger: #c62828; /* Rojo tierra */
 
-    /* Pressed / hover shades, derived so they follow the base token. */
-    --color-leaf-deep: color-mix(in oklab, var(--color-leaf) 80%, var(--color-forest));
+    /* Brand colours. These never change with the theme. */
+    --color-white: #fff;
+    --color-sprout: #8bc34a; /* Verde brote: secondary */
+    --color-forest: #1b3a2a; /* Verde bosque */
+    --color-cream: #faf6ec; /* Crema */
+    --color-carrot: #e8833a; /* Naranja zanahoria: accent */
+    --color-sage: #6b7a6f; /* Gris verdoso: borders, inactive icons */
     --color-carrot-deep: color-mix(in oklab, var(--color-carrot) 88%, var(--color-forest));
+
+    /* Themed colours. The dark theme below redefines exactly these. */
+    --color-leaf: #2e7d32; /* Verde hoja: buttons, links */
+    --color-leaf-deep: #275f2c; /* hover of leaf */
+    --color-on-leaf: #fff; /* text on a leaf button */
+    --color-page: #faf6ec; /* page background */
+    --color-surface: #fff; /* cards, inputs */
+    --color-ink: #1b3a2a; /* main text */
+    --color-muted: #55665b; /* secondary text: sage darkened to pass contrast on cream */
+    --color-bar: #2e7d32; /* top bar */
+    --color-deep: #1b3a2a; /* large brand surfaces: hero, footer */
+    --color-danger: #c62828; /* Rojo tierra */
+    --color-success: var(--color-leaf);
 
     /* Each role layout sets data-accent; panels differ only by this. */
     --color-accent: var(--color-carrot);
@@ -40,6 +49,12 @@
 
     --animate-sprout: sprout 420ms var(--ease-out-strong) both;
     --animate-breathe: breathe 2.4s ease-in-out infinite;
+    --animate-rise: rise 600ms var(--ease-out-strong) both;
+    --animate-pop: pop 260ms var(--ease-out-strong) both;
+    --animate-sway: sway 7s ease-in-out infinite;
+    --animate-slide-up: slide-up 420ms var(--ease-drawer) both;
+    --animate-draw: draw 480ms var(--ease-out-strong) 180ms both;
+    --animate-grow: grow 500ms var(--ease-out-strong) both;
 
     @keyframes sprout {
         from {
@@ -63,7 +78,94 @@
             opacity: 0;
         }
     }
+
+    /* Page-load entrance. Stagger siblings with style="--i: n". */
+    @keyframes rise {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Something just changed: a counter, a badge. Starts near full size, never from zero. */
+    @keyframes pop {
+        from {
+            opacity: 0;
+            transform: scale(0.85);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Decorative leaves move like there is a light breeze. */
+    @keyframes sway {
+        0%,
+        100% {
+            rotate: -2deg;
+        }
+        50% {
+            rotate: 2.5deg;
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Draws a stroke. The path needs pathLength="1". */
+    @keyframes draw {
+        from {
+            stroke-dashoffset: 1;
+        }
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    /* The stem of the order stepper grows downwards. */
+    @keyframes grow {
+        from {
+            transform: scaleY(0.05);
+        }
+        to {
+            transform: scaleY(1);
+        }
+    }
 }
+
+/*
+ | Dark theme: the same brand, at night. Only the themed tokens change, so
+ | every screen follows without touching its markup.
+ */
+[data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-leaf: #7ccb80;
+    --color-leaf-deep: #98d99b;
+    --color-on-leaf: #0e1611;
+    --color-page: #0e1611;
+    --color-surface: #18241c;
+    --color-ink: #e8efe6;
+    --color-muted: #9db0a3;
+    --color-bar: #14291c;
+    --color-deep: #1a3324;
+    --color-danger: #f0736e;
+}
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 [data-accent='sprout'] {
     --color-accent: var(--color-sprout);
@@ -87,7 +189,14 @@
  | stays in the page container. The spread shadow never adds scroll width.
  */
 @utility bleed-sprout {
-    --bleed: color-mix(in oklab, var(--color-sprout) 20%, var(--color-cream));
+    --bleed: color-mix(in oklab, var(--color-sprout) 20%, var(--color-page));
+    background-color: var(--bleed);
+    box-shadow: 0 0 0 100vmax var(--bleed);
+    clip-path: inset(0 -100vmax);
+}
+
+@utility bleed-sand {
+    --bleed: color-mix(in oklab, var(--color-carrot) 11%, var(--color-page));
     background-color: var(--bleed);
     box-shadow: 0 0 0 100vmax var(--bleed);
     clip-path: inset(0 -100vmax);
@@ -99,7 +208,7 @@
     }
 
     body {
-        @apply bg-cream font-sans text-forest antialiased;
+        @apply bg-page font-sans text-ink antialiased;
     }
 
     h1,
@@ -117,6 +226,74 @@
     }
 }
 
+/*
+ | Scroll reveal. Elements marked data-reveal start slightly lower and fade in
+ | when they enter the viewport; siblings stagger through --i. It only hides
+ | things once JavaScript is running (html.js), so content never stays hidden.
+ */
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity 600ms var(--ease-out-strong),
+        transform 600ms var(--ease-out-strong);
+    transition-delay: calc(var(--i, 0) * 55ms);
+}
+
+.js [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+}
+
+/* Photos zoom a touch when their card is hovered. Pointer devices only. */
+@media (hover: hover) and (pointer: fine) {
+    .photo-zoom img {
+        transition: transform 500ms var(--ease-out-strong);
+    }
+
+    .group:hover .photo-zoom img {
+        transform: scale(1.045);
+    }
+}
+
+/*
+ | Page changes cross-fade instead of flashing, and a restaurant's photo
+ | travels from the list to its page (shared view-transition-name).
+ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 180ms;
+    animation-timing-function: var(--ease-out-strong);
+}
+
+::view-transition-group(*) {
+    animation-duration: 340ms;
+    animation-timing-function: var(--ease-in-out-strong);
+}
+
+/*
+ | Theme switch: the new theme is revealed in a circle that grows from the
+ | toggle (the clip-path is animated from JS). While it runs, nothing else
+ | may animate on its own, so named elements are folded back into the page.
+ */
+.theme-switching::view-transition-old(root),
+.theme-switching::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+.theme-switching::view-transition-new(root) {
+    z-index: 1;
+}
+
+.theme-switching * {
+    view-transition-name: none !important;
+}
+
 /* Reduced motion keeps fades and colour changes, drops movement. */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -125,5 +302,13 @@
         animation: none !important;
         transition-property: opacity, color, background-color, border-color !important;
         scroll-behavior: auto !important;
+    }
+
+    .js [data-reveal] {
+        transform: none;
+    }
+
+    @view-transition {
+        navigation: none;
     }
 }

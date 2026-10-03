@@ -33,7 +33,7 @@
             </form>
 
             <p class="text-center text-sm lg:hidden">
-                <a href="{{ route('credits') }}" class="inline-flex h-11 items-center font-medium text-sage hover:text-leaf hover:underline">Créditos de las fotos</a>
+                <a href="{{ route('credits') }}" class="inline-flex h-11 items-center font-medium text-muted hover:text-leaf hover:underline">Créditos de las fotos</a>
             </p>
         </div>
 
@@ -47,7 +47,7 @@
                     </x-button>
                 </div>
 
-                <form x-show="adding" x-cloak method="POST" action="{{ route('profile.addresses.store') }}" class="mt-4 space-y-4 rounded-2xl bg-cream p-4">
+                <form x-show="adding" x-cloak method="POST" action="{{ route('profile.addresses.store') }}" class="mt-4 space-y-4 rounded-2xl bg-page p-4">
                     @csrf
                     <x-input label="Nombre" name="label" id="new-label" placeholder="Casa, trabajo, lo de mamá…" required />
                     <x-input label="Calle, número y piso" name="street" id="new-street" autocomplete="street-address" required />
@@ -69,7 +69,7 @@
                         @foreach ($addresses as $address)
                             <li class="border-b border-sage/15 py-4 last:border-b-0 last:pb-0">
                                 <div class="flex items-start gap-3" x-show="editing !== {{ $address->id }}">
-                                    <x-icon name="pin" class="mt-0.5 text-sage" />
+                                    <x-icon name="pin" class="mt-0.5 text-muted" />
                                     <div class="min-w-0 flex-1">
                                         <p class="flex flex-wrap items-center gap-2 font-display font-bold">
                                             {{ $address->label }}
@@ -79,16 +79,16 @@
                                         </p>
                                         <p class="text-[15px]">{{ $address->fullLine() }}</p>
                                         @if ($address->notes)
-                                            <p class="text-sm text-sage">{{ $address->notes }}</p>
+                                            <p class="text-sm text-muted">{{ $address->notes }}</p>
                                         @endif
                                     </div>
-                                    <button type="button" @click="editing = {{ $address->id }}; adding = false" class="flex size-11 shrink-0 items-center justify-center rounded-full text-sage transition-[transform,background-color,color] duration-150 ease-out-strong hover:bg-cream hover:text-leaf active:scale-[0.97]">
+                                    <button type="button" @click="editing = {{ $address->id }}; adding = false" class="flex size-11 shrink-0 items-center justify-center rounded-full text-muted transition-[transform,background-color,color] duration-150 ease-out-strong hover:bg-page hover:text-leaf active:scale-[0.97]">
                                         <x-icon name="edit" />
                                         <span class="sr-only">Editar {{ $address->label }}</span>
                                     </button>
                                 </div>
 
-                                <div x-show="editing === {{ $address->id }}" x-cloak class="rounded-2xl bg-cream p-4">
+                                <div x-show="editing === {{ $address->id }}" x-cloak class="rounded-2xl bg-page p-4">
                                     <form method="POST" action="{{ route('profile.addresses.update', $address) }}" class="space-y-4">
                                         @csrf
                                         @method('PUT')

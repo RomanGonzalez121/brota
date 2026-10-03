@@ -15,7 +15,7 @@
     >
         <x-icon name="bell" class="size-6" />
         @if ($unread > 0)
-            <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-leaf tabular-nums">{{ $unread }}</span>
+            <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-forest tabular-nums">{{ $unread }}</span>
         @endif
         <span class="sr-only">Notificaciones{{ $unread > 0 ? ": {$unread} sin leer" : '' }}</span>
     </button>
@@ -29,7 +29,7 @@
         x-transition:leave="transition-[opacity,transform] duration-100 ease-out-strong"
         x-transition:leave-start="scale-100 opacity-100"
         x-transition:leave-end="scale-95 opacity-0"
-        class="absolute top-full right-3 z-40 mt-2 w-[min(23rem,calc(100vw-1.5rem))] origin-top-right rounded-2xl border border-sage/20 bg-white text-forest shadow-lift"
+        class="absolute top-full right-3 z-40 mt-2 w-[min(23rem,calc(100vw-1.5rem))] origin-top-right rounded-2xl border border-sage/20 bg-surface text-ink shadow-lift"
     >
         <div class="flex items-center justify-between px-4 pt-3.5 pb-2">
             <p class="font-display font-bold">Notificaciones</p>
@@ -42,20 +42,20 @@
         </div>
 
         @forelse ($latest as $notification)
-            <a href="{{ $notification->data['url'] }}" class="flex gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-cream">
-                <span class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full {{ $notification->read_at ? 'bg-sage/15 text-sage' : 'bg-leaf/12 text-leaf' }}">
+            <a href="{{ $notification->data['url'] }}" class="flex gap-3 px-4 py-2.5 transition-colors duration-150 hover:bg-page">
+                <span class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full {{ $notification->read_at ? 'bg-sage/15 text-muted' : 'bg-leaf/12 text-leaf' }}">
                     <x-icon :name="$notification->data['icon']" class="size-4" />
                 </span>
                 <span class="min-w-0">
                     <span class="block text-sm {{ $notification->read_at ? 'font-medium' : 'font-semibold' }}">{{ $notification->data['title'] }}</span>
-                    <span class="block truncate text-sm text-sage">{{ $notification->data['body'] }}</span>
-                    <span class="block text-xs text-sage">{{ $notification->created_at->diffForHumans() }}</span>
+                    <span class="block truncate text-sm text-muted">{{ $notification->data['body'] }}</span>
+                    <span class="block text-xs text-muted">{{ $notification->created_at->diffForHumans() }}</span>
                 </span>
             </a>
         @empty
-            <p class="px-4 py-6 text-center text-sm text-sage">Todavía no tenés notificaciones.</p>
+            <p class="px-4 py-6 text-center text-sm text-muted">Todavía no tenés notificaciones.</p>
         @endforelse
 
-        <a href="{{ route('notifications.index') }}" class="block rounded-b-2xl border-t border-sage/15 px-4 py-3 text-center text-sm font-semibold text-leaf hover:bg-cream">Ver todas</a>
+        <a href="{{ route('notifications.index') }}" class="block rounded-b-2xl border-t border-sage/15 px-4 py-3 text-center text-sm font-semibold text-leaf hover:bg-page">Ver todas</a>
     </div>
 </div>

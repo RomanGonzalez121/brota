@@ -14,9 +14,9 @@
                     <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-leaf/12 font-display font-extrabold text-leaf" aria-hidden="true">{{ mb_substr($topic->author->name, 0, 1) }}</span>
                     <div class="min-w-0 flex-1">
                         <p class="font-display font-bold">{{ $topic->author->name }}</p>
-                        <p class="text-sm text-sage">{{ $topic->created_at->diffForHumans() }}</p>
+                        <p class="text-sm text-muted">{{ $topic->created_at->diffForHumans() }}</p>
                     </div>
-                    <button type="button" @click="$dispatch('open-sheet', { name: 'report', type: 'topic', id: {{ $topic->id }}, label: 'este tema' })" class="flex h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-sage transition-colors duration-150 hover:text-danger">
+                    <button type="button" @click="$dispatch('open-sheet', { name: 'report', type: 'topic', id: {{ $topic->id }}, label: 'este tema' })" class="flex h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted transition-colors duration-150 hover:text-danger">
                         <x-icon name="flag" class="size-4" />
                         Denunciar
                     </button>
@@ -29,18 +29,18 @@
             <h2 id="replies-title" class="text-xl">{{ $replies->count() === 1 ? '1 respuesta' : $replies->count().' respuestas' }}</h2>
 
             @if ($replies->isEmpty())
-                <p class="mt-2 text-sage">Todavía nadie respondió. Sé la primera persona en ayudar.</p>
+                <p class="mt-2 text-muted">Todavía nadie respondió. Sé la primera persona en ayudar.</p>
             @else
                 <ul class="mt-3 space-y-3">
                     @foreach ($replies as $reply)
-                        <li id="respuesta-{{ $reply->id }}" class="scroll-mt-24 rounded-2xl border border-sage/20 bg-white p-4 sm:p-5">
+                        <li id="respuesta-{{ $reply->id }}" class="scroll-mt-24 rounded-2xl border border-sage/20 bg-surface p-4 sm:p-5">
                             <div class="flex items-center gap-3">
                                 <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-sage/15 font-display text-sm font-extrabold" aria-hidden="true">{{ mb_substr($reply->author->name, 0, 1) }}</span>
                                 <div class="min-w-0 flex-1">
                                     <p class="font-display text-[15px] font-bold">{{ $reply->author->name }}</p>
-                                    <p class="text-sm text-sage">{{ $reply->created_at->diffForHumans() }}</p>
+                                    <p class="text-sm text-muted">{{ $reply->created_at->diffForHumans() }}</p>
                                 </div>
-                                <button type="button" @click="$dispatch('open-sheet', { name: 'report', type: 'reply', id: {{ $reply->id }}, label: @js('la respuesta de '.$reply->author->firstName()) })" class="flex size-11 items-center justify-center rounded-full text-sage transition-colors duration-150 hover:text-danger">
+                                <button type="button" @click="$dispatch('open-sheet', { name: 'report', type: 'reply', id: {{ $reply->id }}, label: @js('la respuesta de '.$reply->author->firstName()) })" class="flex size-11 items-center justify-center rounded-full text-muted transition-colors duration-150 hover:text-danger">
                                     <x-icon name="flag" class="size-4" />
                                     <span class="sr-only">Denunciar la respuesta de {{ $reply->author->name }}</span>
                                 </button>
@@ -67,7 +67,7 @@
             <input type="hidden" name="type" :value="payload.type">
             <input type="hidden" name="id" :value="payload.id">
 
-            <p class="text-sage">Contanos qué problema tiene <span x-text="payload.label"></span>. Lo revisa el equipo de moderación.</p>
+            <p class="text-muted">Contanos qué problema tiene <span x-text="payload.label"></span>. Lo revisa el equipo de moderación.</p>
 
             <fieldset class="mt-4 space-y-2">
                 <legend class="sr-only">Motivo</legend>

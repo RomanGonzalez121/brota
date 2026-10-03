@@ -1,6 +1,6 @@
 <x-layouts.customer title="Créditos de las fotos">
     <h1 class="text-3xl leading-[1.1] lg:text-5xl">Créditos de las fotos</h1>
-    <p class="mt-1 max-w-2xl text-sage">
+    <p class="mt-1 max-w-2xl text-muted">
         Las fotos de restaurantes y platos vienen de Wikimedia Commons y se usan bajo licencias libres. Acá figura quién sacó cada una y con qué licencia la compartió.
     </p>
 
@@ -14,7 +14,7 @@
                         <p class="truncate">
                             <a href="{{ $credit['source'] }}" target="_blank" rel="noopener" class="font-medium text-leaf hover:underline">{{ $credit['title'] }}</a>
                         </p>
-                        <p class="text-sage">
+                        <p class="text-muted">
                             {{ $credit['author'] }},
                             @if ($credit['license_url'])
                                 <a href="{{ $credit['license_url'] }}" target="_blank" rel="noopener" class="hover:underline">{{ $credit['license'] }}</a>

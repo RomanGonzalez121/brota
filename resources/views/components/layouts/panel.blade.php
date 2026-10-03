@@ -22,7 +22,7 @@
 @endphp
 
 <x-layouts.base :title="$title" :accent="$isAdmin ? 'sage' : 'carrot'">
-    <header class="sticky top-0 z-30 bg-leaf text-white">
+    <header class="sticky top-0 z-30 bg-bar text-white [view-transition-name:site-header]">
         <div class="relative flex h-14 items-center gap-3 px-4 lg:h-16 lg:px-6">
             <x-logo tone="white" />
             <span class="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-semibold">
@@ -31,6 +31,7 @@
 
             <div class="ml-auto flex items-center gap-1">
                 <span class="mr-2 hidden text-sm text-white/85 sm:block">{{ $user->name }}</span>
+                <x-theme-toggle class="hover:bg-white/15" />
                 <x-notification-bell />
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -44,7 +45,7 @@
     </header>
 
     <div class="flex flex-1 flex-col lg:flex-row">
-        <nav class="border-b border-sage/20 bg-white lg:w-60 lg:shrink-0 lg:border-r lg:border-b-0" aria-label="Panel">
+        <nav class="border-b border-sage/20 bg-surface lg:w-60 lg:shrink-0 lg:border-r lg:border-b-0" aria-label="Panel">
             <ul class="flex gap-1 overflow-x-auto px-3 py-2 lg:sticky lg:top-16 lg:flex-col lg:px-3 lg:py-5">
                 @foreach ($nav as $item)
                     @php $active = request()->routeIs($item['match']); @endphp
@@ -52,7 +53,7 @@
                         <a
                             href="{{ route($item['route']) }}"
                             @if ($active) aria-current="page" @endif
-                            class="relative flex h-11 items-center gap-3 rounded-xl px-3 text-[15px] transition-colors duration-150 {{ $active ? 'bg-accent/15 font-semibold' : 'font-medium text-sage hover:bg-cream hover:text-forest' }}"
+                            class="relative flex h-11 items-center gap-3 rounded-xl px-3 text-[15px] transition-colors duration-150 {{ $active ? 'bg-accent/15 font-semibold' : 'font-medium text-muted hover:bg-page hover:text-ink' }}"
                         >
                             @if ($active)
                                 <span class="absolute inset-y-2.5 left-0 hidden w-1 rounded-full bg-accent lg:block" aria-hidden="true"></span>
@@ -71,7 +72,7 @@
                     <div>
                         <h1 class="text-2xl lg:text-3xl">{{ $title }}</h1>
                         @if ($subtitle)
-                            <p class="mt-1 text-sage">{{ $subtitle }}</p>
+                            <p class="mt-1 text-muted">{{ $subtitle }}</p>
                         @endif
                     </div>
                     @isset($actions)
