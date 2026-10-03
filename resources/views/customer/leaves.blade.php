@@ -9,9 +9,16 @@
         $remaining['free_order'] > 0 ? ($remaining['free_order'] === 1 ? '1 pedido gratis' : $remaining['free_order'].' pedidos gratis') : null,
     ]);
     $hasPerks = $level['free_deliveries'] + $level['free_orders'] > 0;
+
+    // Reaching a level is celebrated once: the first time the screen is opened on it.
+    $celebrates = $level['min'] > 0;
 @endphp
 
 <x-layouts.customer title="Hojitas Verdes">
+    @if ($celebrates)
+        <x-leaf-fall :once="'leaf-fall-level-'.$level['key']" />
+    @endif
+
     <x-slot:hero>
         <div class="relative overflow-hidden pt-3 pb-8 lg:pt-8 lg:pb-12">
             {{-- Whole and clear of the text: beside the number on a phone, in the free corner on a wide screen. --}}
@@ -21,7 +28,14 @@
                 <x-leaf class="size-14 origin-bottom-left animate-sprout text-sprout lg:size-20" />
                 <span x-data="countUp({{ $balance }})" x-text="value">{{ $balance }}</span>
             </p>
-            <p class="relative mt-4 inline-flex items-center gap-2 rounded-leaf-sm bg-white/12 py-1.5 pr-3.5 pl-2.5 font-display font-bold">
+            {{-- On that first time the level's name also arrives with a small pop, once the number has finished counting. --}}
+            <p
+                class="relative mt-4 inline-flex items-center gap-2 rounded-leaf-sm bg-white/12 py-1.5 pr-3.5 pl-2.5 font-display font-bold"
+                @if ($celebrates)
+                    x-data="leafFall(@js('level-name-'.$level['key']))"
+                    :class="playing && 'animate-pop [animation-delay:1100ms]'"
+                @endif
+            >
                 <x-icon :name="$level['icon']" class="size-5 text-sprout" />
                 Nivel {{ $level['name'] }}
             </p>
@@ -43,11 +57,18 @@
                 {{-- The stretch between two levels, with a leaf standing where the customer is. --}}
                 <div class="mt-5 flex items-center gap-3" role="img" aria-label="{{ $nextLevel ? $balance.' de '.$nextLevel['min'].' hojitas para '.$nextLevel['name'] : 'Nivel más alto alcanzado' }}">
                     <span class="flex size-10 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf text-on-leaf"><x-icon :name="$level['icon']" /></span>
-                    <div class="relative h-2.5 flex-1 rounded-full bg-sage/20">
+                    <div class="relative mx-2 h-2.5 flex-1 rounded-full bg-sage/20">
                         <div class="chart-fill h-full rounded-full bg-leaf" style="width: {{ max($progress, 4) }}%"></div>
+                        {{-- A leaf rides the tip of the bar from the level's icon to where the customer is. --}}
+                        <div class="progress-leaf absolute inset-0" style="--to: {{ max($progress, 4) }}%">
+                            <span class="absolute top-1/2 left-0 flex size-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-surface ring-2 ring-leaf">
+                                <x-leaf class="size-4 text-leaf" />
+                            </span>
+                        </div>
                     </div>
                     @if ($nextLevel)
-                        <span class="flex size-10 shrink-0 items-center justify-center rounded-leaf-sm border border-dashed border-sage/50 text-muted"><x-icon :name="$nextLevel['icon']" /></span>
+                        {{-- The next level stirs when the leaf stops: that is where it is headed. --}}
+                        <span class="flex size-10 shrink-0 items-center justify-center rounded-leaf-sm border border-dashed border-sage/50 text-muted"><x-icon :name="$nextLevel['icon']" class="rustle-after origin-bottom" /></span>
                     @endif
                 </div>
                 @if ($nextLevel)
@@ -63,8 +84,10 @@
                 @if ($perksLeft)
                     <ul class="mt-2 flex flex-wrap gap-2">
                         @foreach ($perksLeft as $perk)
-                            <li class="inline-flex items-center gap-2 rounded-leaf-sm bg-sprout-soft py-2 pr-3.5 pl-3 font-display text-lg font-extrabold">
-                                <x-leaf class="size-5 origin-bottom-left animate-sprout text-leaf" style="animation-delay: {{ 300 + $loop->index * 120 }}ms" />
+                            <li class="group/perk inline-flex items-center gap-2 rounded-leaf-sm bg-sprout-soft py-2 pr-3.5 pl-3 font-display text-lg font-extrabold">
+                                <span class="origin-bottom-left animate-sprout" style="animation-delay: {{ 300 + $loop->index * 120 }}ms">
+                                    <x-leaf class="size-5 origin-bottom-left text-leaf group-hover/perk:animate-rustle" />
+                                </span>
                                 {{ $perk }}
                             </li>
                         @endforeach
@@ -94,15 +117,15 @@
     <section class="mt-10 lg:mt-16" aria-labelledby="rules-title">
         <h2 id="rules-title" class="text-xl lg:text-2xl" data-reveal>Cómo se ganan</h2>
         <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:mt-6 lg:gap-6">
-            <li class="flex gap-4 rounded-2xl border border-sage/20 bg-surface p-5">
-                <span class="flex size-12 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf"><x-icon name="pin" class="size-6" /></span>
+            <li class="lift flex gap-4 rounded-2xl border border-sage/20 bg-surface p-5">
+                <span class="flex size-12 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf"><x-icon name="pin" class="lift-icon size-6 origin-bottom" /></span>
                 <div>
                     <p class="font-display text-lg font-extrabold">+{{ $nearbyLeaves }} por pedir cerca</p>
                     <p class="mt-0.5 text-muted">Cuando te entregan un pedido de un restaurante a {{ number_format($nearbyKm, 0) }} km o menos.</p>
                 </div>
             </li>
-            <li class="flex gap-4 rounded-2xl border border-sage/20 bg-surface p-5">
-                <span class="flex size-12 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf"><x-icon name="box" class="size-6" /></span>
+            <li class="lift flex gap-4 rounded-2xl border border-sage/20 bg-surface p-5">
+                <span class="flex size-12 shrink-0 items-center justify-center rounded-leaf-sm bg-leaf/12 text-leaf"><x-icon name="box" class="lift-icon size-6 origin-bottom" /></span>
                 <div>
                     <p class="font-display text-lg font-extrabold">+{{ $containerLeaves }} por envases retornables</p>
                     <p class="mt-0.5 text-muted">Cuando elegís recibir el pedido en envases que después devolvés.</p>
@@ -113,10 +136,10 @@
 
     <section class="mt-10 max-w-2xl lg:mt-16" aria-labelledby="history-title">
         <h2 id="history-title" class="text-xl lg:text-2xl" data-reveal>Movimientos</h2>
-        <x-card padding="p-0" class="mt-3">
+        <x-card padding="p-0" class="mt-3" style="--grow-step: 55ms; --grow-wait: 280ms">
             @forelse ($transactions as $transaction)
                 <div class="flex items-center gap-3.5 border-b border-sage/15 px-4 py-3.5 last:border-b-0" data-reveal style="--i: {{ min($loop->index, 6) }}">
-                    <x-leaf class="size-5 text-leaf" />
+                    <span class="grow-in shrink-0"><x-leaf class="size-5 text-leaf" /></span>
                     <div class="min-w-0 flex-1">
                         <p class="text-[15px] font-medium">{{ $transaction->description }}</p>
                         <p class="text-sm text-muted">
@@ -126,7 +149,7 @@
                             @endif
                         </p>
                     </div>
-                    <span class="font-display text-lg font-extrabold text-leaf tabular-nums">+{{ $transaction->points }}</span>
+                    <span class="rise-in font-display text-lg font-extrabold text-leaf tabular-nums">+{{ $transaction->points }}</span>
                 </div>
             @empty
                 <x-empty-state title="Todavía no sumaste hojitas">

@@ -524,6 +524,101 @@
     animation: travel 1500ms var(--ease-in-out-strong) 700ms both;
 }
 
+/*
+ | Small things that come to life when their section scrolls into view, one
+ | after another through --i: an icon that sprouts (grow-in), a number that
+ | comes up (rise-in), a vine that is uncovered until --vine-rest of it is
+ | left hidden, and a leaf that rides a progress bar up to --to. Used where a
+ | screen is opened now and then, like the Hojitas Verdes. Without JavaScript,
+ | or with reduced motion, everything is simply in its final place.
+ */
+.js [data-reveal] .grow-in,
+.js [data-reveal] .rise-in {
+    opacity: 0;
+}
+
+.js [data-reveal] .grow-in {
+    transform: scale(0.5) rotate(-14deg);
+    transform-origin: bottom left;
+}
+
+.js [data-reveal] .rise-in {
+    transform: translateY(60%);
+}
+
+.js [data-reveal][data-revealed] .grow-in,
+.js [data-reveal][data-revealed] .rise-in {
+    animation: chart-grow 520ms var(--ease-out-strong) both;
+    animation-delay: calc(var(--i, 0) * var(--grow-step, 140ms) + var(--grow-wait, 200ms));
+}
+
+@keyframes vine-draw {
+    to {
+        clip-path: inset(0 var(--vine-rest, 0%) 0 0);
+    }
+}
+
+.vine-draw {
+    clip-path: inset(0 var(--vine-rest, 0%) 0 0);
+}
+
+.js [data-reveal] .vine-draw {
+    clip-path: inset(0 100% 0 0);
+}
+
+.js [data-reveal][data-revealed] .vine-draw {
+    animation: vine-draw 1200ms var(--ease-out-strong) 250ms both;
+}
+
+@keyframes slide-to {
+    to {
+        transform: translateX(var(--to, 0%));
+    }
+}
+
+.progress-leaf {
+    transform: translateX(var(--to, 0%));
+}
+
+.js [data-reveal] .progress-leaf {
+    transform: translateX(0%);
+}
+
+/* Same curve, time and wait as the bar's fill, so the leaf stays on its tip. */
+.js [data-reveal][data-revealed] .progress-leaf {
+    animation: slide-to 800ms var(--ease-out-strong) 150ms both;
+}
+
+.js [data-reveal][data-revealed] .rustle-after {
+    animation: rustle 900ms ease-in-out 950ms both;
+}
+
+/*
+ | A card that answers the pointer: it rises a little and its icon stirs. The
+ | lift uses `translate`, so it does not fight the reveal's `transform`.
+ */
+.lift {
+    transition: translate 200ms var(--ease-out-strong);
+}
+
+.js [data-reveal].lift {
+    transition:
+        opacity 600ms var(--ease-out-strong),
+        transform 600ms var(--ease-out-strong),
+        translate 200ms var(--ease-out-strong);
+    transition-delay: calc(var(--i, 0) * 55ms), calc(var(--i, 0) * 55ms), 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+        translate: 0 -4px;
+    }
+
+    .lift:hover .lift-icon {
+        animation: rustle 900ms ease-in-out both;
+    }
+}
+
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */
 @media (hover: hover) and (pointer: fine) {
     .photo-zoom img {
@@ -588,9 +683,23 @@
     }
 
     .js [data-reveal] .chart-bar,
-    .js [data-reveal] .chart-fill {
+    .js [data-reveal] .chart-fill,
+    .js [data-reveal] .grow-in,
+    .js [data-reveal] .rise-in {
         opacity: 1;
         transform: none;
+    }
+
+    .js [data-reveal] .vine-draw {
+        clip-path: inset(0 var(--vine-rest, 0%) 0 0);
+    }
+
+    .js [data-reveal] .progress-leaf {
+        transform: translateX(var(--to, 0%));
+    }
+
+    .lift:hover {
+        translate: none;
     }
 
     @view-transition {
