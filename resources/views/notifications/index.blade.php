@@ -121,7 +121,7 @@
 
     <aside class="relative overflow-hidden rounded-leaf bg-deep p-6 text-cream lg:sticky lg:top-24" aria-labelledby="summary-title" data-reveal>
         <div class="pointer-events-none absolute right-4 bottom-4 origin-bottom-left animate-sway" aria-hidden="true">
-            <x-leaf class="size-16 rotate-[8deg] text-sprout/40" />
+            <x-leaf class="size-16 rotate-[8deg] text-foliage-light/45" />
         </div>
 
         <h2 id="summary-title" class="relative font-sans text-sm font-semibold tracking-normal text-cream/75">Sin leer</h2>

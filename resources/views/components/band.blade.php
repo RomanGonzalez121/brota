@@ -6,7 +6,7 @@
 --}}
 <section {{ $attributes->class('bleed-sprout relative') }}>
     <div class="pointer-events-none absolute right-10 bottom-10 hidden origin-bottom-left animate-sway-slow lg:block" aria-hidden="true">
-        <x-leaf class="size-36 rotate-[6deg] text-leaf opacity-15" />
+        <x-leaf class="size-36 rotate-[6deg] text-foliage-faint opacity-15" />
     </div>
 
     <div class="relative">{{ $slot }}</div>

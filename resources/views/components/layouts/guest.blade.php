@@ -10,10 +10,10 @@
             {{-- Sized from the viewport height so the leaves never reach the text below. --}}
             <div class="pointer-events-none absolute top-[11dvh] right-6 size-[min(29rem,54dvh)]" aria-hidden="true">
                 <div class="absolute top-0 right-0 size-[80%]" data-parallax="10">
-                    <div class="size-full origin-bottom-left animate-sway"><x-leaf class="size-full rotate-[14deg] text-sprout/30" /></div>
+                    <div class="size-full origin-bottom-left animate-sway"><x-leaf class="size-full rotate-[14deg] text-foliage/30" /></div>
                 </div>
                 <div class="absolute bottom-[6%] left-0 size-[37%]" data-parallax="22">
-                    <div class="size-full origin-bottom-right animate-sway [animation-delay:-3s]"><x-leaf class="size-full -rotate-[62deg] text-sprout/50" /></div>
+                    <div class="size-full origin-bottom-right animate-sway [animation-delay:-3s]"><x-leaf class="size-full -rotate-[62deg] text-foliage-light/50" /></div>
                 </div>
             </div>
 

@@ -38,6 +38,11 @@
     --color-sand: #f8ead9; /* warm band, cream with a touch of carrot */
     --color-sprout-soft: #dbe7c3; /* soft green fill: notices, tints */
 
+    /* Decorative leaves. By day the fresh brand green; the dark theme cools them down. */
+    --color-foliage: #8bc34a; /* the large leaf on a dark green surface */
+    --color-foliage-light: #8bc34a; /* the smaller leaf beside it */
+    --color-foliage-faint: #2e7d32; /* a leaf on a light band */
+
     /* Each role layout sets data-accent; panels differ only by this. */
     --color-accent: var(--color-carrot);
 
@@ -254,6 +259,11 @@
     --color-band: #122a1e;
     --color-sand: #1b231b;
     --color-sprout-soft: #1d3b2a;
+
+    /* Leaves by moonlight: sage and mint instead of the daytime yellow-green. */
+    --color-foliage: #5fa98a;
+    --color-foliage-light: #a8d5ba;
+    --color-foliage-faint: #7ccb80;
 }
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));

@@ -16,7 +16,7 @@
             >
                 {{-- A live preview of the card, so the form reads as one object and not four loose fields. --}}
                 <div class="relative overflow-hidden rounded-leaf bg-deep p-5 text-cream" aria-hidden="true">
-                    <x-leaf class="absolute -right-6 -bottom-8 size-36 rotate-[10deg] text-sprout/25" />
+                    <x-leaf class="absolute -right-6 -bottom-8 size-36 rotate-[10deg] text-foliage/25" />
                     <x-icon name="card" class="size-7 text-sprout" />
                     <p class="relative mt-6 font-display text-xl font-bold tracking-widest tabular-nums" x-text="number || '•••• •••• •••• ••••'"></p>
                     <div class="relative mt-4 flex justify-between gap-4 text-sm">

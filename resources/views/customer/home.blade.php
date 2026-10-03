@@ -3,10 +3,10 @@
         <div class="relative pt-3 pb-9 lg:pt-12 lg:pb-20">
             {{-- One orchestrated entrance: address, question, search. Leaves sway behind. --}}
             <div class="pointer-events-none absolute right-0 -bottom-6 hidden lg:block" data-parallax="12" aria-hidden="true">
-                <div class="origin-bottom animate-sway"><x-leaf class="size-96 rotate-[18deg] text-sprout/20" /></div>
+                <div class="origin-bottom animate-sway"><x-leaf class="size-96 rotate-[18deg] text-foliage/25" /></div>
             </div>
             <div class="pointer-events-none absolute right-72 bottom-10 hidden lg:block" data-parallax="24" aria-hidden="true">
-                <div class="origin-bottom animate-sway [animation-delay:-3s]"><x-leaf class="size-44 -rotate-[58deg] text-sprout/35" /></div>
+                <div class="origin-bottom animate-sway [animation-delay:-3s]"><x-leaf class="size-44 -rotate-[58deg] text-foliage-light/40" /></div>
             </div>
 
             @if ($address)
@@ -103,7 +103,7 @@
 
             <section class="relative overflow-hidden rounded-leaf bg-deep p-7 text-cream lg:p-9" aria-labelledby="leaves-title" data-reveal>
                 <div class="pointer-events-none absolute right-5 bottom-5 origin-bottom-left animate-sway" aria-hidden="true">
-                    <x-leaf class="size-20 rotate-[8deg] text-sprout/45 lg:size-24" />
+                    <x-leaf class="size-20 rotate-[8deg] text-foliage-light/50 lg:size-24" />
                 </div>
                 <h2 id="leaves-title" class="relative text-2xl lg:text-3xl">Tenés {{ auth()->user()->leaf_balance }} Hojitas Verdes</h2>
                 <p class="relative mt-2 max-w-sm text-cream/80">Sumás cada vez que pedís a un restaurante cercano o elegís envases retornables.</p>
