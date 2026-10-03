@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+@source '../../storage/framework/views/*.php';
+
+/*
+ | Brotá design tokens. Views only use these names (bg-leaf, text-forest…),
+ | never raw hex values. The default Tailwind palette is switched off so a
+ | stray gray-500 cannot sneak in.
+ */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Nunito', ui-rounded, system-ui, sans-serif;
+
+    --color-*: initial;
+    --color-white: #fff;
+    --color-leaf: #2e7d32; /* Verde hoja: primary */
+    --color-sprout: #8bc34a; /* Verde brote: secondary */
+    --color-forest: #1b3a2a; /* Verde bosque: text, footer */
+    --color-cream: #faf6ec; /* Crema: page background */
+    --color-carrot: #e8833a; /* Naranja zanahoria: accent */
+    --color-sage: #6b7a6f; /* Gris verdoso: neutral */
+    --color-success: #2e7d32;
+    --color-danger: #c62828; /* Rojo tierra */
+
+    /* Pressed / hover shades, derived so they follow the base token. */
+    --color-leaf-deep: color-mix(in oklab, var(--color-leaf) 80%, var(--color-forest));
+    --color-carrot-deep: color-mix(in oklab, var(--color-carrot) 88%, var(--color-forest));
+
+    /* Each role layout sets data-accent; panels differ only by this. */
+    --color-accent: var(--color-carrot);
+
+    --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+    --shadow-lift: 0 16px 40px -16px color-mix(in oklab, var(--color-forest) 35%, transparent);
+
+    --animate-sprout: sprout 420ms var(--ease-out-strong) both;
+    --animate-breathe: breathe 2.4s ease-in-out infinite;
+
+    @keyframes sprout {
+        from {
+            opacity: 0;
+            transform: scale(0.9) rotate(-8deg);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+    }
+
+    @keyframes breathe {
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.55;
+        }
+        50% {
+            transform: scale(1.35);
+            opacity: 0;
+        }
+    }
+}
+
+[data-accent='sprout'] {
+    --color-accent: var(--color-sprout);
+}
+
+[data-accent='sage'] {
+    --color-accent: var(--color-sage);
+}
+
+/* A leaf-shaped corner pair: the recurring organic shape of the brand. */
+@utility rounded-leaf {
+    border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+}
+
+@utility rounded-leaf-sm {
+    border-radius: 0.875rem 0.25rem 0.875rem 0.25rem;
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-cream font-sans text-forest antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+        @apply font-display font-extrabold tracking-tight text-balance;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-leaf;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+/* Reduced motion keeps fades and colour changes, drops movement. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation: none !important;
+        transition-property: opacity, color, background-color, border-color !important;
+        scroll-behavior: auto !important;
+    }
+}
