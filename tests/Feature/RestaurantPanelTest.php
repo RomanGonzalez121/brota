@@ -49,13 +49,16 @@ class RestaurantPanelTest extends TestCase
         $this->assertNotNull($order->fresh()->courier_id);
 
         $this->post(route('restaurant.orders.advance', $order))->assertRedirect();
-        $this->post(route('restaurant.orders.advance', $order))->assertRedirect();
+        $this->assertSame(OrderStatus::OnTheWay, $order->fresh()->status);
+
+        // Once it left the kitchen, delivering it is the courier's to report.
+        $this->post(route('restaurant.orders.advance', $order))->assertStatus(409);
+
+        $this->actingAs($order->fresh()->courier)->post(route('courier.deliveries.deliver', $order))->assertRedirect();
         $this->assertSame(OrderStatus::Delivered, $order->fresh()->status);
 
         // The customer hears about each of the three changes.
         $this->assertSame($notifications + 3, $order->customer->notifications()->count());
-
-        $this->post(route('restaurant.orders.advance', $order))->assertStatus(409);
     }
 
     public function test_rejecting_needs_a_reason_and_tells_the_customer(): void

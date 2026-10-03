@@ -387,11 +387,12 @@ setInterval(() => {
 }, 30000);
 
 /*
- | The restaurant's board. Every few seconds it asks whether anything changed
- | (a new order, a delivery marked by the courier) and, if so, brings the
- | screen up to date in place. On phones it also remembers which lane is open.
+ | A list that keeps itself current: the restaurant's board and the courier's
+ | deliveries. Every few seconds it asks whether anything changed (a new order,
+ | a delivery marked by the courier) and, if so, brings the screen up to date
+ | in place. On the board it also remembers which lane is open on a phone.
  */
-Alpine.data('orderBoard', (pendingUrl) => ({
+Alpine.data('orderBoard', (pendingUrl, arrival = 'Entró un pedido nuevo.') => ({
     lane: 0,
 
     init() {
@@ -414,7 +415,7 @@ Alpine.data('orderBoard', (pendingUrl) => ({
                 await window.refreshPage();
 
                 if (more) {
-                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: 'Entró un pedido nuevo.' } }));
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { message: arrival } }));
                 }
             } catch {
                 // Offline: the next check tries again.

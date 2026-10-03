@@ -11,6 +11,7 @@ use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProfileController;
 use App\Http\Controllers\Customer\RestaurantController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Courier\DeliveryController;
 use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\OrderController as RestaurantOrderController;
 use App\Http\Controllers\Restaurant\ReportController;
@@ -99,8 +100,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:courier')->prefix('repartidor')->name('courier.')->group(function () {
-        Route::view('/entregas', 'placeholder')->name('deliveries.index');
-        Route::view('/entregas/{order}', 'placeholder')->name('deliveries.show');
+        Route::get('/entregas', [DeliveryController::class, 'index'])->name('deliveries.index');
+        Route::get('/entregas/pendientes', [DeliveryController::class, 'pending'])->name('deliveries.pending');
+        Route::get('/entregas/{order}', [DeliveryController::class, 'show'])->name('deliveries.show');
+        Route::post('/entregas/{order}/retirar', [DeliveryController::class, 'pickUp'])->name('deliveries.pick-up');
+        Route::post('/entregas/{order}/entregar', [DeliveryController::class, 'deliver'])->name('deliveries.deliver');
     });
 
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {

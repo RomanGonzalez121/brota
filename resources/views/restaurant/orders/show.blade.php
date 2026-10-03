@@ -110,13 +110,13 @@
                                 x-data
                                 @click="$dispatch('open-sheet', { name: 'reject', action: '{{ route('restaurant.orders.reject', $order) }}', code: '{{ $order->code }}' })"
                             >Rechazar</x-button>
-                        @elseif ($order->status->isOpen())
+                        @elseif ($order->status === OrderStatus::Preparing)
                             <form method="POST" action="{{ route('restaurant.orders.advance', $order) }}" class="flex-1">
                                 @csrf
-                                <x-button block size="lg" variant="accent">
-                                    {{ $order->status === OrderStatus::Preparing ? 'Salió a reparto' : 'Marcar entregado' }}
-                                </x-button>
+                                <x-button block size="lg" variant="accent">Salió a reparto</x-button>
                             </form>
+                        @elseif ($order->status === OrderStatus::OnTheWay)
+                            <p class="text-muted">Está en manos de {{ $order->courier?->firstName() ?? 'el repartidor' }}, que avisa cuando lo entrega.</p>
                         @else
                             <p class="text-muted">Pedido cerrado. No quedan acciones.</p>
                         @endif

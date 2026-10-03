@@ -96,18 +96,17 @@ class OrderController extends Controller
     }
 
     /**
-     * Move the order one step forward: preparing → on the way → delivered.
+     * The order leaves the kitchen: preparing → on the way. From there it is
+     * the courier who reports the delivery.
      */
     public function advance(Request $request, Order $order, OrderWorkflow $workflow): RedirectResponse
     {
         $this->ensureOwn($request, $order);
+        abort_unless($order->status === OrderStatus::Preparing, 409);
 
-        $next = $order->status->next();
-        abort_if($next === null || $order->status === OrderStatus::Received, 409);
+        $workflow->moveTo($order, OrderStatus::OnTheWay);
 
-        $workflow->moveTo($order, $next);
-
-        return back()->with('status', "El pedido {$order->code} pasó a «{$next->label()}».");
+        return back()->with('status', "El pedido {$order->code} salió a reparto.");
     }
 
     /**

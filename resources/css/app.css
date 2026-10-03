@@ -505,6 +505,25 @@
     animation-delay: calc(var(--i, 0) * 70ms + 150ms);
 }
 
+/*
+ | The courier's dot on the drawn map. It sits on the route at the point given
+ | inline; on the delivery screen it first travels there from the restaurant,
+ | which says "this is you, and this is how far you have come".
+ */
+@keyframes travel {
+    from {
+        offset-distance: 0%;
+    }
+}
+
+.route-marker {
+    offset-rotate: 0deg;
+}
+
+.route-marker-travels {
+    animation: travel 1500ms var(--ease-in-out-strong) 700ms both;
+}
+
 /* Photos zoom a touch when their card is hovered. Pointer devices only. */
 @media (hover: hover) and (pointer: fine) {
     .photo-zoom img {

@@ -196,6 +196,15 @@ class OrderWorkflow
             $order->customer->notify(new ActivityNotification($title, $body, route('orders.show', $order, absolute: false), $icon));
         }
 
+        if ($status === OrderStatus::Delivered) {
+            $order->restaurant->owner->notify(new ActivityNotification(
+                title: 'Pedido entregado',
+                body: ($order->courier?->firstName() ?? 'El repartidor')." entregó el pedido {$order->code}.",
+                url: route('restaurant.orders.show', $order, absolute: false),
+                icon: 'check',
+            ));
+        }
+
         if ($status === OrderStatus::Preparing && $order->courier) {
             $order->courier->notify(new ActivityNotification(
                 title: 'Tenés una entrega nueva',

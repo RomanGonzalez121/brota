@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use Database\Factories\OrderFactory;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +59,29 @@ class Order extends Model
     public function payment(): HasOne
     {
         return $this->hasOne(Payment::class);
+    }
+
+    /**
+     * Adds `delivered_at`: the moment the order reached the customer, taken
+     * from its status history. `updated_at` will not do, because the row is
+     * touched again when the Hojitas Verdes are credited.
+     */
+    public function scopeWithDeliveredAt(Builder $query): void
+    {
+        $query
+            ->addSelect(['delivered_at' => OrderStatusLog::query()
+                ->select('created_at')
+                ->whereColumn('order_id', 'orders.id')
+                ->where('status', OrderStatus::Delivered)
+                ->limit(1)])
+            ->withCasts(['delivered_at' => 'datetime']);
+    }
+
+    public function scopeDeliveredSince(Builder $query, DateTimeInterface $moment): void
+    {
+        $query
+            ->where('status', OrderStatus::Delivered)
+            ->whereHas('statusLogs', fn (Builder $logs) => $logs->where('status', OrderStatus::Delivered)->where('created_at', '>=', $moment));
     }
 
     public function itemsSummary(): string
