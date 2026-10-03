@@ -39,7 +39,7 @@
                     <p class="text-sm text-sage">
                         {{ $step->hint() }}
                         @if ($times->has($step->value))
-                            <time datetime="{{ $times[$step->value]->created_at->toIso8601String() }}" class="tabular-nums">{{ $times[$step->value]->created_at->format('H:i') }} h</time>
+                            <time datetime="{{ $times[$step->value]->created_at->toIso8601String() }}" class="whitespace-nowrap tabular-nums">{{ $times[$step->value]->created_at->format('H:i') }} h</time>
                         @endif
                     </p>
                 @endif

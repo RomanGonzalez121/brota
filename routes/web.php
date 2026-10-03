@@ -1,6 +1,14 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\CheckoutController;
+use App\Http\Controllers\Customer\ForumController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\LeafController;
+use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Customer\ProfileController;
+use App\Http\Controllers\Customer\RestaurantController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,14 +30,38 @@ Route::middleware('auth')->group(function () {
     Route::post('/notificaciones/leer', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 
     Route::middleware('role:customer')->group(function () {
-        Route::view('/', 'placeholder')->name('home');
-        Route::view('/restaurantes', 'placeholder')->name('restaurants.index');
-        Route::view('/carrito', 'placeholder')->name('cart.show');
-        Route::view('/pedidos', 'placeholder')->name('orders.index');
-        Route::view('/pedidos/{order}', 'placeholder')->name('orders.show');
-        Route::view('/perfil', 'placeholder')->name('profile.edit');
-        Route::view('/hojitas', 'placeholder')->name('leaves.index');
-        Route::view('/foro', 'placeholder')->name('forum.index');
+        Route::get('/', HomeController::class)->name('home');
+        Route::get('/restaurantes', [RestaurantController::class, 'index'])->name('restaurants.index');
+        Route::get('/restaurantes/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
+
+        Route::get('/carrito', [CartController::class, 'show'])->name('cart.show');
+        Route::delete('/carrito', [CartController::class, 'destroy'])->name('cart.destroy');
+        Route::post('/carrito/platos/{dish}', [CartController::class, 'store'])->name('cart.store');
+        Route::patch('/carrito/platos/{dish}', [CartController::class, 'update'])->name('cart.update');
+
+        Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
+        Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+        Route::get('/pago', [CheckoutController::class, 'payment'])->name('payment.create');
+        Route::post('/pago', [CheckoutController::class, 'pay'])->name('payment.store');
+
+        Route::get('/pedidos', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/pedidos/{order}', [OrderController::class, 'show'])->name('orders.show');
+        Route::get('/pedidos/{order}/comprobante', [OrderController::class, 'receipt'])->name('orders.receipt');
+
+        Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+        Route::post('/perfil/direcciones', [ProfileController::class, 'storeAddress'])->name('profile.addresses.store');
+        Route::put('/perfil/direcciones/{address}', [ProfileController::class, 'updateAddress'])->name('profile.addresses.update');
+        Route::delete('/perfil/direcciones/{address}', [ProfileController::class, 'destroyAddress'])->name('profile.addresses.destroy');
+
+        Route::get('/hojitas', LeafController::class)->name('leaves.index');
+
+        Route::get('/foro', [ForumController::class, 'index'])->name('forum.index');
+        Route::get('/foro/crear', [ForumController::class, 'create'])->name('forum.create');
+        Route::post('/foro', [ForumController::class, 'store'])->name('forum.store');
+        Route::post('/foro/denuncias', [ForumController::class, 'report'])->name('forum.reports.store');
+        Route::get('/foro/{topic}', [ForumController::class, 'show'])->name('forum.show');
+        Route::post('/foro/{topic}/respuestas', [ForumController::class, 'reply'])->name('forum.replies.store');
     });
 
     Route::middleware('role:restaurant')->prefix('restaurante')->name('restaurant.')->group(function () {

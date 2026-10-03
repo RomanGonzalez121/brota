@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(LeafTransaction::class);
     }
 
+    public function forumTopics(): HasMany
+    {
+        return $this->hasMany(ForumTopic::class);
+    }
+
     public function firstName(): string
     {
         return strtok($this->name, ' ');

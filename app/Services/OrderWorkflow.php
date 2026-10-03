@@ -18,6 +18,66 @@ use InvalidArgumentException;
  */
 class OrderWorkflow
 {
+    /**
+     * Turn the cart into a paid order. The payment is simulated: it is always approved.
+     *
+     * @param  array{address_id: int, payment_method: string, returnable_containers: bool}  $checkout
+     * @param  array<string, string>  $payment  validated card or wallet fields
+     */
+    public function place(User $customer, Cart $cart, array $checkout, array $payment): Order
+    {
+        $restaurant = $cart->restaurant();
+        $address = $customer->addresses()->findOrFail($checkout['address_id']);
+        $subtotal = $cart->subtotal();
+
+        $order = DB::transaction(function () use ($customer, $cart, $checkout, $payment, $restaurant, $address, $subtotal) {
+            $order = Order::create([
+                'code' => 'BR-'.(Order::query()->max('id') + 1001),
+                'customer_id' => $customer->id,
+                'restaurant_id' => $restaurant->id,
+                'status' => OrderStatus::Received,
+                'delivery_address' => $address->fullLine(),
+                'delivery_notes' => $address->notes,
+                'payment_method' => $checkout['payment_method'],
+                'subtotal' => $subtotal,
+                'delivery_fee' => $restaurant->delivery_fee,
+                'total' => $subtotal + $restaurant->delivery_fee,
+                'returnable_containers' => $checkout['returnable_containers'],
+            ]);
+
+            foreach ($cart->lines() as $line) {
+                $order->items()->create([
+                    'dish_id' => $line->dish->id,
+                    'name' => $line->dish->name,
+                    'unit_price' => $line->dish->price,
+                    'quantity' => $line->quantity,
+                ]);
+            }
+
+            $order->statusLogs()->create(['status' => OrderStatus::Received, 'created_at' => now()]);
+
+            $order->payment()->create([
+                'method' => $checkout['payment_method'],
+                'card_last4' => isset($payment['card_number']) ? substr(preg_replace('/\D/', '', $payment['card_number']), -4) : null,
+                'wallet' => $payment['wallet'] ?? null,
+                'amount' => $order->total,
+                'status' => 'approved',
+                'receipt_number' => 'C-'.str_pad((string) $order->id, 8, '0', STR_PAD_LEFT),
+            ]);
+
+            return $order;
+        });
+
+        $restaurant->owner->notify(new ActivityNotification(
+            title: 'Tenés un pedido nuevo',
+            body: "{$customer->firstName()} pidió {$order->itemsSummary()}.",
+            url: route('restaurant.orders.show', $order, absolute: false),
+            icon: 'receipt',
+        ));
+
+        return $order;
+    }
+
     public function accept(Order $order): void
     {
         $this->moveTo($order, OrderStatus::Preparing);

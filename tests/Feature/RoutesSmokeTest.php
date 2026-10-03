@@ -44,6 +44,13 @@ class RoutesSmokeTest extends TestCase
 
         $this->assertNotEmpty($routes);
 
+        // The checkout screens only open with something in the cart.
+        $dish = Restaurant::query()->first()->dishes()->where('is_available', true)->first();
+        $this->withSession([
+            'cart' => ['restaurant_id' => $dish->restaurant_id, 'items' => [$dish->id => 2]],
+            'checkout' => ['address_id' => $user->addresses()->value('id'), 'payment_method' => 'card', 'returnable_containers' => true],
+        ]);
+
         foreach ($routes as $route) {
             $url = route($route->getName(), array_intersect_key($parameters, array_flip($route->parameterNames())));
 

@@ -52,11 +52,11 @@ class OrderSeeder extends Seeder
         }
 
         // The demo customer's history: one order per state, plus past deliveries.
-        $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Delivered, now()->subDays(3)->setTime(13, 10), containers: true);
-        $this->order($huerta, $this->customer, OrderStatus::Delivered, now()->subDays(9)->setTime(21, 5), containers: true);
-        $this->order($restaurants['masa-madre-chacarita'], $this->customer, OrderStatus::Delivered, now()->subDays(16)->setTime(9, 40), containers: false);
         $this->order($restaurants['raiz-cocina-viva'], $this->customer, OrderStatus::Delivered, now()->subDays(24)->setTime(20, 30), containers: true);
+        $this->order($restaurants['masa-madre-chacarita'], $this->customer, OrderStatus::Delivered, now()->subDays(16)->setTime(9, 40), containers: false);
         $this->order($restaurants['tierra-adentro'], $this->customer, OrderStatus::Rejected, now()->subDays(12)->setTime(22, 50));
+        $this->order($huerta, $this->customer, OrderStatus::Delivered, now()->subDays(9)->setTime(21, 5), containers: true);
+        $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Delivered, now()->subDays(3)->setTime(13, 10), containers: true);
         $preparing = $this->order($restaurants['verde-que-te-quiero'], $this->customer, OrderStatus::Preparing, now()->subMinutes(14), containers: true);
         $onTheWay = $this->order($huerta, $this->customer, OrderStatus::OnTheWay, now()->subMinutes(31), containers: true);
 

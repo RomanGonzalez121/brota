@@ -57,6 +57,13 @@
         </div>
     </header>
 
+    {{-- Optional band that continues the header's green behind a screen's opening. --}}
+    @isset($hero)
+        <div class="bg-leaf text-white">
+            <div class="mx-auto max-w-6xl px-4 lg:px-6">{{ $hero }}</div>
+        </div>
+    @endisset
+
     <main class="mx-auto w-full max-w-6xl flex-1 px-4 pt-5 pb-28 lg:px-6 lg:pt-8 lg:pb-16">
         {{ $slot }}
     </main>
