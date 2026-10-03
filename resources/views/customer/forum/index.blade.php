@@ -16,7 +16,7 @@
         </x-button>
     </div>
 
-    <nav class="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Categorías">
+    <nav class="-mx-4 mt-5 flex gap-2 overflow-x-auto overflow-y-hidden px-4 pb-1 contain-paint lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Categorías">
         <a href="{{ route('forum.index') }}" @if (! $category) aria-current="true" @endif class="{{ $chip }} {{ $category ? $chipOff : $chipOn }}">Todas</a>
         @foreach ($categories as $item)
             <a href="{{ route('forum.index', ['categoria' => $item->slug]) }}" @if ($category === $item->slug) aria-current="true" @endif class="{{ $chip }} gap-1.5 {{ $category === $item->slug ? $chipOn : $chipOff }}">

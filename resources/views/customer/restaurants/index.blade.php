@@ -35,7 +35,7 @@
         <x-button size="sm" class="absolute top-1/2 right-1.5 h-10 -translate-y-1/2 px-4">Buscar</x-button>
     </form>
 
-    <nav class="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Filtros">
+    <nav class="-mx-4 mt-4 flex gap-2 overflow-x-auto overflow-y-hidden px-4 pb-1 contain-paint lg:mx-0 lg:flex-wrap lg:px-0" aria-label="Filtros">
         <a href="{{ $filterUrl(['cerca' => $onlyNearby ? null : 1]) }}" @if ($onlyNearby) aria-current="true" @endif class="{{ $chip }} {{ $onlyNearby ? $chipOn : $chipOff }}">
             <x-icon name="pin" class="size-4" />
             Hasta {{ number_format($nearbyKm, 0) }} km

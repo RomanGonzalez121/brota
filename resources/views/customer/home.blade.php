@@ -2,10 +2,10 @@
     <x-slot:hero>
         <div class="relative pt-3 pb-9 lg:pt-12 lg:pb-20">
             {{-- One orchestrated entrance: address, question, search. Leaves sway behind. --}}
-            <div class="pointer-events-none absolute right-0 -bottom-24 hidden origin-bottom animate-sway lg:block" aria-hidden="true">
+            <div class="pointer-events-none absolute right-0 -bottom-6 hidden origin-bottom animate-sway lg:block" aria-hidden="true">
                 <x-leaf class="size-96 rotate-[18deg] text-sprout/20" />
             </div>
-            <div class="pointer-events-none absolute right-64 -bottom-10 hidden origin-bottom animate-sway [animation-delay:-3s] lg:block" aria-hidden="true">
+            <div class="pointer-events-none absolute right-72 bottom-10 hidden origin-bottom animate-sway [animation-delay:-3s] lg:block" aria-hidden="true">
                 <x-leaf class="size-44 -rotate-[58deg] text-sprout/35" />
             </div>
 
@@ -53,7 +53,7 @@
 
     <section aria-labelledby="categories-title">
         <h2 id="categories-title" class="text-2xl lg:text-4xl" data-reveal>Elegí por tipo de cocina</h2>
-        <ul class="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-6 lg:flex-wrap lg:px-0">
+        <ul class="-mx-4 mt-4 flex gap-2 overflow-x-auto overflow-y-hidden px-4 pb-1 contain-paint lg:mx-0 lg:mt-6 lg:flex-wrap lg:px-0">
             @foreach ($categories as $category)
                 <li class="shrink-0" data-reveal style="--i: {{ $loop->index }}">
                     <a href="{{ route('restaurants.index', ['categoria' => $category->slug]) }}" class="group flex h-11 items-center gap-2 rounded-full border border-sage/25 bg-surface pr-4 pl-3 text-[15px] font-medium transition-[transform,border-color,color] duration-150 ease-out-strong hover:border-leaf hover:text-leaf active:scale-[0.97]">
@@ -70,7 +70,7 @@
             <h2 id="featured-title" class="text-2xl lg:text-4xl">Destacados de la semana</h2>
             <a href="{{ route('restaurants.index') }}" class="shrink-0 text-sm font-semibold text-leaf hover:underline">Ver todos</a>
         </div>
-        <ul class="-mx-4 mt-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 lg:mx-0 lg:mt-6 lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:px-0">
+        <ul class="-mx-4 mt-4 flex snap-x gap-4 overflow-x-auto overflow-y-hidden px-4 pb-2 contain-paint lg:mx-0 lg:mt-6 lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:px-0">
             @foreach ($featured as $restaurant)
                 <li class="w-72 shrink-0 snap-start lg:w-auto" data-reveal style="--i: {{ $loop->index }}">
                     <x-restaurant-card :restaurant="$restaurant" :nearby-km="$nearbyKm" />

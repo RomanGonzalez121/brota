@@ -46,7 +46,7 @@
 
     <div class="flex flex-1 flex-col lg:flex-row">
         <nav class="border-b border-sage/20 bg-surface lg:w-60 lg:shrink-0 lg:border-r lg:border-b-0" aria-label="Panel">
-            <ul class="flex gap-1 overflow-x-auto px-3 py-2 lg:sticky lg:top-16 lg:flex-col lg:px-3 lg:py-5">
+            <ul class="flex gap-1 overflow-x-auto overflow-y-hidden px-3 py-2 contain-paint lg:contain-none lg:sticky lg:top-16 lg:flex-col lg:px-3 lg:py-5">
                 @foreach ($nav as $item)
                     @php $active = request()->routeIs($item['match']); @endphp
                     <li class="shrink-0">

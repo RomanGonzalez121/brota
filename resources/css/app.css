@@ -227,6 +227,40 @@
 }
 
 /*
+ | Scrollbars in the brand's language: a green thumb with the leaf-shaped
+ | corners, on the page colour. They follow the theme through the tokens.
+ */
+::-webkit-scrollbar {
+    width: 14px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-page);
+}
+
+::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-leaf) 55%, var(--color-page));
+    border: 3px solid var(--color-page);
+    border-radius: 1rem 0.3rem 1rem 0.3rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-leaf);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--color-page);
+}
+
+/* Firefox has no thumb shape to style, only its colours. */
+@supports not selector(::-webkit-scrollbar) {
+    html {
+        scrollbar-color: color-mix(in oklab, var(--color-leaf) 55%, var(--color-page)) var(--color-page);
+    }
+}
+
+/*
  | Scroll reveal. Elements marked data-reveal start slightly lower and fade in
  | when they enter the viewport; siblings stagger through --i. It only hides
  | things once JavaScript is running (html.js), so content never stays hidden.
