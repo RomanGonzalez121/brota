@@ -19,21 +19,32 @@
         <div class="relative mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 lg:h-16 lg:px-6">
             <x-logo tone="white" />
 
-            <nav class="ml-8 hidden items-center gap-1 lg:flex" aria-label="Principal">
+            {{--
+                One soft highlight follows the pointer from link to link instead of each
+                link lighting up on its own. It has the leaf-cornered shape of the
+                Hojitas chip beside it. The current page keeps its own, brighter one.
+            --}}
+            <nav x-data="navGlider" @mouseleave="rest()" class="relative ml-8 hidden items-center gap-1 lg:flex" aria-label="Principal">
+                <span x-ref="glider" class="pointer-events-none absolute top-0 left-0 rounded-leaf-sm bg-white/10 opacity-0 transition-[transform,width,opacity] duration-300 ease-out-strong" aria-hidden="true"></span>
+
                 @foreach ($nav as $item)
                     @php $active = request()->routeIs($item['match']); @endphp
                     <a
                         href="{{ route($item['route']) }}"
                         @if ($active) aria-current="page" @endif
+                        @mouseenter="moveTo($el)"
+                        @focus="moveTo($el)"
+                        @blur="rest()"
                         @class([
-                            'group/link relative rounded-md px-3 py-2 text-[15px] transition-colors duration-150',
+                            'relative z-10 rounded-leaf-sm px-3.5 py-2 text-[15px] transition-colors duration-200',
                             'font-semibold text-white' => $active,
-                            'font-medium text-white/80 hover:text-white' => ! $active,
+                            'font-medium text-white/75 hover:text-white' => ! $active,
                         ])
                     >
+                        @if ($active)
+                            <span class="absolute inset-0 -z-10 rounded-leaf-sm bg-white/15 [view-transition-name:nav-indicator]" aria-hidden="true"></span>
+                        @endif
                         {{ $item['label'] }}
-                        <x-nav-vine :active="$active" />
-
                     </a>
                 @endforeach
             </nav>
@@ -53,7 +64,7 @@
                     <x-cart-icon class="size-6" :grow="$cartCount > 0 && session()->has('status')" />
                     @if ($cartCount > 0)
                         {{-- Pops only right after something changed (a flash message is showing). --}}
-                        <span @class(['absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums', 'animate-pop [animation-delay:150ms]' => session()->has('status')])>{{ $cartCount }}</span>
+                        <span @class(['absolute top-0 -right-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-carrot px-1 text-[11px] font-bold text-forest tabular-nums', 'animate-pop [animation-delay:150ms]' => session()->has('status')])>{{ $cartCount }}</span>
                     @endif
                     <span class="sr-only">Carrito{{ $cartCount > 0 ? ": {$cartCount} productos" : '' }}</span>
                 </a>

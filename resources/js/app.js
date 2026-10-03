@@ -200,4 +200,43 @@ Alpine.data('bell', (unread) => ({
     },
 }));
 
+/*
+ | Top-bar hover: a single highlight glides to whichever link is under the
+ | pointer. The first time it appears it is placed without sliding (it should
+ | not fly in from the corner); between links it moves; on leaving it fades.
+ */
+Alpine.data('navGlider', () => ({
+    visible: false,
+    leaving: null,
+
+    moveTo(link) {
+        const glider = this.$refs.glider;
+
+        clearTimeout(this.leaving);
+
+        const place = () => {
+            glider.style.width = `${link.offsetWidth}px`;
+            glider.style.height = `${link.offsetHeight}px`;
+            glider.style.transform = `translate(${link.offsetLeft}px, ${link.offsetTop}px)`;
+        };
+
+        if (this.visible) {
+            place();
+        } else {
+            glider.style.transitionProperty = 'opacity';
+            place();
+            glider.getBoundingClientRect();
+            glider.style.transitionProperty = '';
+            this.visible = true;
+        }
+
+        glider.style.opacity = '1';
+    },
+
+    rest() {
+        this.$refs.glider.style.opacity = '0';
+        this.leaving = setTimeout(() => (this.visible = false), 220);
+    },
+}));
+
 Alpine.start();

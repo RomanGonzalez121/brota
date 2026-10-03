@@ -15,7 +15,7 @@
     >
         <span class="origin-top group-hover/bell:animate-rustle" :class="ring && 'animate-ring'"><x-icon name="bell" class="size-6" /></span>
         @if ($unread > 0)
-            <span class="absolute top-1.5 right-1.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-forest tabular-nums">{{ $unread }}</span>
+            <span class="absolute top-0 -right-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-bold text-forest tabular-nums">{{ $unread }}</span>
         @endif
         <span class="sr-only">Notificaciones{{ $unread > 0 ? ": {$unread} sin leer" : '' }}</span>
     </button>
