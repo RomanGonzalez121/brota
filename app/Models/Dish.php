@@ -14,7 +14,14 @@ class Dish extends Model
      */
     public const SECTIONS = ['Entradas', 'Principales', 'Panadería', 'Postres', 'Bebidas'];
 
-    public const TAGS = ['Vegano', 'Vegetariano', 'Sin TACC'];
+    /**
+     * Icon that heads each section in the restaurant's menu.
+     */
+    public const SECTION_ICONS = [
+        'Entradas' => 'pot', 'Principales' => 'bowl', 'Panadería' => 'wheat', 'Postres' => 'flower', 'Bebidas' => 'citrus',
+    ];
+
+    public const TAGS =['Vegano', 'Vegetariano', 'Sin TACC'];
 
     /**
      * Botanical icon for each dietary tag.

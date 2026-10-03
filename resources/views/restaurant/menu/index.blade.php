@@ -25,13 +25,20 @@
     <div class="space-y-8">
         @foreach ($sections as $section => $dishes)
             <section aria-labelledby="menu-section-{{ $loop->index }}">
-                <h2 id="menu-section-{{ $loop->index }}" class="text-lg">{{ $section }}</h2>
+                <h2 id="menu-section-{{ $loop->index }}" class="flex items-center gap-2.5 text-lg">
+                    <span class="flex size-8 shrink-0 items-center justify-center rounded-leaf-sm bg-sprout-soft text-leaf" aria-hidden="true">
+                        <x-icon :name="\App\Models\Dish::SECTION_ICONS[$section] ?? 'sprout'" class="size-4.5" />
+                    </span>
+                    {{ $section }}
+                    <span class="font-sans text-sm font-medium tracking-normal text-muted tabular-nums">{{ $dishes->count() }}</span>
+                    <span class="h-px flex-1 bg-sage/20" aria-hidden="true"></span>
+                </h2>
 
                 <x-card padding="p-0" class="mt-3">
                     <ul>
                         @foreach ($dishes as $dish)
                             <li id="menu-plato-{{ $dish->id }}" data-item class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-sage/15 p-4 last:border-b-0" data-reveal style="--i: {{ min($loop->index, 5) }}">
-                                <x-dish-photo :dish="$dish" class="size-16 rounded-2xl transition-[opacity,filter] duration-200 {{ $dish->is_available ? '' : 'opacity-50 grayscale' }}" />
+                                <x-dish-photo :dish="$dish" class="size-16 rounded-leaf transition-[opacity,filter] duration-200 {{ $dish->is_available ? '' : 'opacity-50 grayscale' }}" />
 
                                 <div class="min-w-0 flex-1 basis-56">
                                     <h3 class="text-base {{ $dish->is_available ? '' : 'text-muted' }}">{{ $dish->name }}</h3>

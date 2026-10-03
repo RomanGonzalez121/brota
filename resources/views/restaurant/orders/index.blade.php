@@ -1,9 +1,9 @@
 @php
     // Only the lane that asks for an answer carries the accent; the other two stay quiet.
     $lanes = [
-        ['title' => 'Nuevos', 'tab' => 'Nuevos', 'orders' => $received, 'empty' => 'No hay pedidos esperando respuesta.', 'dot' => 'bg-carrot', 'tint' => 'bg-carrot/12', 'urgent' => true],
-        ['title' => 'En preparación', 'tab' => 'En cocina', 'orders' => $preparing, 'empty' => 'Nada en la cocina por ahora.', 'dot' => 'bg-sprout', 'tint' => 'bg-sage/10', 'urgent' => false],
-        ['title' => 'En camino', 'tab' => 'En camino', 'orders' => $onTheWay, 'empty' => 'Ningún pedido en la calle.', 'dot' => 'bg-leaf', 'tint' => 'bg-sage/10', 'urgent' => false],
+        ['title' => 'Nuevos', 'tab' => 'Nuevos', 'orders' => $received, 'empty' => 'No hay pedidos esperando respuesta.', 'icon' => 'sprout', 'chip' => 'bg-carrot/25 text-ink', 'tint' => 'bg-carrot/12', 'urgent' => true],
+        ['title' => 'En preparación', 'tab' => 'En cocina', 'orders' => $preparing, 'empty' => 'Nada en la cocina por ahora.', 'icon' => 'pot', 'chip' => 'bg-sprout/30 text-ink', 'tint' => 'bg-sage/10', 'urgent' => false],
+        ['title' => 'En camino', 'tab' => 'En camino', 'orders' => $onTheWay, 'empty' => 'Ningún pedido en la calle.', 'icon' => 'bike', 'chip' => 'bg-leaf/15 text-leaf', 'tint' => 'bg-sage/10', 'urgent' => false],
     ];
 
     $counter = fn (array $lane) => $lane['urgent'] && $lane['orders']->isNotEmpty()
@@ -51,7 +51,9 @@
                     :class="{ 'max-lg:hidden': lane !== {{ $loop->index }} }"
                 >
                     <h2 id="column-{{ $loop->index }}" class="flex items-center gap-2 px-1.5 pt-1 pb-3 text-base max-lg:sr-only">
-                        <span class="size-2.5 rounded-full {{ $lane['dot'] }}" aria-hidden="true"></span>
+                        <span class="flex size-7 shrink-0 items-center justify-center rounded-leaf-sm {{ $lane['chip'] }}" aria-hidden="true">
+                            <x-icon :name="$lane['icon']" class="size-4" />
+                        </span>
                         {{ $lane['title'] }}
                         <span data-pop class="font-sans tabular-nums {{ $counter($lane) }}">{{ $lane['orders']->count() }}</span>
                     </h2>
@@ -60,7 +62,10 @@
                         @forelse ($lane['orders'] as $order)
                             <x-kitchen-order :order="$order" data-reveal style="--i: {{ min($loop->index, 4) }}" />
                         @empty
-                            <p class="rounded-media border border-dashed border-sage/30 px-4 py-6 text-center text-sm text-muted">{{ $lane['empty'] }}</p>
+                            <div class="flex flex-col items-center rounded-media border border-dashed border-sage/30 px-4 py-7 text-center">
+                                <x-leaf outline class="size-7 text-sage/70" />
+                                <p class="mt-2 text-sm text-muted">{{ $lane['empty'] }}</p>
+                            </div>
                         @endforelse
                     </div>
                 </section>
