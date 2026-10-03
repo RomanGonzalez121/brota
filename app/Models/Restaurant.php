@@ -49,7 +49,7 @@ class Restaurant extends Model
             'description' => $data['tagline'],
             'address' => $data['address'],
             'neighborhood' => $data['neighborhood'],
-            'distance_km' => fake()->randomFloat(1, 0.6, 4.5),
+            'distance_km' => random_int(6, 45) / 10,
             'rating' => 0,
             'delivery_fee' => 1500,
             'eta_minutes' => 30,

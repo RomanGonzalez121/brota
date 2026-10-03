@@ -1,0 +1,8 @@
+# Render reads this file to create the service: New > Blueprint > this repository.
+services:
+  - type: web
+    name: brota
+    runtime: docker
+    plan: free
+    healthCheckPath: /up
+    autoDeploy: true
